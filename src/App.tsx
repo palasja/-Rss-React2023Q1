@@ -3,23 +3,20 @@ import React, { Component } from 'react'
 import Home from './pages/home'
 import About from './pages/about'
 import Error from './pages/404'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-    errorElement: <Error />
-  },
-  {
-    path: '/about',
-    element: <About />,
-  }
-]);
+import { Route, Routes } from 'react-router-dom'
+import Header from '../src/components/header'
 
 class App extends Component {
   render(){
-    return <RouterProvider router={router} />
+    return <>
+    <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+      
+    </>
   }
 }
 export default App;
