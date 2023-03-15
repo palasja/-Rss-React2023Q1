@@ -5,7 +5,7 @@ import Search from "../search";
 import "./header.css"
 class Header extends Component {
     render(): ReactNode {
-        return <header>
+        return <header className="header">
             <Navigation />
             <Search />
         </header>
