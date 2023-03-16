@@ -29,9 +29,7 @@ class Home extends Component<HomeProps, HomeState>{
       <div className="main_search"><Search onChange={this.onChange}/></div>
       <div className="main_cards">
       {
-        currentItems.map(
-          (item:Item): ReactNode => <Card item={item} key={item.id}/>
-        )
+        currentItems.map((item:Item): ReactNode => <Card key={item.id} item={item} />)
       }
       </div>
     </main>
