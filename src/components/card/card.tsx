@@ -15,7 +15,8 @@ class Card extends Component<CardProps>{
     {console.log(this.props.key)};
     return <div className="card" key={item.id}>
       <figure className="card_image">
-        <img className="card_image__image" src={new URL(`../../assets/img/${item.img}`, import.meta.url).href} alt={item.name}></img>        <figcaption>{item.name}</figcaption>
+        <img className="card_image__image" src={new URL(`../../assets/img/${item.img}`, import.meta.url).href} alt={item.name}></img>
+        <figcaption>{item.name}</figcaption>
       </figure>
       <div className="card_info">
         <div className="card_info__item">
