@@ -2,10 +2,12 @@ import React, { FormEvent } from "react";
 import { Component } from "react";
 import "./search.css";
 
-type SearchProps = { };
-  type SearchState = {
+type SearchProps = {
+	onChange: (newValue: string) => void ;
+ };
+type SearchState = {
   searchValue: string ;
-  };
+};
   
 class Search extends Component<SearchProps, SearchState>{
 	constructor(props){
@@ -14,6 +16,7 @@ class Search extends Component<SearchProps, SearchState>{
 	}
 	handleChange = (e: FormEvent<HTMLInputElement>):void => {
 		this.setState({searchValue: e.currentTarget.value});
+		this.props.onChange(e.currentTarget.value);
 		localStorage.setItem("searchValue", e.currentTarget.value);
 	}
 

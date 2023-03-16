@@ -8,7 +8,6 @@ class Header extends Component {
         return <header className="header">
             <h1><a href='/'>FoodShop</a></h1>
             <Navigation />
-            <Search />
         </header>
     }
 }
