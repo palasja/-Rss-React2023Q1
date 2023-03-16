@@ -5,8 +5,8 @@ import "./navigation.css"
 
 class Navgation extends Component{
   render(){
-    return <nav>
-        <ul>
+    return <nav className="nav">
+        <ul className="nav_list">
           <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Home</NavLink>
           <NavLink to="/About" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>About</NavLink>
         </ul>

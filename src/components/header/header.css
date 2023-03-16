@@ -1,6 +1,10 @@
 .header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin: 0 20px;
+    padding: 0 20px;
+}
+
+.header_logo{
+    color: #07848b;
+    margin-right: 50px;
 }

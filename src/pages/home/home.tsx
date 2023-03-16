@@ -19,18 +19,21 @@ class Home extends Component<HomeProps, HomeState>{
   onChange = (newName:string) => this.setState({ searchValue: newName });
 
   render(): ReactNode {
+    let currentItems = ( this.state.searchValue === null || this.state.searchValue.length === 0) ? 
+        items 
+      : 
+        items.filter(item => new RegExp(this.state.searchValue, "i").test(item.name))
+      ;
+
     return <main className="main">
-      <Search onChange={this.onChange}/>
+      <div className="main_search"><Search onChange={this.onChange}/></div>
+      <div className="main_cards">
       {
-        (this.state.searchValue === null || this.state.searchValue.length === 0) ? 
-          items.map(
-            (item:Item): ReactNode => <Card item={item} key={item.id}/>
-            )
-        :
-          items.filter(item => new RegExp(this.state.searchValue, "i").test(item.name))
-            .map((item:Item): ReactNode => <Card item={item} key={item.id}/>
-          ) 
+        currentItems.map(
+          (item:Item): ReactNode => <Card item={item} key={item.id}/>
+        )
       }
+      </div>
     </main>
   }
 }

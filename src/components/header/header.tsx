@@ -6,7 +6,7 @@ import "./header.css"
 class Header extends Component {
     render(): ReactNode {
         return <header className="header">
-            <h1><a href='/'>FoodShop</a></h1>
+            <h1 ><a href='/' className="header_logo">FoodShop</a></h1>
             <Navigation />
         </header>
     }

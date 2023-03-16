@@ -1,15 +1,16 @@
-a {
-    text-decoration: none;
+.nav{
+    font-size: 24px;
+    font-weight: 600;
 }
-
-li {
-    color: red;
-    margin: 0 0.8rem;
-    font-size: 1.3rem;
-    position: relative;
-    list-style: none;
+.nav_list{
+    display: flex;
+    gap: 20px;
+}
+.inactive{
+    color: #6d1c8f;
 }
 
 .active {
-    border-bottom: 2px solid black;
+    color: #6d1c8f7a  !important;
+    border-bottom: 2px solid rgb(7, 158, 58);
 }

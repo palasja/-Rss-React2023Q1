@@ -1,0 +1,16 @@
+html,
+body {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 100px;
+}
+
+a{
+  text-decoration: none;
+}

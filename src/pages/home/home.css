@@ -1,6 +1,17 @@
 .main {
+    background-color: #e4f2f5;
+    justify-items: center;
+}
+
+.main_search{
+    display: flex;
+    justify-content: right;
+    padding-right: 45px;
+}
+
+.main_cards{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-row-gap: 15px;
-    background-color: #e7dae7;
+    
 }

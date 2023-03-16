@@ -25,9 +25,12 @@ componentDidMount(): void {
 	this.setState({searchValue : val === null ? '' : val});
 }
   render(){
-    return <div>
-      <input type="text" placeholder="Search..." value={this.state.searchValue} onChange={this.handleChange}></input>
-    </div>;
+ 		return <form id="search-form">
+      <div className="wrapper">
+        <img className="search-icon" />
+        <input className="search" type="text" placeholder="Search..." value={this.state.searchValue} onChange={this.handleChange} />
+      </div>  
+    </form>
   }
 }
 
