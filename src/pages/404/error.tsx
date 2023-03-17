@@ -4,7 +4,9 @@ import "./error.css";
 
 class Error extends Component{
     render(): ReactNode {
-        return <p>Error</p>
+        return <main className="main">
+        <h2 className="main_error">Something goes wrong... Please open page later</h2>
+    </main>
     }
 }
 
