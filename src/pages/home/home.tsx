@@ -26,7 +26,7 @@ class Home extends Component<HomeProps, HomeState>{
       ;
 
     return <main className="main">
-      <div className="main_search"><Search onChange={this.onChange}/></div>
+      <div className="main_search"><Search onChange={this.onChange} curSearchValue={this.state.searchValue} /></div>
       <div className="main_cards">
       {
         currentItems.map((item:Item): ReactNode => <Card key={item.id} item={item} />)
