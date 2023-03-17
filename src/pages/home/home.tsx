@@ -18,18 +18,19 @@ class Home extends Component<HomeProps, HomeState>{
   
   onChange = (newName:string) => this.setState({ searchValue: newName });
 
+  filterIteme():Item[]{
+    return ( this.state.searchValue === null || this.state.searchValue.length === 0) ? 
+    items 
+  : 
+    items.filter(item => new RegExp(this.state.searchValue, "i").test(item.name))
+  ;
+  }
   render(): ReactNode {
-    let currentItems = ( this.state.searchValue === null || this.state.searchValue.length === 0) ? 
-        items 
-      : 
-        items.filter(item => new RegExp(this.state.searchValue, "i").test(item.name))
-      ;
-
     return <main className="main">
       <div className="main_search"><Search onChange={this.onChange} curSearchValue={this.state.searchValue} /></div>
       <div className="main_cards">
       {
-        currentItems.map((item:Item): ReactNode => <Card key={item.id} item={item} />)
+        this.filterIteme().map((item:Item): ReactNode => <Card key={item.id} item={item} />)
       }
       </div>
     </main>
