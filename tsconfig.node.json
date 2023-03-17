@@ -20,6 +20,7 @@
     "resolveJsonModule": true
   },
   "include": [
+    "vite.config.ts",
     "./src/**/*",
     "styled.d.ts"
   ]
