@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, ReactNode } from 'react';
 import { Component } from 'react';
 import './search.css';
 
@@ -25,7 +25,7 @@ class Search extends Component<SearchProps, SearchState> {
     this.props.onChange(e.currentTarget.value);
   };
 
-  render() {
+  render(): ReactNode {
     return (
       <div className="wrapper">
         <img className="search-icon" />

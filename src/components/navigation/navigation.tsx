@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import './navigation.css';
 
 class Navgation extends Component {
-  render() {
+  render(): ReactNode {
     return (
       <nav className="nav">
         <ul className="nav_list">
