@@ -1,2 +1,2 @@
-import Navgation from "./navigation";
+import Navgation from './navigation';
 export default Navgation;
