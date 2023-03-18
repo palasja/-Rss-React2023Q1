@@ -4,7 +4,7 @@ import About from ".";
 
 test("shop name on page", () => {
   render(<About />);
-  expect(screen.getByText(/food shop/i)).toBeInTheDocument();
+  expect(screen.getByText(/about food shop/i)).toBeInTheDocument();
 });
 
 test("email link on page", () => {

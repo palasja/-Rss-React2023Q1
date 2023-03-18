@@ -9,13 +9,12 @@ import Header from '../src/components/header'
 class App extends Component {
   render(){
     return <>
-    <Header />
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Error />} />
       </Routes>
-      
     </>
   }
 }

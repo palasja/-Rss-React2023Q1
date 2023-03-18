@@ -18,7 +18,7 @@ class Home extends Component<HomeProps, HomeState>{
   
   onChange = (newName:string) => this.setState({ searchValue: newName });
 
-  filterIteme():Item[]{
+  filterItems():Item[]{
     return ( this.state.searchValue === null || this.state.searchValue.length === 0) ? 
     items 
   : 
@@ -30,7 +30,7 @@ class Home extends Component<HomeProps, HomeState>{
       <div className="main_search"><Search onChange={this.onChange} curSearchValue={this.state.searchValue} /></div>
       <div className="main_cards">
       {
-        this.filterIteme().map((item:Item): ReactNode => <Card key={item.id} item={item} />)
+        this.filterItems().map((item:Item): ReactNode => <Card key={item.id} item={item} />)
       }
       </div>
     </main>
