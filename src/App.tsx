@@ -12,7 +12,6 @@ class App extends Component {
     return (
       <>
         <div className="content">
-          <Header />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

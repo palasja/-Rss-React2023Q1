@@ -5,6 +5,7 @@ import items from '../../assets/items/items';
 import Card from '../../components/card/card';
 import { Item } from '../../types';
 import Search from '../../components/search';
+import Header from '../../components/header';
 
 type HomeProps = object;
 type HomeState = {
@@ -25,6 +26,8 @@ class Home extends Component<HomeProps, HomeState> {
   }
   render(): ReactNode {
     return (
+      <>
+      <Header />
       <main className="main">
         <div className="main_search">
           <Search onChange={this.onChange} curSearchValue={this.state.searchValue} />
@@ -37,6 +40,7 @@ class Home extends Component<HomeProps, HomeState> {
           )}
         </div>
       </main>
+      </>
     );
   }
 }

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Component, ReactNode } from 'react';
+import Header from '../../components/header';
 import './about.css';
 
 class About extends Component {
   render(): ReactNode {
     return (
+      <>
+      <Header />
       <main className="main-about">
         <h2 className="main-about_name">About Food Shop</h2>
         <p className="main-about_develoder">Yakubenka Ivan</p>
@@ -12,6 +15,7 @@ class About extends Component {
           palasja@gmail.com
         </a>
       </main>
+      </>
     );
   }
 }
