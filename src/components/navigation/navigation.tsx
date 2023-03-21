@@ -11,6 +11,9 @@ class Navgation extends Component {
           <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>
             Home
           </NavLink>
+          <NavLink to="/NewCard" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>
+            New Card
+          </NavLink>
           <NavLink to="/About" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>
             About
           </NavLink>

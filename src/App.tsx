@@ -5,6 +5,7 @@ import About from './pages/about';
 import Error from './pages/404';
 import { Route, Routes } from 'react-router-dom';
 import Footer from './components/footer/footer';
+import NewCard from './pages/newCard';
 
 class App extends Component {
   render(): ReactNode {
@@ -13,7 +14,8 @@ class App extends Component {
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/NewCard" element={<NewCard />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </div>
