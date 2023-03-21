@@ -19,7 +19,7 @@ class Card extends Component<CardProps> {
             className="card_image__image"
             src={new URL(`../../assets/img/${item.img}`, import.meta.url).href}
             alt={item.name}
-          ></img>
+          />
           <figcaption>{item.name}</figcaption>
         </figure>
         <div className="card_info">
