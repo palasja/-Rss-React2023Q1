@@ -7,10 +7,10 @@ class Error extends Component {
   render(): ReactNode {
     return (
       <>
-      <Header />
-      <main className="main_error">
-        <h2 className="main_error_message">Something goes wrong... Please open page later</h2>
-      </main>
+        <Header />
+        <main className="main_error">
+          <h2 className="main_error_message">Something goes wrong... Please open page later</h2>
+        </main>
       </>
     );
   }

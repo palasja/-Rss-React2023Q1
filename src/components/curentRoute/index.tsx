@@ -1,2 +1,2 @@
-import CurrentRoute from "./currentRoute";
+import CurrentRoute from './currentRoute';
 export default CurrentRoute;

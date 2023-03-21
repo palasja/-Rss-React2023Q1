@@ -4,7 +4,6 @@ import Home from './pages/home';
 import About from './pages/about';
 import Error from './pages/404';
 import { Route, Routes } from 'react-router-dom';
-import Header from '../src/components/header';
 import Footer from './components/footer/footer';
 
 class App extends Component {

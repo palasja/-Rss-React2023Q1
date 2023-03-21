@@ -27,19 +27,19 @@ class Home extends Component<HomeProps, HomeState> {
   render(): ReactNode {
     return (
       <>
-      <Header />
-      <main className="main">
-        <div className="main_search">
-          <Search onChange={this.onChange} curSearchValue={this.state.searchValue} />
-        </div>
-        <div className="main_cards">
-          {this.filterItems().map(
-            (item: Item): ReactNode => (
-              <Card key={item.id} item={item} />
-            )
-          )}
-        </div>
-      </main>
+        <Header />
+        <main className="main">
+          <div className="main_search">
+            <Search onChange={this.onChange} curSearchValue={this.state.searchValue} />
+          </div>
+          <div className="main_cards">
+            {this.filterItems().map(
+              (item: Item): ReactNode => (
+                <Card key={item.id} item={item} />
+              )
+            )}
+          </div>
+        </main>
       </>
     );
   }
