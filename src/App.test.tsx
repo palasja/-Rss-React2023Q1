@@ -15,7 +15,11 @@ test('landing on a bad page', () => {
 });
 
 test('full app rendering/navigating', async () => {
-  render(<App />, { wrapper: BrowserRouter });
+  render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
   const user = userEvent.setup();
 
   expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();

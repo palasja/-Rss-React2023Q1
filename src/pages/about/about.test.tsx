@@ -1,13 +1,25 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import About from '.';
+import { BrowserRouter } from 'react-router-dom';
 
 test('shop name on page', () => {
-  render(<About />);
+  render(
+    <BrowserRouter>
+      <About />
+    </BrowserRouter>
+  );
   expect(screen.getByText(/about food shop/i)).toBeInTheDocument();
 });
 
 test('email link on page', () => {
-  render(<About />);
-  expect(screen.getByRole('link')).toHaveAttribute('href', 'mailto: palasja@gmail.com');
+  render(
+    <BrowserRouter>
+      <About />
+    </BrowserRouter>
+  );
+  expect(screen.getByText('palasja@gmail.com')).toHaveAttribute(
+    'href',
+    'mailto: palasja@gmail.com'
+  );
 });

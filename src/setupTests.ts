@@ -1,18 +1,18 @@
 import matchers from '@testing-library/jest-dom/matchers';
 import { expect } from 'vitest';
 
-type Store = any;
+type Store = object;
 
 class LocalStorageMock {
   store: Store;
   length: number;
 
   constructor() {
-    this.store = {};
+    this.store = Object;
     this.length = 0;
   }
 
-  key(n: number): any {
+  key(n: number): string | null {
     if (typeof n === 'undefined') {
       throw new Error(
         "Uncaught TypeError: Failed to execute 'key' on 'Storage': 1 argument required, but only 0 present."
@@ -26,7 +26,7 @@ class LocalStorageMock {
     return Object.keys(this.store)[n];
   }
 
-  getItem(key: string): Store | null {
+  getItem(key: string): string | null {
     if (!Object.keys(this.store).includes(key)) {
       return null;
     }
@@ -34,7 +34,7 @@ class LocalStorageMock {
     return this.store[key];
   }
 
-  setItem(key: string, value: any): undefined {
+  setItem(key: string, value: string): undefined {
     if (typeof key === 'undefined' && typeof value === 'undefined') {
       throw new Error(
         "Uncaught TypeError: Failed to execute 'setItem' on 'Storage': 2 arguments required, but only 0 present."
