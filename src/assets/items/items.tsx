@@ -11,7 +11,7 @@ const items: Item[] = [
     calories: 0,
     img: 'americano.jpg',
     weght: 50,
-    tags: ["<2"]
+    tags: ['<2'],
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const items: Item[] = [
     calories: 300,
     img: 'bbq-hamburger.jpg',
     weght: 320,
-    tags: ["<5", "delivery", "changing reception"]
+    tags: ['<5', 'delivery', 'changing reception'],
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const items: Item[] = [
     calories: 500,
     img: 'bbq-shawarma.jpg',
     weght: 600,
-    tags: ["<5", "delivery", "changing reception"]
+    tags: ['<5', 'delivery', 'changing reception'],
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ const items: Item[] = [
     calories: 160,
     img: 'cappuccino.jpg',
     weght: 300,
-    tags: ["<2"]
+    tags: ['<2'],
   },
   {
     id: 5,
@@ -59,7 +59,7 @@ const items: Item[] = [
     calories: 10,
     img: 'cherry-lime-tea.jpg',
     weght: 250,
-    tags: ["<2"]
+    tags: ['<2'],
   },
   {
     id: 6,
@@ -71,7 +71,7 @@ const items: Item[] = [
     calories: 500,
     img: 'chicken-shawarma.jpg',
     weght: 600,
-    tags: ["<5", "delivery", "changing reception"]
+    tags: ['<5', 'delivery', 'changing reception'],
   },
   {
     id: 7,
@@ -83,7 +83,7 @@ const items: Item[] = [
     calories: 250,
     img: 'french-hot-dog.jpg',
     weght: 180,
-    tags: ["<2", "delivery"]
+    tags: ['<2', 'delivery'],
   },
   {
     id: 8,
@@ -95,7 +95,7 @@ const items: Item[] = [
     calories: 250,
     img: 'hamburger.jpg',
     weght: 400,
-    tags: ["<5", "delivery", "changing reception"]
+    tags: ['<5', 'delivery', 'changing reception'],
   },
   {
     id: 9,
@@ -107,7 +107,7 @@ const items: Item[] = [
     calories: 300,
     img: 'hot-dog.jpg',
     weght: 300,
-    tags: ["<2", "delivery"]
+    tags: ['<2', 'delivery'],
   },
   {
     id: 10,
@@ -119,7 +119,7 @@ const items: Item[] = [
     calories: 630,
     img: 'king-hamburger.jpg',
     weght: 600,
-    tags: ["<5", "delivery", "changing reception"]
+    tags: ['<5', 'delivery', 'changing reception'],
   },
   {
     id: 11,
@@ -131,7 +131,7 @@ const items: Item[] = [
     calories: 800,
     img: 'king-hamburger.jpg',
     weght: 800,
-    tags: ["<5", "delivery", "changing reception"]
+    tags: ['<5', 'delivery', 'changing reception'],
   },
   {
     id: 12,
@@ -143,7 +143,7 @@ const items: Item[] = [
     calories: 190,
     img: 'latte.jpg',
     weght: 300,
-    tags: ["<2"]
+    tags: ['<2'],
   },
   {
     id: 13,
@@ -155,7 +155,7 @@ const items: Item[] = [
     calories: 10,
     img: 'raspbery-tea.jpg',
     weght: 250,
-    tags: ["<2"]
+    tags: ['<2'],
   },
   {
     id: 14,
@@ -167,7 +167,7 @@ const items: Item[] = [
     calories: 10,
     img: 'seabuckthorn-tea.jpg',
     weght: 250,
-    tags: ["<2"]
+    tags: ['<2'],
   },
   {
     id: 15,
@@ -179,7 +179,7 @@ const items: Item[] = [
     calories: 320,
     img: 'fries.jpg',
     weght: 300,
-    tags: ["<5", "delivery"]
+    tags: ['<5', 'delivery'],
   },
 ];
 

@@ -15,7 +15,7 @@ class CurentRoute extends Component<object, { currentRoute: string }> {
       this.setState({ currentRoute: 'Home' });
     } else if (new RegExp(/^\/about$/, 'i').test(path)) {
       this.setState({ currentRoute: 'About' });
-    }else if (new RegExp(/^\/newcard$/, 'i').test(path)) {
+    } else if (new RegExp(/^\/newcard$/, 'i').test(path)) {
       this.setState({ currentRoute: 'New Card' });
     } else {
       this.setState({ currentRoute: '404' });

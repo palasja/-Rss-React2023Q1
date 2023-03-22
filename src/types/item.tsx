@@ -1,5 +1,13 @@
-enum TypeFood {'drink', 'food'};
-enum Tags {"<2" , "<5" , "changing reception" , "delivery"}
+enum TypeFood {
+  'drink',
+  'food',
+}
+enum Tags {
+  '<2',
+  '<5',
+  'changing reception',
+  'delivery',
+}
 type Item = {
   id: number;
   type: TypeFood;
@@ -10,7 +18,7 @@ type Item = {
   calories: number;
   img: string;
   weght: number;
-  tags: Tags[]
+  tags: Tags[];
 };
 
-export  { Item, TypeFood, Tags}
+export { Item, TypeFood, Tags };
