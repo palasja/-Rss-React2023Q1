@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Component, LegacyRef } from 'react';
 type InputProp = {
   labelProp: string;
   refProp: LegacyRef<HTMLSelectElement>;
   values: string[];
+  defaultValue: string;
+  error: ReactNode;
 };
 class SelectField extends Component<InputProp> {
   constructor(props) {
     super(props);
+    this.state = {CustomValidity: ""};
   }
   render() {
     return (
@@ -15,6 +18,7 @@ class SelectField extends Component<InputProp> {
         <label>
           {this.props.labelProp}:
           <select ref={this.props.refProp} onChange={({ target: { value } }) => console.log(value)}>
+            <option defaultValue={this.props.defaultValue}>{this.props.defaultValue}</option>
             {this.props.values.map((el, i) => (
               <option key={i} value={el}>
                 {el}
@@ -22,6 +26,7 @@ class SelectField extends Component<InputProp> {
             ))}
           </select>
         </label>
+        {this.props.error}
       </fieldset>
     );
   }

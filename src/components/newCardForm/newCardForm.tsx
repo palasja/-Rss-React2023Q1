@@ -1,0 +1,173 @@
+import React, { createRef } from "react";
+import { Component, FormEvent, ReactNode } from "react";
+import { Item } from "../../types";
+import { Tags, TypeFood } from "../../types/item";
+import { InputField, SelectField, CheckboxField, RadioButtonField } from "../formComponents";
+import ErrorMessage from "../formComponents/errorMessge";
+import "./newCardForm.css"
+
+type NewCardFormProp = {
+  newCardId: number,
+  saveCard: (i:Item) => void
+};
+type NewCardFormState = {
+  errors: {}
+}
+class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
+  maxRating = 5;
+  refCardName = createRef<HTMLInputElement>();
+  refCardImage = createRef<HTMLInputElement>();
+  refCardRating = createRef<HTMLSelectElement>();
+  refCardWeight = createRef<HTMLInputElement>();
+  refCardCost = createRef<HTMLInputElement>();
+  refCardCalories = createRef<HTMLInputElement>();
+  refCardStartSellDate = createRef<HTMLInputElement>();
+  refsTagArr = Object.values(Tags).map(() => createRef<HTMLInputElement>());
+  refsTypeArr = Object.values(TypeFood).map(() => createRef<HTMLInputElement>());
+  constructor(props) {
+    super(props);
+    this.state = { errors:{} }
+    
+  }
+  getEnumValues<T>(arr: string[] | T[]): string[] {
+  const enumValues = arr.slice(0, arr.length / 2);
+  return enumValues.map((val) => `${val}`);
+  }
+  getRatingValues() {
+  return [...Array(this.maxRating)].map((v, i) => `${i + 1}`);
+  }
+  assertDefined<Type>(value: Type): NonNullable<Type> {
+   if (value === undefined || value === null) throw new Error('Asserted value is not defined!');
+   return value as NonNullable<Type>;
+  }
+  validateForm(): {[string: string]: string}{
+    let curentError = {};
+    let name = this.refCardName.current?.value;
+    // let checkEmpty = (value: string | undefined, name:string):boolean => { 
+    //   if(value === undefined || value.length == 0) {
+    //     curentError[name] = `${value} has to be in field`;
+    //     console.log(value);
+    //     return true;
+    //   };
+    //   return false;
+    // };
+    if(name === undefined || name.length == 0) {
+      curentError["name"] = "Name has to be filled"
+    } else if (!/[A-Z]/.test(this.assertDefined(name)[0])){
+      curentError["name"] = "First letter mus be uppercase"
+    };
+  
+  
+    if(this.refsTypeArr.find((t) => t.current?.checked) === undefined){
+      curentError["type"] = "Type has to be choosen"
+    }
+     
+    let cost = this.refCardCost.current?.value;
+    if(cost === undefined || cost.length == 0) {
+      curentError["cost"] = "Cost has to be filled"
+    } else if (Number(cost) <= 0){
+      curentError["cost"] = "Cost has to be more than 0"
+    } else if (Number(cost) > 20){
+      curentError["cost"] = "20 so muth, recheck value cost"
+    };
+  
+    let startSell = this.refCardStartSellDate.current?.value;
+    if(startSell === undefined || startSell.length == 0) {
+      curentError["startSale"] = "Start sale has to be in field"
+    } else if (Date.parse(startSell) < Date.now()){
+      curentError["startSale"] = "Start sale has to be begins tomorrow at least"
+    };
+  
+    let rating = this.refCardRating.current?.value;
+    if(rating === undefined || rating.length == 0) {
+      curentError["rating"] = "Rating has to be chosen"
+    }; 
+  
+    let image = this.refCardImage.current?.value;
+    if(image === undefined || image.length == 0) {
+      curentError["image"] = "Image has to be filled";
+    } else if(!/\.jpg$/.test(image)){
+      curentError["image"] = "Format image has to be jpg";
+    }
+  
+    let calories = this.refCardCalories.current?.value;
+    if(calories === undefined || calories.length == 0) {
+      curentError["calories"] = "Calories has to be filled"
+    }; 
+    let weight = this.refCardWeight.current?.value;
+    if(weight === undefined || weight.length == 0) {
+      curentError["weight"] = "Calories has to be filled"
+    } else if (Number(weight) <= 0){
+      curentError["weight"] = "Weight has to be filled"
+    }
+  
+    let type = this.refsTypeArr.find((t) => t.current?.checked);
+    if(type === undefined){
+      curentError["type"] = "Type has to be chosen"
+    }
+    let tags = this.refsTagArr.filter((t) => t.current?.checked);
+    if(tags.length ===  0){
+      curentError["tags"] = "Need to choose one tag at least"
+    }
+    return curentError;
+  }
+  submitAction = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    this.setState({ errors: {} })
+    let validateResult = this.validateForm();
+    if(Object.keys(validateResult).length !== 0){
+      this.setState({ errors: this.validateForm()})
+    } else {
+      let tags:Tags[] = this.refsTagArr.filter((t) => t.current?.checked).map((t) => t.current?.name ? Tags[t.current?.name] : Tags.delivery);
+      let type = this.refsTypeArr.find((t) => t.current?.checked);
+      let newItem:Item = {
+        id: this.props.newCardId,
+        type: TypeFood[this.assertDefined(type?.current?.defaultValue)] ,
+        name: this.refCardName.current?.value,
+        cost: this.refCardCost.current?.value,
+        countPerWeek: 0,
+        rating: this.refCardRating.current?.value,
+        calories: this.refCardCalories.current?.value,
+        img: this.refCardImage.current?.value,
+        weght: this.refCardWeight.current?.value,
+        tags: tags,
+        startSell: Date.parse(this.assertDefined(this.refCardStartSellDate.current?.value)) ,
+      }
+      
+      this.props.saveCard(newItem);
+    }
+  }
+  render(): ReactNode {
+  return <form noValidate className='new-card-form' onSubmit={ e => this.submitAction(e) }>
+    <InputField labelProp="Name" type="text" refProp={this.refCardName} error={<ErrorMessage errorMessage={this.state.errors["name"]}/>}/>
+    
+    <InputField labelProp="Image (jpg)" type="file" refProp={this.refCardImage} error={this.state.errors["image"]} />
+    <InputField labelProp="Cost" type="number" refProp={this.refCardCost} error={this.state.errors["cost"]} />
+    <InputField labelProp="Start Sale" type="date" refProp={this.refCardStartSellDate} error={this.state.errors["startSale"]}/>
+    <SelectField
+      labelProp="Start rating"
+      refProp={this.refCardRating}
+      values={this.getRatingValues()}
+      defaultValue=""
+      error={this.state.errors["rating"]}
+    />
+    <CheckboxField
+      legendProp="Tags"
+      values={this.getEnumValues(Object.values(Tags))}
+      refArr={this.refsTagArr}
+      error={this.state.errors["tags"]}
+    />
+    <RadioButtonField
+      legendProp="Type"
+      values={this.getEnumValues(Object.values(TypeFood))}
+      refArr={this.refsTypeArr}
+      error={this.state.errors["type"]}
+    />
+    <InputField labelProp="Weight" type="number" refProp={this.refCardWeight} error={this.state.errors["weight"]} />
+    <InputField labelProp="Calories" type="number" refProp={this.refCardCalories} error={this.state.errors["calories"]}/> 
+    <button type="submit">Sent</button>
+    </form>
+  }
+}
+
+export default NewCardForm;

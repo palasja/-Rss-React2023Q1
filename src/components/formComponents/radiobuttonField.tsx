@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Component, LegacyRef } from 'react';
 type RadioButtonProp = {
   legendProp: string;
   values: string[];
   refArr: LegacyRef<HTMLInputElement>[];
+  error: ReactNode;
 };
 class RadioButtonField extends Component<RadioButtonProp> {
   render() {
@@ -18,6 +19,7 @@ class RadioButtonField extends Component<RadioButtonProp> {
             </label>
           </div>
         ))}
+        {this.props.error}
       </fieldset>
     );
   }

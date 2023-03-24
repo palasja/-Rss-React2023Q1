@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Component, LegacyRef } from 'react';
 type CheckboxProp = {
   legendProp: string;
   values: string[];
   refArr: LegacyRef<HTMLInputElement>[];
+  error: ReactNode;
 };
 class CheckboxField extends Component<CheckboxProp> {
   render() {
@@ -18,6 +19,7 @@ class CheckboxField extends Component<CheckboxProp> {
             </label>
           </div>
         ))}
+        {this.props.error}
       </fieldset>
     );
   }
