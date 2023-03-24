@@ -12,10 +12,11 @@ import './newCard.css';
 
 class NewCard extends Component {
   maxRating = 5;
-  typeF = '';
   cardName = createRef<HTMLInputElement>();
   cardImage = createRef<HTMLInputElement>();
   cardRating = createRef<HTMLSelectElement>();
+  cardWeight = createRef<HTMLInputElement>();
+  cardCalories = createRef<HTMLInputElement>();
   cardStartSellDate = createRef<HTMLInputElement>();
   refsTagArr = Object.values(Tags).map(() => createRef<HTMLInputElement>());
   refsTypeArr = Object.values(TypeFood).map(() => createRef<HTMLInputElement>());
@@ -25,9 +26,6 @@ class NewCard extends Component {
   }
   getRatingValues() {
     return [...Array(this.maxRating)].map((v, i) => `${i + 1}`);
-  }
-  setType(val: string) {
-    this.typeF = val;
   }
   render() {
     return (
@@ -60,6 +58,8 @@ class NewCard extends Component {
               values={this.getEnumValues(Object.values(TypeFood))}
               refArr={this.refsTypeArr}
             />
+            <InputField labelProp="Weight" type="number" refProp={this.cardWeight} />
+            <InputField labelProp="Calories" type="number" refProp={this.cardCalories} />
             <button type="submit">Sent</button>
           </form>
         </main>

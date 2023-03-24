@@ -1,3 +1,4 @@
 .main-new-card{
-  background-color: blueviolet;
+  display: flex;
+  justify-content: center;  
 }

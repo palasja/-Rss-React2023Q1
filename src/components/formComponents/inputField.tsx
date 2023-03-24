@@ -1,5 +1,7 @@
 import React from 'react';
 import { Component, LegacyRef } from 'react';
+import './inputField.css';
+
 type InputProp = {
   type: string;
   labelProp: string;
@@ -14,7 +16,7 @@ class InputField extends Component<InputProp> {
       <fieldset>
         <span className="new-card-error"></span>
         <label>
-          {this.props.labelProp}:<input type={this.props.type} ref={this.props.refProp}></input>
+          {this.props.labelProp}:<input className='new-card_input' type={this.props.type} ref={this.props.refProp}></input>
         </label>
       </fieldset>
     );
