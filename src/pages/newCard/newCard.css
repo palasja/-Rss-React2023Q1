@@ -1,4 +1,19 @@
 .main-new-card{
+  align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;  
+}
+
+.main-new-card__form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.main-new-card__cards{
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+  width: 80%;
 }
