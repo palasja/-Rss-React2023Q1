@@ -35,3 +35,8 @@
 .card_info__cost {
     font-size: 24px;
 }
+.card_info__start-sell{
+    font-style: italic;
+    text-align: right;
+    width: 100%;
+}

@@ -19,6 +19,7 @@ type Item = {
   img: string;
   weght: number;
   tags: Tags[];
+  startSell: Date;
 };
 
 export { Item, TypeFood, Tags };

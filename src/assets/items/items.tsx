@@ -12,6 +12,7 @@ const items: Item[] = [
     img: 'americano.jpg',
     weght: 50,
     tags: ['<2'],
+    startSell: Date.now(),
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ const items: Item[] = [
     img: 'bbq-hamburger.jpg',
     weght: 320,
     tags: ['<5', 'delivery', 'changing reception'],
+    startSell: Date.now(),
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ const items: Item[] = [
     img: 'bbq-shawarma.jpg',
     weght: 600,
     tags: ['<5', 'delivery', 'changing reception'],
+    startSell: Date.now(),
   },
   {
     id: 4,
@@ -48,6 +51,7 @@ const items: Item[] = [
     img: 'cappuccino.jpg',
     weght: 300,
     tags: ['<2'],
+    startSell: Date.now(),
   },
   {
     id: 5,
@@ -60,6 +64,7 @@ const items: Item[] = [
     img: 'cherry-lime-tea.jpg',
     weght: 250,
     tags: ['<2'],
+    startSell: Date.now(),
   },
   {
     id: 6,
@@ -72,6 +77,7 @@ const items: Item[] = [
     img: 'chicken-shawarma.jpg',
     weght: 600,
     tags: ['<5', 'delivery', 'changing reception'],
+    startSell: Date.now(),
   },
   {
     id: 7,
@@ -84,6 +90,7 @@ const items: Item[] = [
     img: 'french-hot-dog.jpg',
     weght: 180,
     tags: ['<2', 'delivery'],
+    startSell: Date.now(),
   },
   {
     id: 8,
@@ -96,6 +103,7 @@ const items: Item[] = [
     img: 'hamburger.jpg',
     weght: 400,
     tags: ['<5', 'delivery', 'changing reception'],
+    startSell: Date.now(),
   },
   {
     id: 9,
@@ -108,6 +116,7 @@ const items: Item[] = [
     img: 'hot-dog.jpg',
     weght: 300,
     tags: ['<2', 'delivery'],
+    startSell: Date.now(),
   },
   {
     id: 10,
@@ -120,6 +129,7 @@ const items: Item[] = [
     img: 'king-hamburger.jpg',
     weght: 600,
     tags: ['<5', 'delivery', 'changing reception'],
+    startSell: Date.now(),
   },
   {
     id: 11,
@@ -132,6 +142,7 @@ const items: Item[] = [
     img: 'king-hamburger.jpg',
     weght: 800,
     tags: ['<5', 'delivery', 'changing reception'],
+    startSell: Date.now(),
   },
   {
     id: 12,
@@ -144,6 +155,7 @@ const items: Item[] = [
     img: 'latte.jpg',
     weght: 300,
     tags: ['<2'],
+    startSell: Date.now(),
   },
   {
     id: 13,
@@ -156,6 +168,7 @@ const items: Item[] = [
     img: 'raspbery-tea.jpg',
     weght: 250,
     tags: ['<2'],
+    startSell: Date.now(),
   },
   {
     id: 14,
@@ -168,6 +181,7 @@ const items: Item[] = [
     img: 'seabuckthorn-tea.jpg',
     weght: 250,
     tags: ['<2'],
+    startSell: Date.now(),
   },
   {
     id: 15,
@@ -180,6 +194,7 @@ const items: Item[] = [
     img: 'fries.jpg',
     weght: 300,
     tags: ['<5', 'delivery'],
+    startSell: Date.now(),
   },
 ];
 

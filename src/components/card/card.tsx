@@ -31,9 +31,10 @@ class Card extends Component<CardProps> {
             <p>
               Weight: {item.weght} {item.type === 'drink' ? 'ml' : 'gm'}
             </p>
-            <p>Calories: {item.countPerWeek} cal</p>
+            <p>Calories: {item.calories} cal</p>
           </div>
           <p className="card_info__cost">{item.cost} $</p>
+          <p className='card_info__start-sell'>{new Date(item.startSell).toLocaleString()}</p>
         </div>
       </div>
     );
