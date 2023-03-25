@@ -8,13 +8,15 @@ import "./newCardForm.css"
 
 type NewCardFormProp = {
   newCardId: number,
-  saveCard: (i:Item) => void
+  saveCard: (i:Item) => void,
+  confirmAction: () => void,
 };
 type NewCardFormState = {
   errors: {}
 }
 class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
   maxRating = 5;
+  refForm = createRef<HTMLFormElement>()
   refCardName = createRef<HTMLInputElement>();
   refCardImage = createRef<HTMLInputElement>();
   refCardRating = createRef<HTMLSelectElement>();
@@ -96,7 +98,7 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
     }; 
     let weight = this.refCardWeight.current?.value;
     if(weight === undefined || weight.length == 0) {
-      curentError["weight"] = "Calories has to be filled"
+      curentError["weight"] = "Weight has to be filled"
     } else if (Number(weight) <= 0){
       curentError["weight"] = "Weight has to be filled"
     }
@@ -118,7 +120,7 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
     if(Object.keys(validateResult).length !== 0){
       this.setState({ errors: this.validateForm()})
     } else {
-      let tags:Tags[] = this.refsTagArr.filter((t) => t.current?.checked).map((t) => t.current?.name ? Tags[t.current?.name] : Tags.delivery);
+      let tags:Tags[] = this.refsTagArr.filter((t) => t.current?.checked).map((t) => Tags[this.assertDefined(t.current?.name)]);
       let type = this.refsTypeArr.find((t) => t.current?.checked);
       let newItem:Item = {
         id: this.props.newCardId,
@@ -133,38 +135,46 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
         tags: tags,
         startSell: Date.parse(this.assertDefined(this.refCardStartSellDate.current?.value)) ,
       }
+      this.props.confirmAction()
+      setTimeout(
+        () => {
+          this.props.confirmAction();
+          this.props.saveCard(newItem);
+          this.refForm.current?.reset();
+        }, 
+        1000
+      );
       
-      this.props.saveCard(newItem);
     }
   }
   render(): ReactNode {
-  return <form noValidate className='new-card-form' onSubmit={ e => this.submitAction(e) }>
-    <InputField labelProp="Name" type="text" refProp={this.refCardName} error={<ErrorMessage errorMessage={this.state.errors["name"]}/>}/>
+  return <form noValidate className='new-card-form' ref={this.refForm} onSubmit={ e => this.submitAction(e) }>
+    <InputField labelProp="Name" type="text" refProp={this.refCardName} errorMessagee={this.state.errors["name"]} />
     
-    <InputField labelProp="Image (jpg)" type="file" refProp={this.refCardImage} error={this.state.errors["image"]} />
-    <InputField labelProp="Cost" type="number" refProp={this.refCardCost} error={this.state.errors["cost"]} />
-    <InputField labelProp="Start Sale" type="date" refProp={this.refCardStartSellDate} error={this.state.errors["startSale"]}/>
+    <InputField labelProp="Image (jpg)" type="file" refProp={this.refCardImage} errorMessagee={this.state.errors["image"]} />
+    <InputField labelProp="Cost" type="number" refProp={this.refCardCost} errorMessagee={this.state.errors["cost"]} />
+    <InputField labelProp="Start Sale" type="date" refProp={this.refCardStartSellDate} errorMessagee={this.state.errors["startSale"]}/>
     <SelectField
       labelProp="Start rating"
       refProp={this.refCardRating}
       values={this.getRatingValues()}
       defaultValue=""
-      error={this.state.errors["rating"]}
+      errorMessagee={this.state.errors["rating"]}
     />
     <CheckboxField
       legendProp="Tags"
       values={this.getEnumValues(Object.values(Tags))}
       refArr={this.refsTagArr}
-      error={this.state.errors["tags"]}
+      errorMessagee={this.state.errors["tags"]}
     />
     <RadioButtonField
       legendProp="Type"
       values={this.getEnumValues(Object.values(TypeFood))}
       refArr={this.refsTypeArr}
-      error={this.state.errors["type"]}
+      errorMessagee={this.state.errors["type"]}
     />
-    <InputField labelProp="Weight" type="number" refProp={this.refCardWeight} error={this.state.errors["weight"]} />
-    <InputField labelProp="Calories" type="number" refProp={this.refCardCalories} error={this.state.errors["calories"]}/> 
+    <InputField labelProp="Weight" type="number" refProp={this.refCardWeight} errorMessagee={this.state.errors["weight"]} />
+    <InputField labelProp="Calories" type="number" refProp={this.refCardCalories} errorMessagee={this.state.errors["calories"]}/> 
     <button type="submit">Sent</button>
     </form>
   }

@@ -1,10 +1,10 @@
-import React, { ReactNode } from 'react';
-import { Component, LegacyRef } from 'react';
+import React, { Component, LegacyRef, ReactNode } from 'react';
+import ErrorMessage from './errorMessge';
 type CheckboxProp = {
   legendProp: string;
   values: string[];
   refArr: LegacyRef<HTMLInputElement>[];
-  error: ReactNode;
+  errorMessagee: string;
 };
 class CheckboxField extends Component<CheckboxProp> {
   render() {
@@ -19,7 +19,7 @@ class CheckboxField extends Component<CheckboxProp> {
             </label>
           </div>
         ))}
-        {this.props.error}
+        <ErrorMessage errorMessage={this.props.errorMessagee}/>
       </fieldset>
     );
   }

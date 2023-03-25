@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react';
 import { Component, LegacyRef } from 'react';
+import ErrorMessage from './errorMessge';
 type InputProp = {
   labelProp: string;
   refProp: LegacyRef<HTMLSelectElement>;
   values: string[];
   defaultValue: string;
-  error: ReactNode;
+  errorMessagee: string;
 };
 class SelectField extends Component<InputProp> {
   constructor(props) {
@@ -26,7 +27,7 @@ class SelectField extends Component<InputProp> {
             ))}
           </select>
         </label>
-        {this.props.error}
+        <ErrorMessage errorMessage={this.props.errorMessagee}/>
       </fieldset>
     );
   }

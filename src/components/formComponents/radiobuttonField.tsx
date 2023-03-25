@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Component, LegacyRef } from 'react';
+import ErrorMessage from './errorMessge';
 type RadioButtonProp = {
   legendProp: string;
   values: string[];
   refArr: LegacyRef<HTMLInputElement>[];
-  error: ReactNode;
+  errorMessagee: string;
 };
 class RadioButtonField extends Component<RadioButtonProp> {
   render() {
@@ -19,7 +20,7 @@ class RadioButtonField extends Component<RadioButtonProp> {
             </label>
           </div>
         ))}
-        {this.props.error}
+        <ErrorMessage errorMessage={this.props.errorMessagee}/>
       </fieldset>
     );
   }
