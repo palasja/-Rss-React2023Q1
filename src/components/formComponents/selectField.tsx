@@ -11,9 +11,9 @@ type InputProp = {
 class SelectField extends Component<InputProp> {
   constructor(props) {
     super(props);
-    this.state = {CustomValidity: ""};
+    this.state = { CustomValidity: '' };
   }
-  render() {
+  render(): ReactNode {
     return (
       <fieldset>
         <label>
@@ -27,7 +27,7 @@ class SelectField extends Component<InputProp> {
             ))}
           </select>
         </label>
-        <ErrorMessage errorMessage={this.props.errorMessagee}/>
+        <ErrorMessage errorMessage={this.props.errorMessagee} />
       </fieldset>
     );
   }

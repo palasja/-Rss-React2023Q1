@@ -1,2 +1,2 @@
-import NewCardForm from "./newCardForm";
+import NewCardForm from './newCardForm';
 export default NewCardForm;

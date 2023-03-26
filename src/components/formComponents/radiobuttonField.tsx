@@ -8,7 +8,7 @@ type RadioButtonProp = {
   errorMessagee: string;
 };
 class RadioButtonField extends Component<RadioButtonProp> {
-  render() {
+  render(): ReactNode {
     return (
       <fieldset>
         <legend>{this.props.legendProp}</legend>
@@ -20,7 +20,7 @@ class RadioButtonField extends Component<RadioButtonProp> {
             </label>
           </div>
         ))}
-        <ErrorMessage errorMessage={this.props.errorMessagee}/>
+        <ErrorMessage errorMessage={this.props.errorMessagee} />
       </fieldset>
     );
   }

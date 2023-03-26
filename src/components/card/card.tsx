@@ -34,7 +34,7 @@ class Card extends Component<CardProps> {
             <p>Calories: {item.calories} cal</p>
           </div>
           <p className="card_info__cost">{item.cost} $</p>
-          <p className='card_info__start-sell'>{new Date(item.startSell).toLocaleString()}</p>
+          <p className="card_info__start-sell">{new Date(item.startSell).toLocaleString()}</p>
         </div>
       </div>
     );

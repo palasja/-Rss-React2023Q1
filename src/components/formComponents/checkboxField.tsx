@@ -7,7 +7,7 @@ type CheckboxProp = {
   errorMessagee: string;
 };
 class CheckboxField extends Component<CheckboxProp> {
-  render() {
+  render(): ReactNode {
     return (
       <fieldset>
         <legend>{this.props.legendProp}</legend>
@@ -19,7 +19,7 @@ class CheckboxField extends Component<CheckboxProp> {
             </label>
           </div>
         ))}
-        <ErrorMessage errorMessage={this.props.errorMessagee}/>
+        <ErrorMessage errorMessage={this.props.errorMessagee} />
       </fieldset>
     );
   }
