@@ -3,3 +3,7 @@
   flex-direction: column;
   width: 500px;
 }
+
+.new-card-form__submit{
+  margin-top: 20px;
+}

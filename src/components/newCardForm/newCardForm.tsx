@@ -118,6 +118,7 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
     this.setState({ errors: {} })
     let validateResult = this.validateForm();
     if(Object.keys(validateResult).length !== 0){
+      console.log(this.refCardImage.current?.files !== null? this.refCardImage.current?.files[0] : "" );
       this.setState({ errors: this.validateForm()})
     } else {
       let tags:Tags[] = this.refsTagArr.filter((t) => t.current?.checked).map((t) => Tags[this.assertDefined(t.current?.name)]);
@@ -130,7 +131,7 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
         countPerWeek: 0,
         rating: this.refCardRating.current?.value,
         calories: this.refCardCalories.current?.value,
-        img: this.refCardImage.current?.value,
+        img:  URL.createObjectURL(this.assertDefined(this.refCardImage.current?.files)[0]) ,
         weght: this.refCardWeight.current?.value,
         tags: tags,
         startSell: Date.parse(this.assertDefined(this.refCardStartSellDate.current?.value)) ,
@@ -175,7 +176,7 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
     />
     <InputField labelProp="Weight" type="number" refProp={this.refCardWeight} errorMessagee={this.state.errors["weight"]} />
     <InputField labelProp="Calories" type="number" refProp={this.refCardCalories} errorMessagee={this.state.errors["calories"]}/> 
-    <button type="submit">Sent</button>
+    <button className="new-card-form__submit" type="submit">Sent</button>
     </form>
   }
 }

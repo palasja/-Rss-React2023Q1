@@ -17,7 +17,7 @@ class Card extends Component<CardProps> {
         <figure className="card_image">
           <img
             className="card_image__image"
-            src={new URL(`../../assets/img/${item.img}`, import.meta.url).href}
+            src={new URL(item.img, import.meta.url).href}
             alt={item.name}
           />
           <figcaption>{item.name}</figcaption>
