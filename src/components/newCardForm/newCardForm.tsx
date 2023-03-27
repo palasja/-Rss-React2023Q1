@@ -46,7 +46,6 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
     const checkEmpty = (value: string | undefined, name: string): boolean => {
       if (value === undefined || value.length == 0) {
         curentError[name] = `${value} has to be in field`;
-        console.log(value);
         return true;
       }
       return false;
@@ -110,9 +109,6 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
     this.setState({ errors: {} });
     const validateResult = this.validateForm();
     if (Object.keys(validateResult).length !== 0) {
-      console.log(
-        this.refCardImage.current?.files !== null ? this.refCardImage.current?.files[0] : ''
-      );
       this.setState({ errors: this.validateForm() });
     } else {
       const tags: Tags[] = this.refsTagArr
