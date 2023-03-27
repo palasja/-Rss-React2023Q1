@@ -12,7 +12,7 @@ type HomeState = {
   searchValue: string;
 };
 class Home extends Component<HomeProps, HomeState> {
-  constructor(props) {
+  constructor(props:HomeProps) {
     super(props);
     this.state = { searchValue: localStorage.getItem('searchValue') || '' };
   }

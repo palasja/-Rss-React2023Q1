@@ -13,7 +13,7 @@ type NewCardState = {
 };
 
 class NewCard extends Component<NewCardProp, NewCardState> {
-  constructor(props) {
+  constructor(props: NewCardProp) {
     super(props);
     this.state = { cards: [], showModal: false };
   }
