@@ -10,7 +10,7 @@ type RadioButtonProp = {
 class RadioButtonField extends Component<RadioButtonProp> {
   render(): ReactNode {
     return (
-      <fieldset>
+      <fieldset data-testid={this.props.legendProp}>
         <legend>{this.props.legendProp}</legend>
         {this.props.values.map((el, i) => (
           <div key={i}>

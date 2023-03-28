@@ -42,16 +42,11 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
   }
   validateForm(): { [string: string]: string } {
     const curentError = {};
+
     const name = this.refCardName.current?.value;
-    const checkEmpty = (value: string | undefined, name: string): boolean => {
-      if (value === undefined || value.length == 0) {
-        curentError[name] = `${value} has to be in field`;
-        return true;
-      }
-      return false;
-    };
-    const a = checkEmpty('name', 'name');
-    if (a || !/[A-Z]/.test(this.assertDefined(name)[0])) {
+    if (name === undefined || name.length == 0) {
+      curentError['cost'] = 'Cost has to be filled';
+    } else if (!/[A-Z]/.test(this.assertDefined(name)[0])) {
       curentError['name'] = 'First letter mus be uppercase';
     }
 
@@ -61,7 +56,7 @@ class NewCardForm extends Component<NewCardFormProp, NewCardFormState> {
     } else if (Number(cost) <= 0) {
       curentError['cost'] = 'Cost has to be more than 0';
     } else if (Number(cost) > 20) {
-      curentError['cost'] = '20 so muth, recheck value cost';
+      curentError['cost'] = `${cost} so muth, recheck value cost`;
     }
 
     const startSell = this.refCardStartSellDate.current?.value;

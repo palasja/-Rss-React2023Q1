@@ -12,12 +12,13 @@ class SelectField extends Component<InputProp> {
   constructor(props) {
     super(props);
   }
+
   render(): ReactNode {
     return (
-      <fieldset>
+      <fieldset data-testid={this.props.labelProp}>
         <label>
           {this.props.labelProp}:
-          <select ref={this.props.refProp} onChange={({ target: { value } }) => console.log(value)}>
+          <select ref={this.props.refProp}>
             <option defaultValue={this.props.defaultValue}>{this.props.defaultValue}</option>
             {this.props.values.map((el, i) => (
               <option key={i} value={el}>

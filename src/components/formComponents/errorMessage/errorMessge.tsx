@@ -7,7 +7,7 @@ type ErrorMessgeProp = {
 
 class ErrorMessage extends Component<ErrorMessgeProp> {
   render(): ReactNode {
-    return <p className="error-message">{this.props.errorMessage}</p>;
+    return <p className="error-message" data-testid="errorMessge">{this.props.errorMessage}</p>;
   }
 }
 

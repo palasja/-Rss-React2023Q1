@@ -20,11 +20,7 @@ class InputField extends Component<InputProp> {
       <fieldset>
         <label>
           {this.props.labelProp}:
-          <input
-            className="new-card_input"
-            type={this.props.type}
-            ref={this.props.refProp}
-          />
+          <input className="new-card_input" type={this.props.type} ref={this.props.refProp}  data-testid={this.props.labelProp}/>
         </label>
         <ErrorMessage errorMessage={this.props.errorMessagee} />
       </fieldset>

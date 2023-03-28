@@ -9,7 +9,7 @@ type CheckboxProp = {
 class CheckboxField extends Component<CheckboxProp> {
   render(): ReactNode {
     return (
-      <fieldset>
+      <fieldset data-testid={this.props.legendProp}>
         <legend>{this.props.legendProp}</legend>
         {this.props.values.map((el, i) => (
           <div key={i}>
