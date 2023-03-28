@@ -1,5 +1,5 @@
-import InputField from './inputField';
-import SelectField from './selectField';
-import CheckboxField from './checkboxField';
-import RadioButtonField from './radiobuttonField';
+import InputField from './inputField/inputField';
+import SelectField from './selectField/selectField';
+import CheckboxField from './checkboxField/checkboxField';
+import RadioButtonField from './radiobuttonField/radiobuttonField';
 export { InputField, SelectField, CheckboxField, RadioButtonField };

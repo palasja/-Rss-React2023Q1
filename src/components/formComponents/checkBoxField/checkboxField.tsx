@@ -1,5 +1,5 @@
 import React, { Component, LegacyRef, ReactNode } from 'react';
-import ErrorMessage from './errorMessge';
+import ErrorMessage from '../errorMessage/errorMessge';
 type CheckboxProp = {
   legendProp: string;
   values: string[];

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Component, LegacyRef } from 'react';
-import ErrorMessage from './errorMessge';
+import ErrorMessage from '../errorMessage/errorMessge';
 type RadioButtonProp = {
   legendProp: string;
   values: string[];

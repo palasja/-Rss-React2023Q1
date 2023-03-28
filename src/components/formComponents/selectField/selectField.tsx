@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Component, LegacyRef } from 'react';
-import ErrorMessage from './errorMessge';
+import ErrorMessage from '../errorMessage/errorMessge';
 type InputProp = {
   labelProp: string;
   refProp: LegacyRef<HTMLSelectElement>;
@@ -11,7 +11,6 @@ type InputProp = {
 class SelectField extends Component<InputProp> {
   constructor(props) {
     super(props);
-    this.state = { CustomValidity: '' };
   }
   render(): ReactNode {
     return (

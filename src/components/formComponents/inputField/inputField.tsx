@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component, LegacyRef } from 'react';
-import ErrorMessage from './errorMessge';
+import ErrorMessage from '../errorMessage/errorMessge';
 import './inputField.css';
 
 type InputProp = {
@@ -9,14 +9,10 @@ type InputProp = {
   refProp: LegacyRef<HTMLInputElement>;
   errorMessagee: string;
 };
-type InputState = {
-  CustomValidity: string;
-};
-class InputField extends Component<InputProp, InputState> {
+class InputField extends Component<InputProp> {
   accept = undefined;
   constructor(props) {
     super(props);
-    this.state = { CustomValidity: '' };
   }
 
   render() {
@@ -27,7 +23,6 @@ class InputField extends Component<InputProp, InputState> {
           <input
             className="new-card_input"
             type={this.props.type}
-            min={10}
             ref={this.props.refProp}
           />
         </label>
