@@ -1,36 +1,30 @@
-import React, { ReactNode } from 'react';
-import { Component, LegacyRef } from 'react';
+import React from 'react';
+import { UseFormRegisterReturn, FieldError } from 'react-hook-form';
 import ErrorMessage from '../errorMessage/errorMessge';
 type InputProp = {
   labelProp: string;
-  refProp: LegacyRef<HTMLSelectElement>;
   values: string[];
   defaultValue: string;
-  errorMessagee: string;
+  refProp: UseFormRegisterReturn;
+  error: FieldError | undefined;
 };
-class SelectField extends Component<InputProp> {
-  constructor(props) {
-    super(props);
-  }
-
-  render(): ReactNode {
+const SelectField = (props: InputProp) => {
     return (
-      <fieldset data-testid={this.props.labelProp}>
+      <fieldset data-testid={props.labelProp}>
         <label>
-          {this.props.labelProp}:
-          <select ref={this.props.refProp}>
-            <option defaultValue={this.props.defaultValue}>{this.props.defaultValue}</option>
-            {this.props.values.map((el, i) => (
+          {props.labelProp}:
+          <select {...props.refProp}>
+            <option defaultValue={props.defaultValue}>{props.defaultValue}</option>
+            {props.values.map((el, i) => (
               <option key={i} value={el}>
                 {el}
               </option>
             ))}
           </select>
         </label>
-        <ErrorMessage errorMessage={this.props.errorMessagee} />
+        { props.error && <ErrorMessage errorMessage={props.error.message} />}
       </fieldset>
     );
-  }
 }
 
 export default SelectField;

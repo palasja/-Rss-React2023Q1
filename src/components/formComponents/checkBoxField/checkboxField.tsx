@@ -1,28 +1,27 @@
 import React, { Component, LegacyRef, ReactNode } from 'react';
+import { UseFormRegisterReturn, FieldError, Merge } from 'react-hook-form';
 import ErrorMessage from '../errorMessage/errorMessge';
 type CheckboxProp = {
   legendProp: string;
   values: string[];
-  refArr: LegacyRef<HTMLInputElement>[];
-  errorMessagee: string;
+  refProp: UseFormRegisterReturn;
+  error: Merge<FieldError, (FieldError | undefined)[]> | undefined
 };
-class CheckboxField extends Component<CheckboxProp> {
-  render(): ReactNode {
+const CheckboxField = (props: CheckboxProp) => {
     return (
-      <fieldset data-testid={this.props.legendProp}>
-        <legend>{this.props.legendProp}</legend>
-        {this.props.values.map((el, i) => (
+      <fieldset data-testid={props.legendProp}>
+        <legend>{props.legendProp}</legend>
+        {props.values.map((el, i) => (
           <div key={i}>
             <label>
               {el}
-              <input type="checkbox" name={el} ref={this.props.refArr[i]} />
+              <input type="checkbox" value={el} {...props.refProp} key={i}/>
             </label>
           </div>
         ))}
-        <ErrorMessage errorMessage={this.props.errorMessagee} />
+        { props.error && <ErrorMessage errorMessage={props.error.message} />}
       </fieldset>
     );
-  }
 }
 
 export default CheckboxField;

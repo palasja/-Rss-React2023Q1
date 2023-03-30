@@ -1,36 +1,30 @@
 import React from 'react';
-import { Component, LegacyRef } from 'react';
+import { Component } from 'react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import ErrorMessage from '../errorMessage/errorMessge';
 import './inputField.css';
-
 type InputProp = {
   type: string;
   labelProp: string;
-  refProp: LegacyRef<HTMLInputElement>;
-  errorMessagee: string;
+  refProp: UseFormRegisterReturn;
+  error: FieldError | undefined;
 };
-class InputField extends Component<InputProp> {
-  accept = undefined;
-  constructor(props) {
-    super(props);
-  }
 
-  render() {
+const InputField = (props: InputProp) => {
     return (
       <fieldset>
         <label>
-          {this.props.labelProp}:
+          {props.labelProp}:
           <input
             className="new-card_input"
-            type={this.props.type}
-            ref={this.props.refProp}
-            data-testid={this.props.labelProp}
+            type={props.type}
+            {...props.refProp}
+            data-testid={props.labelProp}
           />
         </label>
-        <ErrorMessage errorMessage={this.props.errorMessagee} />
+        { props.error && <ErrorMessage errorMessage={props.error.message} />}
       </fieldset>
     );
-  }
 }
 
 export default InputField;

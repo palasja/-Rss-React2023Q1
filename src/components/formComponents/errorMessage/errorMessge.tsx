@@ -2,17 +2,15 @@ import React, { Component, ReactNode } from 'react';
 import './errorMessge.css';
 
 type ErrorMessgeProp = {
-  errorMessage: string;
+  errorMessage: string | undefined;
 };
 
-class ErrorMessage extends Component<ErrorMessgeProp> {
-  render(): ReactNode {
+const ErrorMessage = (props:  ErrorMessgeProp) =>  {
     return (
       <p className="error-message" data-testid="errorMessge">
-        {this.props.errorMessage}
+        {props.errorMessage}
       </p>
     );
-  }
 }
 
 export default ErrorMessage;
