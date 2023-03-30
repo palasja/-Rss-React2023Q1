@@ -1,44 +1,36 @@
-import React, { FormEvent, ReactNode } from 'react';
-import { Component } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import './search.css';
 
 type SearchProps = {
   onChange: (newValue: string) => void;
   curSearchValue: string;
 };
-type SearchState = {
-  searchValue: string;
-};
 
-class Search extends Component<SearchProps, SearchState> {
-  constructor(props) {
-    super(props);
-    this.state = { searchValue: this.props.curSearchValue };
-  }
+const Search = (props: SearchProps) => {
+  const [searchValue, setSearchValue] = useState(props.curSearchValue);
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('searchValue', searchValue);
+    };
+  }, [searchValue]);
 
-  componentWillUnmount(): void {
-    localStorage.setItem('searchValue', this.state.searchValue);
-  }
-
-  handleChange = (e: FormEvent<HTMLInputElement>): void => {
-    this.setState({ searchValue: e.currentTarget.value });
-    this.props.onChange(e.currentTarget.value);
+  const handleChange = (e: FormEvent<HTMLInputElement>): void => {
+    setSearchValue(e.currentTarget.value);
+    props.onChange(e.currentTarget.value);
   };
 
-  render(): ReactNode {
-    return (
-      <div className="wrapper">
-        <img className="search-icon" />
-        <input
-          className="search"
-          type="text"
-          placeholder="Search..."
-          value={this.state.searchValue}
-          onChange={this.handleChange}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="wrapper">
+      <img className="search-icon" />
+      <input
+        className="search"
+        type="text"
+        placeholder="Search..."
+        value={searchValue}
+        onChange={handleChange}
+      />
+    </div>
+  );
+};
 
 export default Search;

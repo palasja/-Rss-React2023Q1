@@ -1,19 +1,16 @@
-import React, { Fragment } from 'react';
-import { Component, ReactNode } from 'react';
+import React from 'react';
 import Header from '../../components/header';
 import './error.css';
 
-class Error extends Component {
-  render(): ReactNode {
-    return (
-      <Fragment>
-        <Header />
-        <main className="main_error">
-          <h2 className="main_error_message">Something goes wrong... Please open page later</h2>
-        </main>
-      </Fragment>
-    );
-  }
-}
+const Error = () => {
+  return (
+    <>
+      <Header />
+      <main className="main_error">
+        <h2 className="main_error_message">Something goes wrong... Please open page later</h2>
+      </main>
+    </>
+  );
+};
 
 export default Error;
