@@ -1,5 +1,5 @@
 import { screen, render } from '@testing-library/react';
-import React, { createRef } from 'react';
+import React from 'react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import RadioButtonField from './radiobuttonField';
 
@@ -7,16 +7,16 @@ const propMock = {
   legend: 'Legend Value',
   values: ['first', 'second', 'third'],
   refProp: {} as UseFormRegisterReturn<string>,
-  errorMessagee: {message: "Error Message"} as FieldError,
+  errorMessagee: { message: 'Error Message' } as FieldError,
 };
 
 test('legend on page', () => {
   render(
     <RadioButtonField
       legendProp={propMock.legend}
-      refProp= {propMock.refProp}
+      refProp={propMock.refProp}
       values={[]}
-      error = {propMock.errorMessagee}
+      error={propMock.errorMessagee}
     />
   );
 
@@ -27,9 +27,9 @@ test('all elements as unchecked radiobutton', () => {
   render(
     <RadioButtonField
       legendProp=""
-      refProp= {propMock.refProp}
+      refProp={propMock.refProp}
       values={propMock.values}
-      error = {propMock.errorMessagee}
+      error={propMock.errorMessagee}
     />
   );
 
@@ -41,9 +41,9 @@ test('show eerror message', () => {
   render(
     <RadioButtonField
       legendProp=""
-      refProp= {propMock.refProp}
+      refProp={propMock.refProp}
       values={[]}
-      error = {propMock.errorMessagee}
+      error={propMock.errorMessagee}
     />
   );
 

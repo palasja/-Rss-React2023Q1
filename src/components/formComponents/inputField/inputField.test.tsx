@@ -7,16 +7,16 @@ const propMock = {
   type: 'text',
   labelProp: 'label',
   refProp: {} as UseFormRegisterReturn<string>,
-  errorMessagee: {message: "Error Message"} as FieldError,
+  errorMessagee: { message: 'Error Message' } as FieldError,
 };
 
 test('show label form prop', () => {
   render(
-  <InputField 
-    type={''} 
-    labelProp={propMock.labelProp} 
-    refProp= {propMock.refProp}
-    error = {propMock.errorMessagee}
+    <InputField
+      type={''}
+      labelProp={propMock.labelProp}
+      refProp={propMock.refProp}
+      error={propMock.errorMessagee}
     />
   );
 
@@ -28,8 +28,8 @@ test('show eerror message', () => {
     <InputField
       type={''}
       labelProp={propMock.labelProp}
-      refProp= {propMock.refProp}
-    error = {propMock.errorMessagee}
+      refProp={propMock.refProp}
+      error={propMock.errorMessagee}
     />
   );
 

@@ -8,14 +8,14 @@ const propMock = {
   values: ['first', 'second', 'third'],
   refArr: Array(3).map(() => createRef<HTMLInputElement>()),
   refProp: {} as UseFormRegisterReturn<string>,
-  errorMessagee: {message: "Error Message"} as FieldError,
+  errorMessagee: { message: 'Error Message' } as FieldError,
 };
 test('legend on page', () => {
   render(
     <CheckboxField
       legendProp={propMock.legend}
-      refProp= {propMock.refProp}
-      error = {propMock.errorMessagee}
+      refProp={propMock.refProp}
+      error={propMock.errorMessagee}
       values={[]}
     />
   );
@@ -27,8 +27,8 @@ test('all element array as unchecked checkboks', () => {
   render(
     <CheckboxField
       legendProp={propMock.legend}
-      refProp= {propMock.refProp}
-      error = {propMock.errorMessagee}
+      refProp={propMock.refProp}
+      error={propMock.errorMessagee}
       values={propMock.values}
     />
   );
@@ -41,8 +41,8 @@ test('show eerror message', () => {
   render(
     <CheckboxField
       legendProp=""
-      refProp= {propMock.refProp}
-      error = {propMock.errorMessagee}
+      refProp={propMock.refProp}
+      error={propMock.errorMessagee}
       values={[]}
     />
   );

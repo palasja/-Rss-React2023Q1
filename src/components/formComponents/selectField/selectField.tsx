@@ -9,22 +9,22 @@ type InputProp = {
   error: FieldError | undefined;
 };
 const SelectField = (props: InputProp) => {
-    return (
-      <fieldset data-testid={props.labelProp}>
-        <label>
-          {props.labelProp}:
-          <select {...props.refProp}>
-            <option defaultValue={props.defaultValue}>{props.defaultValue}</option>
-            {props.values.map((el, i) => (
-              <option key={i} value={el}>
-                {el}
-              </option>
-            ))}
-          </select>
-        </label>
-        { props.error && <ErrorMessage errorMessage={props.error.message} />}
-      </fieldset>
-    );
-}
+  return (
+    <fieldset data-testid={props.labelProp}>
+      <label>
+        {props.labelProp}:
+        <select {...props.refProp}>
+          <option defaultValue={props.defaultValue}>{props.defaultValue}</option>
+          {props.values.map((el, i) => (
+            <option key={i} value={el}>
+              {el}
+            </option>
+          ))}
+        </select>
+      </label>
+      {props.error && <ErrorMessage errorMessage={props.error.message} />}
+    </fieldset>
+  );
+};
 
 export default SelectField;

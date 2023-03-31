@@ -35,6 +35,6 @@ const Card = (props: CardProps) => {
       </div>
     </div>
   );
-}
+};
 
 export default Card;

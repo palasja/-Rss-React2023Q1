@@ -21,7 +21,7 @@ test('error count on empty form', async () => {
   render(<NewCardForm newCardId={0} saveCard={() => {}} confirmAction={() => {}} />);
 
   fireEvent.submit(screen.getByRole('button'));
-  expect( await screen.findAllByTestId('errorMessge')).toHaveLength(countField);
+  expect(await screen.findAllByTestId('errorMessge')).toHaveLength(countField);
 });
 
 test('check name validation', async () => {

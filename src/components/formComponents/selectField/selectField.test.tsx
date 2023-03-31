@@ -8,7 +8,7 @@ const propMock = {
   values: ['first', 'second', 'third'],
   refProp: {} as UseFormRegisterReturn<string>,
   defaultValue: 'defaultValue',
-  errorMessagee: {message: "Error Message"} as FieldError,
+  errorMessagee: { message: 'Error Message' } as FieldError,
 };
 
 test('show label form prop', () => {
@@ -17,8 +17,8 @@ test('show label form prop', () => {
       labelProp={propMock.labelProp}
       values={[]}
       defaultValue={''}
-      refProp= {propMock.refProp}
-      error = {propMock.errorMessagee}
+      refProp={propMock.refProp}
+      error={propMock.errorMessagee}
     />
   );
 
@@ -29,10 +29,10 @@ test('all values from props as option, default value selected', () => {
   render(
     <SelectField
       labelProp={''}
-      refProp= {propMock.refProp}
+      refProp={propMock.refProp}
       values={propMock.values}
       defaultValue={propMock.defaultValue}
-      error = {propMock.errorMessagee}
+      error={propMock.errorMessagee}
     />
   );
 
@@ -46,12 +46,12 @@ test('show eerror message', () => {
   render(
     <SelectField
       labelProp={''}
-      refProp = {propMock.refProp}
+      refProp={propMock.refProp}
       values={[]}
       defaultValue={''}
-      error = {propMock.errorMessagee}
+      error={propMock.errorMessagee}
     />
   );
-screen.debug();
+  screen.debug();
   expect(screen.getByText(propMock.errorMessagee.message as string)).toBeInTheDocument();
 });
