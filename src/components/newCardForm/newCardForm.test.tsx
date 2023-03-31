@@ -16,35 +16,35 @@ const mockNewCard = {
   startSell: 1680220800000,
 };
 
-test('error count on empty form', () => {
+test('error count on empty form', async () => {
   const countField = 9;
   render(<NewCardForm newCardId={0} saveCard={() => {}} confirmAction={() => {}} />);
 
   fireEvent.submit(screen.getByRole('button'));
-  expect(screen.getAllByTestId('errorMessge')).toHaveLength(countField);
+  expect( await screen.findAllByTestId('errorMessge')).toHaveLength(countField);
 });
 
-test('check name validation', () => {
+test('check name validation', async () => {
   render(<NewCardForm newCardId={0} saveCard={() => {}} confirmAction={() => {}} />);
   fireEvent.input(screen.getByTestId('Name'), {
     target: { value: mockNewCard.name.toLocaleLowerCase() },
   });
   fireEvent.submit(screen.getByRole('button'));
-  expect(screen.getByText(/uppercase/i)).toBeInTheDocument();
+  expect(await screen.findByText(/uppercase/i)).toBeInTheDocument();
 });
 
-test('check cost validation', () => {
+test('check cost validation', async () => {
   render(<NewCardForm newCardId={0} saveCard={() => {}} confirmAction={() => {}} />);
   fireEvent.input(screen.getByTestId(/cost/i), { target: { value: -2 } });
   fireEvent.submit(screen.getByRole('button'));
-  expect(screen.getByText(/more than 0/i)).toBeInTheDocument();
+  expect(await screen.findByText(/more than 0/i)).toBeInTheDocument();
 
   fireEvent.input(screen.getByTestId(/cost/i), { target: { value: 40 } });
   fireEvent.submit(screen.getByRole('button'));
-  expect(screen.getByText(/40 so muth/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Cost so mutch/i)).toBeInTheDocument();
 });
 
-test('check startSell validation', () => {
+test('check startSell validation', async () => {
   const curDate = new Date();
   const tomorrow = new Date(curDate.setDate(curDate.getDate() - 1));
   render(<NewCardForm newCardId={0} saveCard={() => {}} confirmAction={() => {}} />);
@@ -52,5 +52,5 @@ test('check startSell validation', () => {
     target: { value: tomorrow.toISOString().split('T')[0] },
   });
   fireEvent.submit(screen.getByRole('button'));
-  expect(screen.getByText(/tomorrow at least/i)).toBeInTheDocument();
+  expect(await screen.findByText(/tomorrow at least/i)).toBeInTheDocument();
 });

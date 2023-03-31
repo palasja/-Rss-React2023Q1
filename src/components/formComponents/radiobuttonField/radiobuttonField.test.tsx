@@ -1,20 +1,22 @@
 import { screen, render } from '@testing-library/react';
 import React, { createRef } from 'react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import RadioButtonField from './radiobuttonField';
 
 const propMock = {
   legend: 'Legend Value',
   values: ['first', 'second', 'third'],
-  refArr: [],
-  errorMessagee: 'Error message',
+  refProp: {} as UseFormRegisterReturn<string>,
+  errorMessagee: {message: "Error Message"} as FieldError,
 };
+
 test('legend on page', () => {
   render(
     <RadioButtonField
       legendProp={propMock.legend}
-      refArr={[createRef()]}
+      refProp= {propMock.refProp}
       values={[]}
-      errorMessagee=""
+      error = {propMock.errorMessagee}
     />
   );
 
@@ -25,9 +27,9 @@ test('all elements as unchecked radiobutton', () => {
   render(
     <RadioButtonField
       legendProp=""
-      refArr={[createRef()]}
+      refProp= {propMock.refProp}
       values={propMock.values}
-      errorMessagee=""
+      error = {propMock.errorMessagee}
     />
   );
 
@@ -39,11 +41,11 @@ test('show eerror message', () => {
   render(
     <RadioButtonField
       legendProp=""
-      refArr={[createRef()]}
+      refProp= {propMock.refProp}
       values={[]}
-      errorMessagee={propMock.errorMessagee}
+      error = {propMock.errorMessagee}
     />
   );
 
-  expect(screen.getByText(propMock.errorMessagee)).toBeInTheDocument();
+  expect(screen.getByText(propMock.errorMessagee.message as string)).toBeInTheDocument();
 });

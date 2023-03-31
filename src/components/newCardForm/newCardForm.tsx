@@ -1,6 +1,5 @@
-import React, { createRef } from 'react';
-import { Component, FormEvent, ReactNode } from 'react';
-import { Resolver, useForm } from 'react-hook-form';
+import React, { BaseSyntheticEvent, createRef } from 'react';
+import { useForm } from 'react-hook-form';
 import { Item } from '../../types';
 import { Tags, TypeFood } from '../../types/item';
 import { InputField, SelectField, CheckboxField, RadioButtonField } from '../formComponents';
@@ -11,12 +10,10 @@ type NewCardFormProp = {
   saveCard: (i: Item) => void;
   confirmAction: () => void;
 };
-// type NewCardFormState = {
-//   errors: object;
-// };
+
 type FormValues = {
   name: string;
-  image: string;
+  image: FileList;
   cost: string;
   startDate: string;
   weight: string;
@@ -28,21 +25,8 @@ type FormValues = {
 
 const NewCardForm = (props: NewCardFormProp) => {
   const MAX_RATING = 5;
+  const CUR_DATE = Date.now();
   const {register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-  // refForm = createRef<HTMLFormElement>();
-  // refCardName = createRef<HTMLInputElement>();
-  // refCardImage = createRef<HTMLInputElement>();
-  // refCardRating = createRef<HTMLSelectElement>();
-  // refCardWeight = createRef<HTMLInputElement>();
-  // refCardCost = createRef<HTMLInputElement>();
-  // refCardCalories = createRef<HTMLInputElement>();
-  // refCardStartSellDate = createRef<HTMLInputElement>();
-  // refsTagArr = Object.values(Tags).map(() => createRef<HTMLInputElement>());
-  // refsTypeArr = Object.values(TypeFood).map(() => createRef<HTMLInputElement>());
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { errors: {} };
-  // }
   const getEnumValues = <T,>(arr: string[] | T[]): string[] => {
     const enumValues = arr.slice(0, arr.length / 2);
     return enumValues.map((val) => `${val}`);
@@ -50,163 +34,90 @@ const NewCardForm = (props: NewCardFormProp) => {
   const getRatingValues = () => {
     return [...Array(MAX_RATING)].map((v, i) => `${i + 1}`);
   }
-  // assertDefined<Type>(value: Type): NonNullable<Type> {
-  //   if (value === undefined || value === null) throw new Error('Asserted value is not defined!');
-  //   return value as NonNullable<Type>;
-  // }
-  // validateForm(): { [string: string]: string } {
-  //   const curentError = {};
 
-  //   const name = this.refCardName.current?.value;
-  //   if (name === undefined || name.length == 0) {
-  //     curentError['cost'] = 'Cost has to be filled';
-  //   } else if (!/[A-Z]/.test(this.assertDefined(name)[0])) {
-  //     curentError['name'] = 'First letter mus be uppercase';
-  //   }
+  const submitAction = async (data: FormValues, e: BaseSyntheticEvent | undefined) => {
+     const newItem: Item = {
+        id: props.newCardId,
+        type: data.type,
+        name: data.name,
+        cost: data.cost,
+        countPerWeek: 0,
+        rating: data.startRating,
+        calories: data.calories,
+        img: URL.createObjectURL(data.image[0]),
+        weght: data.weight,
+        tags: data.tags,
+        startSell: data.startDate,
+      };
+      console.log(data);
+      props.confirmAction();
+      setTimeout(() => {
+        props.confirmAction();
+        props.saveCard(newItem);
+        e?.target.reset();
+      }, 1000);
+  };
 
-  //   const cost = this.refCardCost.current?.value;
-  //   if (cost === undefined || cost.length == 0) {
-  //     curentError['cost'] = 'Cost has to be filled';
-  //   } else if (Number(cost) <= 0) {
-  //     curentError['cost'] = 'Cost has to be more than 0';
-  //   } else if (Number(cost) > 20) {
-  //     curentError['cost'] = `${cost} so muth, recheck value cost`;
-  //   }
-
-  //   const startSell = this.refCardStartSellDate.current?.value;
-  //   if (startSell === undefined || startSell.length == 0) {
-  //     curentError['startSale'] = 'Start sale has to be in field';
-  //   } else if (Date.parse(startSell) < Date.now()) {
-  //     curentError['startSale'] = 'Start sale has to be begins tomorrow at least';
-  //   }
-
-  //   const rating = this.refCardRating.current?.value;
-  //   if (rating === undefined || rating.length == 0) {
-  //     curentError['rating'] = 'Rating has to be chosen';
-  //   }
-
-  //   const image = this.refCardImage.current?.value;
-  //   if (image === undefined || image.length == 0) {
-  //     curentError['image'] = 'Image has to be filled';
-  //   } else if (!/\.jpg$/.test(image)) {
-  //     curentError['image'] = 'Format image has to be jpg';
-  //   }
-
-  //   const calories = this.refCardCalories.current?.value;
-  //   if (calories === undefined || calories.length == 0) {
-  //     curentError['calories'] = 'Calories has to be filled';
-  //   }
-  //   const weight = this.refCardWeight.current?.value;
-  //   if (weight === undefined || weight.length == 0) {
-  //     curentError['weight'] = 'Weight has to be filled';
-  //   } else if (Number(weight) <= 0) {
-  //     curentError['weight'] = 'Weight has to be more 0';
-  //   }
-
-  //   const type = this.refsTypeArr.find((t) => t.current?.checked);
-  //   if (type === undefined) {
-  //     curentError['type'] = 'Type has to be chosen';
-  //   }
-  //   const tags = this.refsTagArr.filter((t) => t.current?.checked);
-  //   if (tags.length === 0) {
-  //     curentError['tags'] = 'Need to choose one tag at least';
-  //   }
-  //   return curentError;
-  // }
-  // submitAction = (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   this.setState({ errors: {} });
-  //   const validateResult = this.validateForm();
-  //   if (Object.keys(validateResult).length !== 0) {
-  //     this.setState({ errors: this.validateForm() });
-  //   } else {
-  //     const tags: Tags[] = this.refsTagArr
-  //       .filter((t) => t.current?.checked)
-  //       .map((t) => Tags[this.assertDefined(t.current?.name)]);
-  //     const type = this.refsTypeArr.find((t) => t.current?.checked);
-  //     const newItem: Item = {
-  //       id: this.props.newCardId,
-  //       type: TypeFood[this.assertDefined(type?.current?.defaultValue)],
-  //       name: this.refCardName.current?.value,
-  //       cost: this.refCardCost.current?.value,
-  //       countPerWeek: 0,
-  //       rating: this.refCardRating.current?.value,
-  //       calories: this.refCardCalories.current?.value,
-  //       img: URL.createObjectURL(this.assertDefined(this.refCardImage.current?.files)[0]),
-  //       weght: this.refCardWeight.current?.value,
-  //       tags: tags,
-  //       startSell: Date.parse(this.assertDefined(this.refCardStartSellDate.current?.value)),
-  //     };
-  //     this.props.confirmAction();
-  //     setTimeout(() => {
-  //       this.props.confirmAction();
-  //       this.props.saveCard(newItem);
-  //       this.refForm.current?.reset();
-  //     }, 1000);
-  //   }
-  // };
     return (
       <form
         noValidate
         className="new-card-form"
-        // ref={refForm}
-        onSubmit={handleSubmit((data) => {console.log(data)})
-        }
+        onSubmit={handleSubmit(submitAction)}
       >
         <InputField
           labelProp="Name"
           type="text"
-          refProp={register("name", {required:"EMPTY"}) }
+          refProp={register("name", {required:"Cost has to be filled", pattern:{value:/^[A-Z]/, message:"First letter mus be uppercase"}}) }
           error={errors.name}
         />
 
         <InputField
           labelProp="Image (jpg)"
           type="file"
-          refProp={register("image", {required:"EMPTY"}) }
+          refProp={register("image", {required: "Image has to be filled", validate:{ ch: value => { return /\.jpg$/.test(value[0].name) || "Format image has to be jpg"}}}) }
           error={errors.image}
         />
         <InputField
           labelProp="Cost"
           type="number"
-          refProp={register('cost', {required:"EMPTY"}) }
+          refProp={register('cost',  {required:"Cost has to be filled", min:{value: 0.1, message:"Cost has to be more than 0"}, max:{value: 20, message: "Cost so mutch recheck value cost"}}) }
           error={errors.cost}
         />
         <InputField
           labelProp="Start Sale"
           type="date"
-          refProp={register('startDate', {required:"EMPTY"}) }
+          refProp={register('startDate', {required:"Start sale has to be in field", valueAsDate: true ,min:{value:CUR_DATE, message: "Start sale has to be begins tomorrow at least"}}) }
           error={errors.startDate}
         />
         <SelectField
           labelProp="Start rating"
           values={getRatingValues()}
           defaultValue=""
-          refProp={register('startRating', {required:"EMPTY"}) }
+          refProp={register('startRating', {required:"Rating has to be chosen"}) }
           error={errors.startRating}
         />
         <CheckboxField
           legendProp="Tags"
           values={getEnumValues(Object.values(Tags))}
-          refProp={register('tags', {required:"EMPTY"}) }
+          refProp={register('tags', {required:"Need to choose one tag at least"}) }
           error={errors.tags}
         />
         <RadioButtonField
           legendProp="Type"
           values={getEnumValues(Object.values(TypeFood))}
-          refProp={register('type', {required:"EMPTY"}) }
+          refProp={register('type', {required:"Type has to be chosen"}) }
           error={errors.type}
         /> 
         <InputField
           labelProp="Weight"
           type="number"
-          refProp={register('weight', {required:"EMPTY"}) }
+          refProp={register('weight', {required:"Weight has to be filled", min:{value:1, message:"Weight has to be more 0"}}) }
           error={errors.weight}
         />
         <InputField
           labelProp="Calories"
           type="number"
-          refProp={register('calories', {required:"EMPTY"}) }
+          refProp={register('calories', {required:"Calories has to be filled"}) }
           error={errors.calories}
         />
         <button className="new-card-form__submit" type="submit">

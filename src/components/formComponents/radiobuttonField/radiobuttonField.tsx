@@ -16,7 +16,7 @@ const RadioButtonField = (props: RadioButtonProp) => {
           <div key={i}>
             <label>
               {el}
-              <input type="radio" {...props.refProp}/>
+              <input type="radio" {...props.refProp} value={el}/>
             </label>
           </div>
         ))}

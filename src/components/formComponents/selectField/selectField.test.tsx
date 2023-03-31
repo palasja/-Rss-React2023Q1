@@ -1,23 +1,24 @@
 import { screen, render } from '@testing-library/react';
 import React from 'react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import SelectField from './selectField';
 
 const propMock = {
   labelProp: 'Label',
   values: ['first', 'second', 'third'],
-  refProp: null,
+  refProp: {} as UseFormRegisterReturn<string>,
   defaultValue: 'defaultValue',
-  errorMessagee: 'Error message',
+  errorMessagee: {message: "Error Message"} as FieldError,
 };
 
 test('show label form prop', () => {
   render(
     <SelectField
       labelProp={propMock.labelProp}
-      refProp={null}
       values={[]}
       defaultValue={''}
-      errorMessagee={''}
+      refProp= {propMock.refProp}
+      error = {propMock.errorMessagee}
     />
   );
 
@@ -28,10 +29,10 @@ test('all values from props as option, default value selected', () => {
   render(
     <SelectField
       labelProp={''}
-      refProp={null}
+      refProp= {propMock.refProp}
       values={propMock.values}
       defaultValue={propMock.defaultValue}
-      errorMessagee={''}
+      error = {propMock.errorMessagee}
     />
   );
 
@@ -45,12 +46,12 @@ test('show eerror message', () => {
   render(
     <SelectField
       labelProp={''}
-      refProp={null}
+      refProp = {propMock.refProp}
       values={[]}
       defaultValue={''}
-      errorMessagee={propMock.errorMessagee}
+      error = {propMock.errorMessagee}
     />
   );
-
-  expect(screen.getByText(propMock.errorMessagee)).toBeInTheDocument();
+screen.debug();
+  expect(screen.getByText(propMock.errorMessagee.message as string)).toBeInTheDocument();
 });
