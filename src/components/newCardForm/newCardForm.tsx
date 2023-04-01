@@ -67,7 +67,7 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Name"
         type="text"
         refProp={register('name', {
-          required: 'Cost has to be filled',
+          required: 'Name has to be filled',
           pattern: { value: /^[A-Z]/, message: 'First letter mus be uppercase' },
         })}
         error={errors.name}
