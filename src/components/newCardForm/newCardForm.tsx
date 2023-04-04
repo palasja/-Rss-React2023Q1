@@ -8,7 +8,7 @@ import './newCardForm.css';
 type NewCardFormProp = {
   newCardId: number;
   saveCard: (i: Item) => void;
-  confirmAction: () => void;
+  confirmAction: (show: boolean) => void;
 };
 
 type FormValues = {
@@ -53,9 +53,9 @@ const NewCardForm = (props: NewCardFormProp) => {
       tags: data.tags,
       startSell: data.startDate,
     };
-    props.confirmAction();
+    props.confirmAction(true);
     setTimeout(() => {
-      props.confirmAction();
+      props.confirmAction(false);
       props.saveCard(newItem);
       e?.target.reset();
     }, 1000);
@@ -67,7 +67,7 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Name"
         type="text"
         refProp={register('name', {
-          required: 'Name has to be filled',
+          required: 'Cost has to be filled',
           pattern: { value: /^[A-Z]/, message: 'First letter mus be uppercase' },
         })}
         error={errors.name}
