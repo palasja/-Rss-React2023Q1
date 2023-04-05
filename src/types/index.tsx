@@ -1,3 +1,3 @@
 import { Item } from './item';
-import { Character, CharacterResponse } from './lotr';
-export { Item, Character, CharacterResponse };
+import { Character, LotrResponse, Quote, CardFullInfo, Movie  } from './lotr';
+export { Item, Character, LotrResponse, Quote, CardFullInfo, Movie };

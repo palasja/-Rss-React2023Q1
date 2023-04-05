@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './home.css';
-import { Character, CharacterResponse } from '../../types';
+import { Character, LotrResponse } from '../../types';
 import Search from '../../components/search';
 import Header from '../../components/header';
 import Cards from '../../components/cards/cards';
@@ -12,14 +12,14 @@ const Home = () => {
   useEffect(() => {
     setCharacters(null);
     const getCharacters = async () => {
-      
+      // ------> Move for import here and full card
       const headers = {
         'Accept': 'application/json',
         'Authorization': 'Bearer BTQ_p0KTKzxQIhvXZ2u6'
       }
       const resp = await fetch(`https://the-one-api.dev/v2/character?name=/${searchValue}/i`, {headers: headers});
-      const arr:CharacterResponse  = await resp.json();
-      setCharacters(arr.docs);
+      const arr:LotrResponse  = await resp.json();
+      setCharacters(arr.docs as Character[]);
     }
     getCharacters();
     // const fetchData = async () => {

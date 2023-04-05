@@ -1,6 +1,7 @@
 import React from 'react';
 import { Item } from '../../types';
 import './card.css';
+import { TypeFood } from '../../types/item';
 
 type CardProps = {
   item: Item;
@@ -26,7 +27,7 @@ const Card = (props: CardProps) => {
         </div>
         <div className="card_info__order">
           <p>
-            Weight: {item.weght} {item.type === 'drink' ? 'ml' : 'gm'}
+            Weight: {item.weght} {item.type === TypeFood.drink ? 'ml' : 'gm'}
           </p>
           <p>Calories: {item.calories} cal</p>
         </div>
