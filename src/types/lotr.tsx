@@ -11,5 +11,12 @@ type Character = {
   realm:string,
   spouse:string,
 }
-
-export {Character}
+type CharacterResponse = {
+  docs:Character[]
+  limit:number
+  offset:number
+  page:number
+  pages:number
+  total:number
+}
+export {Character, CharacterResponse}
