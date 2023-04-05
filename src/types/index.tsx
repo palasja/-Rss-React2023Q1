@@ -1,2 +1,3 @@
-import Item from './item';
-export { Item };
+import { Item }from './item';
+import { Character }from './lotr';
+export { Item, Character };
