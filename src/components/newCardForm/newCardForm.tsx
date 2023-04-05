@@ -14,13 +14,13 @@ type NewCardFormProp = {
 type FormValues = {
   name: string;
   image: FileList;
-  cost: string;
-  startDate: string;
-  weight: string;
-  calories: string;
-  startRating: string;
-  type: string;
-  tags: string[];
+  cost: number;
+  startDate: Date;
+  weight: number;
+  calories: number;
+  startRating: number;
+  type: TypeFood;
+  tags: Tags[];
 };
 
 const NewCardForm = (props: NewCardFormProp) => {
