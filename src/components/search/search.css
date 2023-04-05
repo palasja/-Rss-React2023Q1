@@ -1,3 +1,9 @@
+.main_search{
+  display: flex;
+  justify-content: right;
+  padding-right: 45px;
+}
+
 input {
   color: rgba(0,0,0,.87);
   outline-color: none;

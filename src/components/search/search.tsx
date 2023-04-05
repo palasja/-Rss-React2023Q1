@@ -14,6 +14,7 @@ const Search = (props: SearchProps) => {
   };
 
   return (
+    <div className="main_search">
     <div className="wrapper">
       <img className="search-icon" />
       <form  onSubmit={(e: FormEvent) => {e.preventDefault(); props.onSubmit(searchValue)}}>
@@ -26,6 +27,7 @@ const Search = (props: SearchProps) => {
       />
       </form>
       
+    </div>
     </div>
   );
 };

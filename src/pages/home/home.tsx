@@ -3,7 +3,7 @@ import './home.css';
 import { Character, CharacterResponse } from '../../types';
 import Search from '../../components/search';
 import Header from '../../components/header';
-import LotrCard from '../../components/lotrCard';
+import Cards from '../../components/cards/cards';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
@@ -55,17 +55,11 @@ const Home = () => {
     <>
       <Header />
       <main className="main">
-        <div className="main_search">
           <Search
             onSubmit={handleSubmit}
             curSearchValue={searchValue}
           />
-        </div>
-        <div className="main_cards">
-          { !characters && <p>Loading...</p> }
-          { (characters !== null && characters.length == 0 ) && <h3>No characters with that name</h3> }
-          { characters !== null && characters.map(ch => <LotrCard key={ch._id} name={ch.name.toLocaleUpperCase()} race={ch.race} wikiUr={ch.wikiUrl} />) }
-        </div>
+          <Cards characters={characters} />
       </main>
     </>
   );

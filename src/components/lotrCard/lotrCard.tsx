@@ -3,14 +3,14 @@ import './lotrCard.css';
 type LotrCardProp = {
   name: string,
   race: string,
-  wikiUr: string
+  wikiUrl: string
 }
 const LotrCard = (props: LotrCardProp) => {
+  const { name, race, wikiUrl} = props; 
   return (
     <div className='lotr-card'>
-      <h3>{props.name} (<a href={props.wikiUr}>wiki </a>)</h3>
-      <p>Race: {props.race}</p>
-      
+      <h3>{name} (<a href={wikiUrl}>wiki </a>)</h3>
+      <p>Race: {race === 'NaN' ? 'Unknown' : race}</p>
     </div>
   )
 
