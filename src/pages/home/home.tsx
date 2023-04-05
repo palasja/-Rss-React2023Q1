@@ -1,31 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import './home.css';
-import { Character } from '../../types';
+import { Character, CharacterResponse } from '../../types';
 import Search from '../../components/search';
 import Header from '../../components/header';
 import LotrCard from '../../components/lotrCard';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
-  const [characters, setCharacters] = useState<Character[]>([]);
-
+  const [characters, setCharacters] = useState<Character[] | null>(null);
 
   useEffect(() => {
-    let isSubscribed = true;
+    setCharacters(null);
     const getCharacters = async () => {
       
       const headers = {
         'Accept': 'application/json',
         'Authorization': 'Bearer BTQ_p0KTKzxQIhvXZ2u6'
       }
-      const resp = await fetch('https://the-one-api.dev/v2/character?limit=20', {headers: headers});
-      const arr = await resp.json();
-      if(isSubscribed) setCharacters(arr.docs);
-      console.log(resp.status);
-      console.log(arr);
+      const resp = await fetch(`https://the-one-api.dev/v2/character?name=/${searchValue}/i`, {headers: headers});
+      const arr:CharacterResponse  = await resp.json();
+      setCharacters(arr.docs);
     }
     getCharacters();
-
     // const fetchData = async () => {
     //   const headers = {
     //     'Accept': 'application/json',
@@ -47,21 +43,28 @@ const Home = () => {
 
     // fetchData();
     
-    
-  }, []);
+    return () => {
+      localStorage.setItem('searchValue', searchValue);
+    };
+  }, [searchValue]);
 
+  const handleSubmit = (value: string) => {
+    setSearchValue(value);
+  }
   return (
     <>
       <Header />
       <main className="main">
         <div className="main_search">
           <Search
-            onChange={(newName: string) => setSearchValue(newName)}
+            onSubmit={handleSubmit}
             curSearchValue={searchValue}
           />
         </div>
         <div className="main_cards">
-          {characters.map(ch => <LotrCard key={ch._id} name={ch.name.toLocaleUpperCase()} race={ch.race} wikiUr={ch.wikiUrl} />)}
+          { !characters && <p>Loading...</p> }
+          { (characters !== null && characters.length == 0 ) && <h3>No characters with that name</h3> }
+          { characters !== null && characters.map(ch => <LotrCard key={ch._id} name={ch.name.toLocaleUpperCase()} race={ch.race} wikiUr={ch.wikiUrl} />) }
         </div>
       </main>
     </>

@@ -1,27 +1,22 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import './search.css';
+import { useForm } from 'react-hook-form';
 
 type SearchProps = {
-  onChange: (newValue: string) => void;
+  onSubmit: (newValue: string) => void;
   curSearchValue: string;
 };
-
 const Search = (props: SearchProps) => {
   const [searchValue, setSearchValue] = useState(props.curSearchValue);
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('searchValue', searchValue);
-    };
-  }, [searchValue]);
 
   const handleChange = (e: FormEvent<HTMLInputElement>): void => {
     setSearchValue(e.currentTarget.value);
-    props.onChange(e.currentTarget.value);
   };
 
   return (
     <div className="wrapper">
       <img className="search-icon" />
+      <form  onSubmit={(e: FormEvent) => {e.preventDefault(); props.onSubmit(searchValue)}}>
       <input
         className="search"
         type="text"
@@ -29,6 +24,8 @@ const Search = (props: SearchProps) => {
         value={searchValue}
         onChange={handleChange}
       />
+      </form>
+      
     </div>
   );
 };
