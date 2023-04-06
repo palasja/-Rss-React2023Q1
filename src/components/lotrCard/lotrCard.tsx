@@ -11,7 +11,8 @@ const LotrCard = (props: LotrCardProp) => {
   const { id, name, race, wikiUrl} = props; 
   return (
     <div className='lotr-card' onClick={() => {props.clickAction(id)}}>
-      <h3>{name} (<a href={wikiUrl}>wiki </a>)</h3>
+      <h3 className='lotr-card_name'>{name} </h3>
+      <a href={wikiUrl}>LOTR Wiki</a>
       <p>Race: {race === 'NaN' ? 'Unknown' : race}</p>
     </div>
   )

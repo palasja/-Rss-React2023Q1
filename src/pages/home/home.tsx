@@ -17,32 +17,12 @@ const Home = () => {
         'Accept': 'application/json',
         'Authorization': 'Bearer BTQ_p0KTKzxQIhvXZ2u6'
       }
-      const resp = await fetch(`https://the-one-api.dev/v2/character?name=/${searchValue}/i`, {headers: headers});
+      const resp = await fetch(`https://the-one-api.dev/v2/character?name=/^${searchValue}/i`, {headers: headers});
       const arr:LotrResponse  = await resp.json();
       setCharacters(arr.docs as Character[]);
     }
     getCharacters();
-    // const fetchData = async () => {
-    //   const headers = {
-    //     'Accept': 'application/json',
-    //     'Authorization': 'Bearer BTQ_p0KTKzxQIhvXZ2u6'
-    //   }
-    //   const rawCh = await fetch('https://the-one-api.dev/v2/character', {
-    //     headers: headers
-    //   })
-    //   const ch = await rawCh.json();
-    //   console.log(ch);
-      // const quotes = await rawQuotes.json();
-      // const quote = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
-      // setQuote(quote.dialog)
-      // const rawCharacters = await fetch('https://the-one-api.dev/v2/character?_id=' + quote.character, { headers: headers })
-      // const characters = await rawCharacters.json();
-      // const character = characters.docs[0];
-      // setCharacter(character.name)
-    // };
-
-    // fetchData();
-    
+    // setCharacters(null);
     return () => {
       localStorage.setItem('searchValue', searchValue);
     };
