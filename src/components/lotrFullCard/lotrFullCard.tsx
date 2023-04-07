@@ -34,24 +34,26 @@ const LotrFullCard = (props: LotrFullCardProp) => {
         const arrMovie: LotrResponse = await respMovie.json();
         movie = arrMovie.docs[0] as Movie;
       }
+      const checkValue = (val:string) => val === 'NaN' ? undefined : val;
       const getFullInfo = () => {
         const fullInfo: CardFullInfo = {
-          name: '',
-          race: undefined,
+          name: char.name,
+          race: checkValue(char.race),
           wikiUrl: '',
-          birth: undefined,
-          death: undefined,
-          gender: undefined,
-          hair: undefined,
-          height: undefined,
-          realm: undefined,
-          spouse: undefined,
-          dialog: undefined,
-          movie: undefined,
+          birth:  checkValue(char.birth),
+          death:  checkValue(char.death),
+          gender:  checkValue(char.gender),
+          hair:  checkValue(char.hair),
+          height:  checkValue(char.height),
+          realm:  checkValue(char.realm),
+          spouse:  checkValue(char.spouse),
+          dialog: movie?.name,
+          movie: movie?.name,
         };
-        Object.assign(fullInfo, char);
-        fullInfo.dialog = quote?.dialog;
-        fullInfo.movie = movie?.name;
+        
+        // fullInfo.dialog = quote?.dialog;
+        // fullInfo.movie = movie?.name;
+        // Object.assign(fullInfo, char);
         return fullInfo;
       }
 

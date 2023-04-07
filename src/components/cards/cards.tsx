@@ -56,7 +56,7 @@ const Cards = (props: CardProp) => {
       {showModal &&
         createPortal(
           <ModalContent charId={showCharId} onClose={() => setShowModal(false)} />,
-          document.body
+          document.getElementsByClassName('content')[0]
         )}
     </div>
   );

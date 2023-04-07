@@ -20,7 +20,6 @@ const Home = () => {
       setCharacters(arr.docs as Character[]);
     };
     getCharacters();
-    // setCharacters(null);
   }, [searchValue]);
 
   const handleSubmit = (value: string) => {
