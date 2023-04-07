@@ -8,7 +8,7 @@ const Header = () => {
     <header className="header">
       <h1>
         <a href="/" className="header_logo">
-          FoodShop
+          LOTR API
         </a>
       </h1>
       <Navigation />
