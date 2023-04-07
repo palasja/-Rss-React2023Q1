@@ -31,15 +31,15 @@ type Quote = {
 
 type CardFullInfo = {
   name: string,
-  race: string,
+  race: string | undefined,
   wikiUrl: string,
-  birth:string,
-  death:string,
-  gender: string,
-  hair:string,
-  height:string,
-  realm:string,
-  spouse:string,
+  birth:string | undefined,
+  death:string | undefined,
+  gender: string | undefined,
+  hair:string | undefined,
+  height:string | undefined,
+  realm:string | undefined,
+  spouse:string | undefined,
   dialog:string | undefined
   movie: string | undefined
 }

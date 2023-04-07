@@ -9,7 +9,7 @@ type ModalContentProps = {
 
 const ModalContent = (props: ModalContentProps) => {
   return (
-    <div className="modal" onClick={(e) => {e.stopPropagation(); props.onClose}}>
+    <div className="modal" onClick={props.onClose}>
       <div className='modal_content' >
         <a href="#" className="close" onClick={props.onClose}/>
         <LotrFullCard characterId={props.charId} />

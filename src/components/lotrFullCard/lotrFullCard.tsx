@@ -9,19 +9,20 @@ type LotrFullCardProp = {
 }
 const LotrFullCard = (props: LotrFullCardProp) => {
   const [cardInfo, setCardInfo] = useState<CardFullInfo | null>(null);
+  const undefinedInfo = <span className='unknow'>Unknown</span>
   useEffect( () => {
     const fetchData = async () => {
         let fullInfo: CardFullInfo = {
           name: '',
-          race: '',
+          race: undefined,
           wikiUrl: '',
-          birth: '',
-          death: '',
-          gender: '',
-          hair: '',
-          height: '',
-          realm: '',
-          spouse: '',
+          birth: undefined,
+          death: undefined,
+          gender: undefined,
+          hair: undefined,
+          height: undefined,
+          realm: undefined,
+          spouse: undefined,
           dialog: undefined,
           movie: undefined
         };
@@ -49,25 +50,31 @@ const LotrFullCard = (props: LotrFullCardProp) => {
 
   return(
     <div>
-      {!cardInfo && <p>Loading...</p>}
-      {cardInfo && 
-      <div>
-        <p>{cardInfo.name}</p>
-        <p>Race: {cardInfo.race}</p>
-        <p><a href={cardInfo.wikiUrl}>LOTR Wiki</a></p>
-        <p>Birth Date: {cardInfo.birth}</p>
-        <p>Death Date: {cardInfo.death}</p>
-        <p>Gender: {cardInfo.gender}</p>
-        <p>Hair: {cardInfo.hair}</p>
-        <p>Heght: {cardInfo.height}</p>
-        <p>Realm: {cardInfo.realm}</p>
-        <p>Spouse: {cardInfo.spouse}</p>
+      
+      
+      <div className='full-info'>
+        {!cardInfo && <p>Loading...</p>}
+{cardInfo && 
+        <>
+        <a className='full-info_name' href={cardInfo.wikiUrl}>{cardInfo.name}</a>
+        <div className='full-info_detail'>
+          <p>Race: {cardInfo.race  || undefinedInfo }</p>
+          <p>Birth Date: {cardInfo.birth || undefinedInfo }</p>
+          <p>Death Date: {cardInfo.death || undefinedInfo }</p>
+          <p>Gender: {cardInfo.gender || undefinedInfo }</p>
+          <p>Hair: {cardInfo.hair || undefinedInfo }</p>
+          <p>Heght: {cardInfo.height || undefinedInfo }</p>
+          <p>Realm: {cardInfo.realm || undefinedInfo }</p>
+          <p>Spouse: {cardInfo.spouse || undefinedInfo }</p>
+        </div>
+
         {cardInfo.dialog && <div>
-            <p>{cardInfo.dialog}</p>
-            <p>{cardInfo.movie}</p>
-          </div>}
+            <span className='full-info_quote'>{cardInfo.dialog}</span >
+            <span className='full-info_movie'>{cardInfo.movie}</span>
+          </div>}</>
+       }   
       </div>
-      }
+      
     </div>
   );
 }
