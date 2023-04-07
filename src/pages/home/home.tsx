@@ -4,6 +4,7 @@ import { Character, LotrResponse } from '../../types';
 import Search from '../../components/search';
 import Header from '../../components/header';
 import Cards from '../../components/cards/cards';
+import API from '../../helper/contsAPI';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
@@ -12,12 +13,7 @@ const Home = () => {
   useEffect(() => {
     setCharacters(null);
     const getCharacters = async () => {
-      // ------> Move for import here and full card
-      const headers = {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer BTQ_p0KTKzxQIhvXZ2u6'
-      }
-      const resp = await fetch(`https://the-one-api.dev/v2/character?name=/^${searchValue}/i`, {headers: headers});
+      const resp = await fetch(`${API.host}/character?name=/^${searchValue}/i`, {headers: API.headers});
       const arr:LotrResponse  = await resp.json();
       setCharacters(arr.docs as Character[]);
     }
