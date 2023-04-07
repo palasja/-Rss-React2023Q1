@@ -1,2 +1,2 @@
-import LotrFullCard from "./lotrFullCard";
+import LotrFullCard from './lotrFullCard';
 export default LotrFullCard;

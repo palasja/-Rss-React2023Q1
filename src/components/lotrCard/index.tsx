@@ -1,2 +1,2 @@
-import LotrCard from "./lotrCard";
+import LotrCard from './lotrCard';
 export default LotrCard;

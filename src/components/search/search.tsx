@@ -1,6 +1,5 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import './search.css';
-import { useForm } from 'react-hook-form';
 
 type SearchProps = {
   onSubmit: (newValue: string) => void;
@@ -15,19 +14,23 @@ const Search = (props: SearchProps) => {
 
   return (
     <div className="main_search">
-    <div className="wrapper">
-      <img className="search-icon" />
-      <form  onSubmit={(e: FormEvent) => {e.preventDefault(); props.onSubmit(searchValue)}}>
-      <input
-        className="search"
-        type="text"
-        placeholder="Search..."
-        value={searchValue}
-        onChange={handleChange}
-      />
-      </form>
-      
-    </div>
+      <div className="wrapper">
+        <img className="search-icon" />
+        <form
+          onSubmit={(e: FormEvent) => {
+            e.preventDefault();
+            props.onSubmit(searchValue);
+          }}
+        >
+          <input
+            className="search"
+            type="text"
+            placeholder="Search..."
+            value={searchValue}
+            onChange={handleChange}
+          />
+        </form>
+      </div>
     </div>
   );
 };

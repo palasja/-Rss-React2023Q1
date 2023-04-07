@@ -13,10 +13,12 @@ const Home = () => {
   useEffect(() => {
     setCharacters(null);
     const getCharacters = async () => {
-      const resp = await fetch(`${API.host}/character?name=/^${searchValue}/i`, {headers: API.headers});
-      const arr:LotrResponse  = await resp.json();
+      const resp = await fetch(`${API.host}/character?name=/^${searchValue}/i`, {
+        headers: API.headers,
+      });
+      const arr: LotrResponse = await resp.json();
       setCharacters(arr.docs as Character[]);
-    }
+    };
     getCharacters();
     // setCharacters(null);
   }, [searchValue]);
@@ -24,16 +26,13 @@ const Home = () => {
   const handleSubmit = (value: string) => {
     setSearchValue(value);
     localStorage.setItem('searchValue', value);
-  }
+  };
   return (
     <>
       <Header />
       <main className="main">
-          <Search
-            onSubmit={handleSubmit}
-            curSearchValue={searchValue}
-          />
-          <Cards characters={characters} />
+        <Search onSubmit={handleSubmit} curSearchValue={searchValue} />
+        <Cards characters={characters} />
       </main>
     </>
   );
