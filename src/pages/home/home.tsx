@@ -23,13 +23,11 @@ const Home = () => {
     }
     getCharacters();
     // setCharacters(null);
-    return () => {
-      localStorage.setItem('searchValue', searchValue);
-    };
   }, [searchValue]);
 
   const handleSubmit = (value: string) => {
     setSearchValue(value);
+    localStorage.setItem('searchValue', value);
   }
   return (
     <>
