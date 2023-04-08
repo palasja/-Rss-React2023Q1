@@ -9,14 +9,19 @@ type ModalContentProps = {
 
 const ModalContent = (props: ModalContentProps) => {
   return (
-<>
-<div className="modal" onClick={(e) => {props.onClose()}}>
-
-</div>
+    <>
+      <div
+        className="modal"
+        onClick={() => {
+          props.onClose();
+        }}
+        data-testid="overlay"
+      ></div>
       <div className="modal_content">
-      <div className="close" onClick={props.onClose} ></div>
-      <LotrFullCard characterId={props.charId} />
-    </div></>
+        <button className="close" onClick={props.onClose} data-testid="close_modal"></button>
+        <LotrFullCard characterId={props.charId} />
+      </div>
+    </>
   );
 };
 

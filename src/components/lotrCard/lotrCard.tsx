@@ -12,6 +12,7 @@ const LotrCard = (props: LotrCardProp) => {
   return (
     <div
       className="lotr-card"
+      data-testid="lotr_card"
       onClick={() => {
         props.clickAction(id);
       }}

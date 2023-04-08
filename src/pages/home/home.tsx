@@ -16,14 +16,14 @@ const Home = () => {
       const resp = await fetch(`${API.host}/character?name=/^${searchValue}/i`, {
         headers: API.headers,
       });
-      if(resp.status === 200) {
+      if (resp.status === 200) {
         const arr: LotrResponse = await resp.json();
         setCharacters(arr.docs as Character[]);
-      } else if(resp.status === 429){
-        setErrorAPI("Too Many Requests. That API requirement, try reload page later");
+      } else if (resp.status === 429) {
+        setErrorAPI('Too Many Requests. That API requirement, try reload page later');
       }
     };
-    
+
     getCharacters();
   }, [searchValue]);
 
@@ -36,12 +36,7 @@ const Home = () => {
       <Header />
       <main className="main">
         <Search onSubmit={handleSubmit} curSearchValue={searchValue} />
-        {
-          errorAPI ? 
-          <p className='errorMessge'>{errorAPI}</p>
-          : 
-          <Cards characters={characters} /> 
-        } 
+        {errorAPI ? <p className="errorMessge">{errorAPI}</p> : <Cards characters={characters} />}
       </main>
     </>
   );

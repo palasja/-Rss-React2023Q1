@@ -1,9 +1,10 @@
 import { Item } from '../../types';
+import { Tags, TypeFood } from '../../types/item';
 
 const items: Item[] = [
   {
     id: 1,
-    type: 'drink',
+    type: TypeFood['drink'],
     name: 'Americano',
     cost: 2,
     countPerWeek: 128,
@@ -11,8 +12,8 @@ const items: Item[] = [
     calories: 0,
     img: '../../assets/img/americano.jpg',
     weght: 50,
-    tags: ['<2'],
-    startSell: Date.now(),
+    tags: [Tags['<2']],
+    startSell: new Date(),
   },
   {
     id: 2,

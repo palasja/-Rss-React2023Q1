@@ -20,8 +20,10 @@ const Cards = (props: CardProp) => {
     setshowCharId(id);
   };
 
-  const loader = () => {
-    const content = (i: number) => (
+  const getCardLoader = (): JSX.Element[] => {
+    return Array(8)
+    .fill(null)
+    .map((val, i) => (
       <ContentLoader
         key={i}
         speed={1}
@@ -30,17 +32,17 @@ const Cards = (props: CardProp) => {
         viewBox="0 0 250   160"
         backgroundColor="#431dcd"
         foregroundColor="#0cd3ed"
+        data-testid='cards_loader'
       >
         <rect x="48" y="8" rx="3" ry="3" width="300" height="30" />
         <rect x="48" y="56" rx="3" ry="3" width="300" height="30" />
       </ContentLoader>
-    );
+    ))
+  } ;
 
-    return [content(1), content(2)];
-  };
   return (
     <div className="main_cards">
-      {!characters && loader()}
+      {!characters && getCardLoader()}
       {characters !== null && characters.length == 0 && <h3>No characters with that name</h3>}
       {characters !== null &&
         characters.map((ch) => (

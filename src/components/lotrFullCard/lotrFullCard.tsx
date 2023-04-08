@@ -13,13 +13,12 @@ const LotrFullCard = (props: LotrFullCardProp) => {
   const undefinedInfo = <span className="unknow">Unknown</span>;
   useEffect(() => {
     const fetchData = async () => {
-
       const respChar = await fetch(`${API.host}/character?_id=${props.characterId}`, {
         headers: API.headers,
       });
       const arrChar: LotrResponse = await respChar.json();
       const char = arrChar.docs[0] as Character;
-      
+
       const respQuote = await fetch(`${API.host}/character/${props.characterId}/quote`, {
         headers: API.headers,
       });
@@ -34,28 +33,24 @@ const LotrFullCard = (props: LotrFullCardProp) => {
         const arrMovie: LotrResponse = await respMovie.json();
         movie = arrMovie.docs[0] as Movie;
       }
-      const checkValue = (val:string) => val === 'NaN' ? undefined : val;
+      const checkValue = (val: string) => (val === 'NaN' ? undefined : val);
       const getFullInfo = () => {
         const fullInfo: CardFullInfo = {
           name: char.name,
           race: checkValue(char.race),
-          wikiUrl: '',
-          birth:  checkValue(char.birth),
-          death:  checkValue(char.death),
-          gender:  checkValue(char.gender),
-          hair:  checkValue(char.hair),
-          height:  checkValue(char.height),
-          realm:  checkValue(char.realm),
-          spouse:  checkValue(char.spouse),
+          wikiUrl: char.wikiUrl,
+          birth: checkValue(char.birth),
+          death: checkValue(char.death),
+          gender: checkValue(char.gender),
+          hair: checkValue(char.hair),
+          height: checkValue(char.height),
+          realm: checkValue(char.realm),
+          spouse: checkValue(char.spouse),
           dialog: movie?.name,
           movie: movie?.name,
         };
-        
-        // fullInfo.dialog = quote?.dialog;
-        // fullInfo.movie = movie?.name;
-        // Object.assign(fullInfo, char);
         return fullInfo;
-      }
+      };
 
       setCardInfo(getFullInfo());
     };
@@ -63,24 +58,27 @@ const LotrFullCard = (props: LotrFullCardProp) => {
     fetchData();
   }, [props.characterId]);
   const loader = () => {
-    return <ContentLoader
-    speed={1}
-    width={700}
-    height={260}
-    viewBox="0 0 700 260"
-    backgroundColor="#431dcd"
-    foregroundColor="#0cd3ed"
-  >
-    <rect x="150" y="8" rx="3" ry="3" width="400" height="30" />
-    <rect x="0" y="58" rx="3" ry="3" width="300" height="30" />
-    <rect x="348" y="58" rx="3" ry="3" width="300" height="30" />
-    <rect x="0" y="108" rx="3" ry="3" width="300" height="30" />
-    <rect x="348" y="108" rx="3" ry="3" width="300" height="30" />
-    <rect x="0" y="158" rx="3" ry="3" width="300" height="30" />
-    <rect x="348" y="158" rx="3" ry="3" width="300" height="30" />
-    <rect x="0" y="208" rx="3" ry="3" width="300" height="30" />
-    <rect x="348" y="208" rx="3" ry="3" width="300" height="30" />
-  </ContentLoader>;
+    return (
+      <ContentLoader
+        speed={1}
+        width={700}
+        height={260}
+        viewBox="0 0 700 260"
+        backgroundColor="#431dcd"
+        foregroundColor="#0cd3ed"
+        data-testid="loader"
+      >
+        <rect x="150" y="8" rx="3" ry="3" width="400" height="30" />
+        <rect x="0" y="58" rx="3" ry="3" width="300" height="30" />
+        <rect x="348" y="58" rx="3" ry="3" width="300" height="30" />
+        <rect x="0" y="108" rx="3" ry="3" width="300" height="30" />
+        <rect x="348" y="108" rx="3" ry="3" width="300" height="30" />
+        <rect x="0" y="158" rx="3" ry="3" width="300" height="30" />
+        <rect x="348" y="158" rx="3" ry="3" width="300" height="30" />
+        <rect x="0" y="208" rx="3" ry="3" width="300" height="30" />
+        <rect x="348" y="208" rx="3" ry="3" width="300" height="30" />
+      </ContentLoader>
+    );
   };
 
   return (

@@ -23,6 +23,6 @@ test('card text content', () => {
 test('ml or gm for drink', () => {
   const item = items[0];
   render(<Card item={item} key={items[0].id} />);
-
+  screen.debug();
   expect(screen.getByText(/Weight/i)).toHaveTextContent('ml');
 });
