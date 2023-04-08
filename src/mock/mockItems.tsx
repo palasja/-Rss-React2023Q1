@@ -1,4 +1,4 @@
-import { Character, LotrResponse } from "../types";
+import { LotrResponse } from '../types';
 
 export const SEARCH_AR_VALUES_RESPONSE: LotrResponse = {
   docs: [
@@ -177,7 +177,7 @@ export const SEARCH_AR_VALUES_RESPONSE: LotrResponse = {
   page: 0,
   pages: 0,
   total: 0,
-}
+};
 export const CHARACTER_BY_ID_RESPONSE: LotrResponse = {
   docs: [
     {
@@ -199,5 +199,5 @@ export const CHARACTER_BY_ID_RESPONSE: LotrResponse = {
   page: 0,
   pages: 0,
   total: 0,
-}
-export const TEST_CAHRACTER_ID: string = '5cd99d4bde30eff6ebccfcf9';
+};
+export const TEST_CAHRACTER_ID = '5cd99d4bde30eff6ebccfcf9';
