@@ -4,5 +4,5 @@ import ModalContent from './modalConent';
 
 test('close btn on page', () => {
   render(<ModalContent charId={''} onClose={() => {}} />);
-  expect(screen.getByRole('button')).toBeInTheDocument();
+  expect(screen.getByTestId('close_modal')).toBeInTheDocument();
 });

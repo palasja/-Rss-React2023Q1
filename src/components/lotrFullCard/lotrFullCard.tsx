@@ -3,7 +3,7 @@ import './lotrFullCard.css';
 import { CardFullInfo, Character, LotrResponse, Movie, Quote } from '../../types';
 import React from 'react';
 import API from '../../helper/contsAPI';
-import ContentLoader from 'react-content-loader';
+import { fullCardLoader } from '../../helper/loaders';
 
 type LotrFullCardProp = {
   characterId: string;
@@ -57,34 +57,11 @@ const LotrFullCard = (props: LotrFullCardProp) => {
 
     fetchData();
   }, [props.characterId]);
-  const loader = () => {
-    return (
-      <ContentLoader
-        speed={1}
-        width={700}
-        height={260}
-        viewBox="0 0 700 260"
-        backgroundColor="#431dcd"
-        foregroundColor="#0cd3ed"
-        data-testid="loader"
-      >
-        <rect x="150" y="8" rx="3" ry="3" width="400" height="30" />
-        <rect x="0" y="58" rx="3" ry="3" width="300" height="30" />
-        <rect x="348" y="58" rx="3" ry="3" width="300" height="30" />
-        <rect x="0" y="108" rx="3" ry="3" width="300" height="30" />
-        <rect x="348" y="108" rx="3" ry="3" width="300" height="30" />
-        <rect x="0" y="158" rx="3" ry="3" width="300" height="30" />
-        <rect x="348" y="158" rx="3" ry="3" width="300" height="30" />
-        <rect x="0" y="208" rx="3" ry="3" width="300" height="30" />
-        <rect x="348" y="208" rx="3" ry="3" width="300" height="30" />
-      </ContentLoader>
-    );
-  };
 
   return (
     <div>
       <div className="full-info">
-        {!cardInfo && loader()}
+        {!cardInfo && fullCardLoader}
         {cardInfo && (
           <>
             <a className="full-info_name" href={cardInfo.wikiUrl}>

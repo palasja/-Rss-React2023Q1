@@ -6,11 +6,7 @@ test('prop searchvalue in searchbar', () => {
   const testValue = 'Test';
   render(
     <Search
-      onChange={function (newValue: string): void {
-        throw new Error(`Function not implemented. ${newValue}`);
-      }}
-      curSearchValue={testValue}
-    />
+      curSearchValue={testValue} onSubmit={() => {}} />
   );
 
   expect(screen.getByPlaceholderText(/search/i)).toHaveDisplayValue(testValue);

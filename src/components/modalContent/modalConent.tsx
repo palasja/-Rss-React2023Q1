@@ -18,7 +18,7 @@ const ModalContent = (props: ModalContentProps) => {
         data-testid="overlay"
       ></div>
       <div className="modal_content">
-        <button className="close" onClick={props.onClose} data-testid="close_modal"></button>
+        <div className="close" onClick={props.onClose} data-testid="close_modal"></div>
         <LotrFullCard characterId={props.charId} />
       </div>
     </>
