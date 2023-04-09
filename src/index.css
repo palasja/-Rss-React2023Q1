@@ -1,0 +1,33 @@
+html,
+body {
+  scroll-behavior: smooth;
+  height: 100%;
+  max-width: 1920px;
+  min-width: 1400px;
+  margin: 0 auto !important;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 100px;
+}
+
+a{
+  text-decoration: none;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  flex: 1 0 auto;
+  background-color: #e4f2f5;
+}
+.footer {
+  flex: 0 0 auto;
+}
+

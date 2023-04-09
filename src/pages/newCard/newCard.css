@@ -1,0 +1,32 @@
+.main-new-card{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  
+  margin: 40px;
+}
+
+.main-new-card__form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.main-new-card__cards{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 15px;
+  justify-items: center;
+  margin-top: 40px;
+  width: 80%;
+}
+
+.main-new-card__modal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 50px;
+  z-index: 1000;
+}
