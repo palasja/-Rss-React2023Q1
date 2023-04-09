@@ -1,5 +1,6 @@
 import React from 'react';
 import './lotrCard.css';
+import { checkNaNValue } from '../../helper/helpers';
 type LotrCardProp = {
   id: string;
   name: string;
@@ -19,7 +20,7 @@ const LotrCard = (props: LotrCardProp) => {
     >
       <h3 className="lotr-card_name">{name} </h3>
       <a href={wikiUrl}>LOTR Wiki</a>
-      <p>Race: {race === 'NaN' ? 'Unknown' : race}</p>
+      <p>Race: {checkNaNValue(race)}</p>
     </div>
   );
 };

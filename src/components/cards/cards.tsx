@@ -23,11 +23,7 @@ const Cards = (props: CardProp) => {
   const getCardLoader = (): JSX.Element[] => {
     return Array(8)
       .fill(cardLoader)
-      .map((val, i) => (
-        <div key={i}>
-          {val}
-        </div>
-      ));
+      .map((val, i) => <div key={i}>{val}</div>);
   };
 
   return (

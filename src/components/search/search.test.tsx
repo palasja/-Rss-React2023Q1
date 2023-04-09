@@ -4,10 +4,7 @@ import Search from './search';
 
 test('prop searchvalue in searchbar', () => {
   const testValue = 'Test';
-  render(
-    <Search
-      curSearchValue={testValue} onSubmit={() => {}} />
-  );
+  render(<Search curSearchValue={testValue} onSubmit={() => {}} />);
 
   expect(screen.getByPlaceholderText(/search/i)).toHaveDisplayValue(testValue);
 });

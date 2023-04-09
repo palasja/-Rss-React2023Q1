@@ -5,7 +5,7 @@ import Search from '../../components/search';
 import Header from '../../components/header';
 import Cards from '../../components/cards/cards';
 import API from '../../helper/contsAPI';
-import { getFetchData } from '../../helper/fetchData';
+import { getFetchData } from '../../helper/helpers';
 
 const Home = () => {
   const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
@@ -14,10 +14,12 @@ const Home = () => {
   useEffect(() => {
     setCharacters(null);
     const getCharacters = async () => {
-      try{
-        const data = await getFetchData(`${API.host}/character?name=/^${searchValue}/i`) as Character[] ;
+      try {
+        const data = (await getFetchData(
+          `${API.host}/character?name=/^${searchValue}/i`
+        )) as Character[];
         setCharacters(data);
-      } catch(e){
+      } catch (e) {
         setErrorResponse(e.message);
       }
     };
@@ -34,7 +36,11 @@ const Home = () => {
       <Header />
       <main className="main">
         <Search onSubmit={handleSubmit} curSearchValue={searchValue} />
-        {errorResponse ? <p className="errorMessge">{errorResponse}</p> : <Cards characters={characters} />}
+        {errorResponse ? (
+          <p className="errorMessge">{errorResponse}</p>
+        ) : (
+          <Cards characters={characters} />
+        )}
       </main>
     </>
   );
