@@ -42,7 +42,7 @@ const LotrFullCard = (props: LotrFullCardProp) => {
           height: checkNaNValue(char.height),
           realm: checkNaNValue(char.realm),
           spouse: checkNaNValue(char.spouse),
-          dialog: movie?.name,
+          dialog: quote?.dialog,
           movie: movie?.name,
         });
       } catch (e) {
