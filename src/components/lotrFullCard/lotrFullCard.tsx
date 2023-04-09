@@ -67,9 +67,9 @@ const LotrFullCard = (props: LotrFullCardProp) => {
                   {cardInfo.name}
                 </a>
                 <div className="full-info_detail">
-                  <p>Race: {cardInfo.race || undefinedInfo}</p>
                   <p>Birth Date: {cardInfo.birth || undefinedInfo}</p>
                   <p>Death Date: {cardInfo.death || undefinedInfo}</p>
+                  <p>Race: {cardInfo.race || undefinedInfo}</p>
                   <p>Gender: {cardInfo.gender || undefinedInfo}</p>
                   <p>Hair: {cardInfo.hair || undefinedInfo}</p>
                   <p>Heght: {cardInfo.height || undefinedInfo}</p>
