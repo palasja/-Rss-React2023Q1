@@ -28,8 +28,8 @@ const Home = () => {
   }, [searchValue]);
 
   const handleSubmit = (value: string) => {
-    setSearchValue(value);
-    localStorage.setItem('searchValue', value);
+    setSearchValue(value.trim());
+    localStorage.setItem('searchValue', value.trim());
   };
   return (
     <>
