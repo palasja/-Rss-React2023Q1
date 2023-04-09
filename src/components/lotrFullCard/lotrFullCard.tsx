@@ -4,55 +4,51 @@ import { CardFullInfo, Character, LotrResponse, Movie, Quote } from '../../types
 import React from 'react';
 import API from '../../helper/contsAPI';
 import { fullCardLoader } from '../../helper/loaders';
+import { getFetchData } from '../../helper/fetchData';
 
 type LotrFullCardProp = {
   characterId: string;
 };
 const LotrFullCard = (props: LotrFullCardProp) => {
   const [cardInfo, setCardInfo] = useState<CardFullInfo | null>(null);
+  const [errorResponse, setErrorResponse] = useState<string | null>(null);
   const undefinedInfo = <span className="unknow">Unknown</span>;
   useEffect(() => {
     const fetchData = async () => {
-      const respChar = await fetch(`${API.host}/character?_id=${props.characterId}`, {
-        headers: API.headers,
-      });
-      const arrChar: LotrResponse = await respChar.json();
-      const char = arrChar.docs[0] as Character;
+     try {
+      const arrCharacter = await getFetchData(`${API.host}/character?_id=${props.characterId}`);
+      const char = arrCharacter[0] as Character;
 
-      const respQuote = await fetch(`${API.host}/character/${props.characterId}/quote`, {
-        headers: API.headers,
-      });
-      const arrQoute: LotrResponse = await respQuote.json();
+      const arrQuote = await getFetchData(`${API.host}/character/${props.characterId}/quote`);
       const quote =
-        arrQoute.docs.length === 0
+      arrQuote.length === 0
           ? null
-          : (arrQoute.docs[Math.floor(Math.random() * arrQoute.docs.length)] as Quote);
+          : (arrQuote[Math.floor(Math.random() * arrQuote.length)] as Quote);
+
       let movie: Movie | undefined = undefined;
       if (quote) {
-        const respMovie = await fetch(`${API.host}/movie/${quote.movie}`, { headers: API.headers });
-        const arrMovie: LotrResponse = await respMovie.json();
-        movie = arrMovie.docs[0] as Movie;
+        const arrMovie = await getFetchData(`${API.host}/movie/${quote.movie}`);
+        movie = arrMovie[0] as Movie;
       }
       const checkValue = (val: string) => (val === 'NaN' ? undefined : val);
-      const getFullInfo = () => {
-        const fullInfo: CardFullInfo = {
-          name: char.name,
-          race: checkValue(char.race),
-          wikiUrl: char.wikiUrl,
-          birth: checkValue(char.birth),
-          death: checkValue(char.death),
-          gender: checkValue(char.gender),
-          hair: checkValue(char.hair),
-          height: checkValue(char.height),
-          realm: checkValue(char.realm),
-          spouse: checkValue(char.spouse),
-          dialog: movie?.name,
-          movie: movie?.name,
-        };
-        return fullInfo;
-      };
 
-      setCardInfo(getFullInfo());
+      setCardInfo({
+        name: char.name,
+        race: checkValue(char.race),
+        wikiUrl: char.wikiUrl,
+        birth: checkValue(char.birth),
+        death: checkValue(char.death),
+        gender: checkValue(char.gender),
+        hair: checkValue(char.hair),
+        height: checkValue(char.height),
+        realm: checkValue(char.realm),
+        spouse: checkValue(char.spouse),
+        dialog: movie?.name,
+        movie: movie?.name,
+      })
+     } catch(e) {
+      setErrorResponse(e.message);
+     }
     };
 
     fetchData();
@@ -61,6 +57,8 @@ const LotrFullCard = (props: LotrFullCardProp) => {
   return (
     <div>
       <div className="full-info">
+      {errorResponse ? <p className="errorMessge">{errorResponse}</p> : 
+        <>
         {!cardInfo && fullCardLoader}
         {cardInfo && (
           <>
@@ -86,6 +84,8 @@ const LotrFullCard = (props: LotrFullCardProp) => {
             )}
           </>
         )}
+        </>
+      }
       </div>
     </div>
   );

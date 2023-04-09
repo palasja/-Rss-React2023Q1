@@ -27,15 +27,14 @@ const Cards = (props: CardProp) => {
         <div key={i}>
           {val}
         </div>
-
       ));
   };
 
   return (
     <div className="main_cards">
       {!characters && getCardLoader()}
-      {characters !== null && characters.length == 0 && <h3>No characters with that name</h3>}
-      {characters !== null &&
+      {characters && characters.length == 0 && <h3>No characters with that name</h3>}
+      {characters &&
         characters.map((ch) => (
           <LotrCard
             key={ch._id}
