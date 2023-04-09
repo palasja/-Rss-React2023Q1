@@ -29,6 +29,7 @@ const Home = () => {
 
   const handleSubmit = (value: string) => {
     setSearchValue(value.trim());
+    setErrorResponse(null);
     localStorage.setItem('searchValue', value.trim());
   };
   return (
