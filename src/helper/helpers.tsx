@@ -9,7 +9,7 @@ export const getFetchData = async (link: string): Promise<Character[] | Quote[] 
     data = arrChar.docs;
   } else if (resp.status === 429) {
     throw new Error('Too Many Requests. That API requirement, try reload page later');
-  } else if (resp.status === 500){
+  } else if (resp.status === 500) {
     throw new Error('Internal Server Error, try reload page later');
   }
   return data;
