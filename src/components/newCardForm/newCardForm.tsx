@@ -1,26 +1,16 @@
-import React, { BaseSyntheticEvent } from 'react';
+import React, { BaseSyntheticEvent, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Item } from '../../types';
-import { Tags, TypeFood } from '../../types/item';
+import { FormValues, Tags, TypeFood } from '../../types/item';
 import { InputField, SelectField, CheckboxField, RadioButtonField } from '../formComponents';
 import './newCardForm.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { caloriesInput, costInput, nameInput, weightInput } from '../../formSlice';
 
 type NewCardFormProp = {
   newCardId: number;
   saveCard: (i: Item) => void;
   confirmAction: (show: boolean) => void;
-};
-
-type FormValues = {
-  name: string;
-  image: FileList;
-  cost: number;
-  startDate: Date;
-  weight: number;
-  calories: number;
-  startRating: number;
-  type: TypeFood;
-  tags: Tags[];
 };
 
 const NewCardForm = (props: NewCardFormProp) => {
@@ -29,36 +19,53 @@ const NewCardForm = (props: NewCardFormProp) => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FormValues>();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    return () => {
+      dispatch(nameInput(getValues().name));
+      dispatch(costInput(getValues().cost));
+      dispatch(weightInput(getValues().weight));
+      dispatch(caloriesInput(getValues().calories));
+    }
+  }, []);
+  const nameVal = useSelector((state: FormValues) => state.name);
+  const costVal = useSelector((state: FormValues) => state.cost);
+  const weigthVal = useSelector((state: FormValues) => state.weight);
+  const caloriesVal = useSelector((state: FormValues) => state.calories);
+
   const getEnumValues = <T,>(arr: string[] | T[]): string[] => {
     const enumValues = arr.slice(0, arr.length / 2);
     return enumValues.map((val) => `${val}`);
   };
+
   const getRatingValues = () => {
     return [...Array(MAX_RATING)].map((v, i) => `${i + 1}`);
   };
 
   const submitAction = async (data: FormValues, e: BaseSyntheticEvent | undefined) => {
-    const newItem: Item = {
-      id: props.newCardId,
-      type: data.type,
-      name: data.name,
-      cost: data.cost,
-      countPerWeek: 0,
-      rating: data.startRating,
-      calories: data.calories,
-      img: URL.createObjectURL(data.image[0]),
-      weght: data.weight,
-      tags: data.tags,
-      startSell: data.startDate,
-    };
-    props.confirmAction(true);
-    setTimeout(() => {
-      props.confirmAction(false);
-      props.saveCard(newItem);
-      e?.target.reset();
-    }, 1000);
+    // const newItem: Item = {
+    //   // id: props.newCardId,
+    //   // type: data.type,
+    //   name: data.name,
+    //   // cost: data.cost,
+    //   // countPerWeek: 0,
+    //   // rating: data.startRating,
+    //   // calories: data.calories,
+    //   // img: URL.createObjectURL(data.image[0]),
+    //   // weght: data.weight,
+    //   // tags: data.tags,
+    //   // startSell: data.startDate,
+    // };
+    // props.confirmAction(true);
+    // setTimeout(() => {
+    //   props.confirmAction(false);
+    //   props.saveCard(newItem);
+    //   e?.target.reset();
+    // }, 1000);
   };
 
   return (
@@ -67,12 +74,13 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Name"
         type="text"
         refProp={register('name', {
+          value:nameVal,
           required: 'Cost has to be filled',
           pattern: { value: /^[A-Z]/, message: 'First letter mus be uppercase' },
         })}
         error={errors.name}
       />
-
+{/* 
       <InputField
         labelProp="Image (jpg)"
         type="file"
@@ -85,18 +93,19 @@ const NewCardForm = (props: NewCardFormProp) => {
           },
         })}
         error={errors.image}
-      />
+      />*/}
       <InputField
         labelProp="Cost"
         type="number"
         refProp={register('cost', {
+          value:costVal,
           required: 'Cost has to be filled',
           min: { value: 0.1, message: 'Cost has to be more than 0' },
           max: { value: 20, message: 'Cost so mutch recheck value cost' },
         })}
         error={errors.cost}
       />
-      <InputField
+      {/* <InputField
         labelProp="Start Sale"
         type="date"
         refProp={register('startDate', {
@@ -105,30 +114,31 @@ const NewCardForm = (props: NewCardFormProp) => {
           min: { value: CUR_DATE, message: 'Start sale has to be begins tomorrow at least' },
         })}
         error={errors.startDate}
-      />
-      <SelectField
+      /> */}
+      {/* <SelectField
         labelProp="Start rating"
         values={getRatingValues()}
         defaultValue=""
         refProp={register('startRating', { required: 'Rating has to be chosen' })}
         error={errors.startRating}
-      />
-      <CheckboxField
+      /> */}
+      {/* <CheckboxField
         legendProp="Tags"
         values={getEnumValues(Object.values(Tags))}
         refProp={register('tags', { required: 'Need to choose one tag at least' })}
         error={errors.tags}
-      />
-      <RadioButtonField
+      /> */}
+      {/* <RadioButtonField
         legendProp="Type"
         values={getEnumValues(Object.values(TypeFood))}
         refProp={register('type', { required: 'Type has to be chosen' })}
         error={errors.type}
-      />
+      /> */}
       <InputField
         labelProp="Weight"
         type="number"
         refProp={register('weight', {
+          value: weigthVal,
           required: 'Weight has to be filled',
           min: { value: 1, message: 'Weight has to be more 0' },
         })}
@@ -137,9 +147,11 @@ const NewCardForm = (props: NewCardFormProp) => {
       <InputField
         labelProp="Calories"
         type="number"
-        refProp={register('calories', { required: 'Calories has to be filled' })}
+        refProp={register('calories', { 
+          value: caloriesVal,
+          required: 'Calories has to be filled' })}
         error={errors.calories}
-      />
+      /> 
       <button className="new-card-form__submit" type="submit">
         Sent
       </button>

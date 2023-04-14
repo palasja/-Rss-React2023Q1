@@ -9,29 +9,29 @@ enum Tags {
   'delivery',
 }
 type Item = {
-  id: number;
-  type: TypeFood;
+  // id: number;
+  // type: TypeFood;
   name: string;
   cost: number;
-  countPerWeek: number;
-  rating: number;
+//   countPerWeek: number;
+//   rating: number;
   calories: number;
-  img: string;
-  weght: number;
-  tags: Tags[];
-  startSell: Date;
+//   img: string;
+weight: number;
+//   tags: Tags[];
+//   startSell: Date;
 };
 
 type FormValues = {
   name: string;
-  image: FileList;
+  // image: FileList;
   cost: number;
-  startDate: Date;
+  // startDate: Date;
   weight: number;
   calories: number;
-  startRating: number;
-  type: TypeFood;
-  tags: Tags[];
+  // startRating: number;
+  // type: TypeFood;
+  // tags: Tags[];
 };
 
 export { Item, TypeFood, Tags, FormValues };
