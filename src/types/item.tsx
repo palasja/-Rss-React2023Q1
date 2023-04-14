@@ -22,4 +22,16 @@ type Item = {
   startSell: Date;
 };
 
-export { Item, TypeFood, Tags };
+type FormValues = {
+  name: string;
+  image: FileList;
+  cost: number;
+  startDate: Date;
+  weight: number;
+  calories: number;
+  startRating: number;
+  type: TypeFood;
+  tags: Tags[];
+};
+
+export { Item, TypeFood, Tags, FormValues };
