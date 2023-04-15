@@ -5,7 +5,16 @@ import { FormValues, Tags, TypeFood } from '../../types/item';
 import { InputField, SelectField, CheckboxField, RadioButtonField } from '../formComponents';
 import './newCardForm.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { caloriesInput, costInput, nameInput, weightInput } from '../../formSlice';
+import {
+  caloriesInput,
+  costInput,
+  nameInput,
+  startDateInput,
+  startRatingInput,
+  tagsInput,
+  typeInput,
+  weightInput,
+} from '../../formSlice';
 
 type NewCardFormProp = {
   newCardId: number;
@@ -30,16 +39,39 @@ const NewCardForm = (props: NewCardFormProp) => {
       dispatch(costInput(getValues().cost));
       dispatch(weightInput(getValues().weight));
       dispatch(caloriesInput(getValues().calories));
-    }
+      dispatch(startRatingInput(getValues().startRating));
+      dispatch(typeInput(getValues().type));
+      dispatch(tagsInput(getValues().tags));
+       dispatch(startDateInput(new Date(getValues().startDate).toISOString().slice(0,10)));
+    };
   }, []);
   const nameVal = useSelector((state: FormValues) => state.name);
   const costVal = useSelector((state: FormValues) => state.cost);
   const weigthVal = useSelector((state: FormValues) => state.weight);
   const caloriesVal = useSelector((state: FormValues) => state.calories);
+  const startRatingVal = useSelector((state: FormValues) => state.startRating);
+  const typeVal = useSelector((state: FormValues) => state.type);
+  const tagsVal = useSelector((state: FormValues) => state.tags);
+  const startDateVal = useSelector((state: FormValues) => new Date(state.startDate).toISOString().slice(0,10));
 
   const getEnumValues = <T,>(arr: string[] | T[]): string[] => {
     const enumValues = arr.slice(0, arr.length / 2);
     return enumValues.map((val) => `${val}`);
+  };
+
+  const getTypeData = (): { values: string[]; choosen: string | undefined } => {
+    const arr = getEnumValues(Object.values(TypeFood));
+    return { values: arr, choosen: typeVal?.toString() };
+  };
+
+  const getTagsData = (): { value: string; choosen: boolean }[] => {
+    const arr = getEnumValues(Object.values(Tags));
+    return arr.map((val) => {
+      return {
+        value: val,
+        choosen: [...tagsVal].some((v) => v == Tags[val]),
+      };
+    });
   };
 
   const getRatingValues = () => {
@@ -74,13 +106,13 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Name"
         type="text"
         refProp={register('name', {
-          value:nameVal,
+          value: nameVal,
           required: 'Cost has to be filled',
           pattern: { value: /^[A-Z]/, message: 'First letter mus be uppercase' },
         })}
         error={errors.name}
       />
-{/* 
+      {/* 
       <InputField
         labelProp="Image (jpg)"
         type="file"
@@ -98,42 +130,46 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Cost"
         type="number"
         refProp={register('cost', {
-          value:costVal,
+          value: costVal,
           required: 'Cost has to be filled',
           min: { value: 0.1, message: 'Cost has to be more than 0' },
           max: { value: 20, message: 'Cost so mutch recheck value cost' },
         })}
         error={errors.cost}
       />
-      {/* <InputField
+      <InputField
         labelProp="Start Sale"
         type="date"
         refProp={register('startDate', {
+          value: startDateVal,
           required: 'Start sale has to be in field',
           valueAsDate: true,
           min: { value: CUR_DATE, message: 'Start sale has to be begins tomorrow at least' },
         })}
         error={errors.startDate}
-      /> */}
-      {/* <SelectField
+      />
+      <SelectField
         labelProp="Start rating"
         values={getRatingValues()}
         defaultValue=""
-        refProp={register('startRating', { required: 'Rating has to be chosen' })}
+        refProp={register('startRating', {
+          value: startRatingVal,
+          required: 'Rating has to be chosen',
+        })}
         error={errors.startRating}
-      /> */}
-      {/* <CheckboxField
+      />
+      <CheckboxField
         legendProp="Tags"
-        values={getEnumValues(Object.values(Tags))}
+        data={getTagsData()}
         refProp={register('tags', { required: 'Need to choose one tag at least' })}
         error={errors.tags}
-      /> */}
-      {/* <RadioButtonField
+      />
+      <RadioButtonField
         legendProp="Type"
-        values={getEnumValues(Object.values(TypeFood))}
+        data={getTypeData()}
         refProp={register('type', { required: 'Type has to be chosen' })}
         error={errors.type}
-      /> */}
+      />
       <InputField
         labelProp="Weight"
         type="number"
@@ -147,11 +183,12 @@ const NewCardForm = (props: NewCardFormProp) => {
       <InputField
         labelProp="Calories"
         type="number"
-        refProp={register('calories', { 
+        refProp={register('calories', {
           value: caloriesVal,
-          required: 'Calories has to be filled' })}
+          required: 'Calories has to be filled',
+        })}
         error={errors.calories}
-      /> 
+      />
       <button className="new-card-form__submit" type="submit">
         Sent
       </button>

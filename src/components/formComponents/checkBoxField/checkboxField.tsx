@@ -3,7 +3,7 @@ import { UseFormRegisterReturn, FieldError, Merge } from 'react-hook-form';
 import ErrorMessage from '../errorMessage/errorMessge';
 type CheckboxProp = {
   legendProp: string;
-  values: string[];
+  data: { value: string; choosen: boolean | undefined }[];
   refProp: UseFormRegisterReturn;
   error: Merge<FieldError, (FieldError | undefined)[]> | undefined;
 };
@@ -11,11 +11,15 @@ const CheckboxField = (props: CheckboxProp) => {
   return (
     <fieldset data-testid={props.legendProp}>
       <legend>{props.legendProp}</legend>
-      {props.values.map((el, i) => (
+      {props.data.map((el, i) => (
         <div key={i}>
           <label>
-            {el}
-            <input type="checkbox" value={el} {...props.refProp} key={i} />
+            {el.value}
+            {el.choosen === true ? (
+              <input type="checkbox" value={el.value} {...props.refProp} key={i} checked />
+            ) : (
+              <input type="checkbox" value={el.value} {...props.refProp} key={i} />
+            )}
           </label>
         </div>
       ))}
