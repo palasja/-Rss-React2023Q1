@@ -16,7 +16,7 @@ type Item = {
   //   countPerWeek: number;
   rating: number;
   calories: number;
-  //   img: string;
+  img: string;
   weight: number;
   tags: Tags[];
   startSell: Date;
@@ -24,7 +24,7 @@ type Item = {
 
 type FormValues = {
   name: string;
-  // image: FileList;
+  image: FileList | null;
   cost: number;
   startDate: string;
   weight: number;

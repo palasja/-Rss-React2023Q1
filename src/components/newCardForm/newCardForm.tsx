@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   caloriesInput,
   costInput,
+  imageInput,
   nameInput,
   startDateInput,
   startRatingInput,
@@ -15,6 +16,7 @@ import {
   typeInput,
   weightInput,
 } from '../../formSlice';
+import ErrorMessage from '../formComponents/errorMessage/errorMessge';
 
 type NewCardFormProp = {
   newCardId: number;
@@ -42,7 +44,8 @@ const NewCardForm = (props: NewCardFormProp) => {
       dispatch(startRatingInput(getValues().startRating));
       dispatch(typeInput(getValues().type));
       dispatch(tagsInput(getValues().tags));
-       dispatch(startDateInput(new Date(getValues().startDate).toISOString().slice(0,10)));
+      dispatch(startDateInput(getValues().startDate.length === 0 ? '' : new Date(getValues().startDate).toISOString().slice(0,10)));
+      // dispatch(imageInput(URL.createObjectURL(getValues().image[0])));
     };
   }, []);
   const nameVal = useSelector((state: FormValues) => state.name);
@@ -52,8 +55,8 @@ const NewCardForm = (props: NewCardFormProp) => {
   const startRatingVal = useSelector((state: FormValues) => state.startRating);
   const typeVal = useSelector((state: FormValues) => state.type);
   const tagsVal = useSelector((state: FormValues) => state.tags);
-  const startDateVal = useSelector((state: FormValues) => new Date(state.startDate).toISOString().slice(0,10));
-
+  const startDateVal = useSelector((state: FormValues) => state.startDate.length === 0 ? '' : new Date(state.startDate).toISOString().slice(0,10));
+  const imageVal = useSelector((state: FormValues) => state.image);
   const getEnumValues = <T,>(arr: string[] | T[]): string[] => {
     const enumValues = arr.slice(0, arr.length / 2);
     return enumValues.map((val) => `${val}`);
@@ -112,7 +115,6 @@ const NewCardForm = (props: NewCardFormProp) => {
         })}
         error={errors.name}
       />
-      {/* 
       <InputField
         labelProp="Image (jpg)"
         type="file"
@@ -120,12 +122,12 @@ const NewCardForm = (props: NewCardFormProp) => {
           required: 'Image has to be filled',
           validate: {
             ch: (value) => {
-              return /\.jpg$/.test(value[0].name) || 'Format image has to be jpg';
+              return (value ? /\.jpg$/.test(value[0].name) : null) || 'Format image has to be jpg';
             },
           },
         })}
         error={errors.image}
-      />*/}
+      />
       <InputField
         labelProp="Cost"
         type="number"

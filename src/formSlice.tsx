@@ -9,7 +9,7 @@ const newItem: FormValues = {
   // countPerWeek: 0,
   startRating: 0,
   calories: 0,
-  // img: URL.createObjectURL(data.image[0]),
+  image: null,
   weight: 0,
   tags: [],
   startDate: new Date(Date.now()).toISOString().slice(0,10),
@@ -45,7 +45,9 @@ const formSlice = createSlice({
     startDateInput: (state, action) => {
       state.startDate = action.payload;
     },
-
+    imageInput: (state, action) => {
+      state.image = action.payload;
+    },
   },
 });
 
@@ -60,4 +62,5 @@ export const {
   typeInput,
   tagsInput,
   startDateInput,
+  imageInput
 } = formSlice.actions;
