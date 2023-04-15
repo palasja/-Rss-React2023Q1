@@ -1,13 +1,15 @@
 import React, { FormEvent, useState } from 'react';
 import './search.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { LotrPageInfo } from '../../types/lotr';
+import { seachValueLotr } from '../../lotrInfoSlice';
 
 type SearchProps = {
-  onSubmit: (newValue: string) => void;
   curSearchValue: string;
 };
 const Search = (props: SearchProps) => {
   const [searchValue, setSearchValue] = useState(props.curSearchValue);
-
+  const dispatch = useDispatch();
   const handleChange = (e: FormEvent<HTMLInputElement>): void => {
     setSearchValue(e.currentTarget.value);
   };
@@ -19,7 +21,7 @@ const Search = (props: SearchProps) => {
         <form
           onSubmit={(e: FormEvent) => {
             e.preventDefault();
-            props.onSubmit(searchValue);
+            dispatch(seachValueLotr(searchValue))
           }}
         >
           <input

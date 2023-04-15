@@ -5,15 +5,13 @@ import { Character } from '../../types';
 import { createPortal } from 'react-dom';
 import ModalContent from '../modalContent';
 import { cardLoader } from '../../helper/loaders';
+import { useSelector } from 'react-redux';
+import { LotrPageInfo } from '../../types/lotr';
 
-type CardProp = {
-  characters: Character[] | null;
-};
-
-const Cards = (props: CardProp) => {
+const Cards = () => {
   const [showModal, setShowModal] = useState(false);
   const [showCharId, setshowCharId] = useState('');
-  const { characters } = props;
+  const characters = useSelector((state: LotrPageInfo) => state.characters)
 
   const onShow = (id: string) => {
     setShowModal(true);

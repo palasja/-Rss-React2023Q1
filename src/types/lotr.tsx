@@ -51,4 +51,11 @@ type LotrResponse = {
   pages: number;
   total: number;
 };
-export { Character, Quote, Movie, LotrResponse, CardFullInfo };
+
+type LotrPageInfo = {
+  searchValue: string,
+  characters: Character[],
+  fullInfo: CardFullInfo | null
+}
+
+export { Character, Quote, Movie, LotrResponse, CardFullInfo, LotrPageInfo };

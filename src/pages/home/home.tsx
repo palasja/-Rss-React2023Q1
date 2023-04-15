@@ -6,19 +6,22 @@ import Header from '../../components/header';
 import Cards from '../../components/cards/cards';
 import API from '../../helper/contsAPI';
 import { getFetchData } from '../../helper/helpers';
+import { useDispatch, useSelector } from 'react-redux';
+import { charactersLoad, seachValueLotr } from '../../lotrInfoSlice';
+import { LotrPageInfo } from '../../types/lotr';
 
 const Home = () => {
-  const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
-  const [characters, setCharacters] = useState<Character[] | null>(null);
+  const dispatch = useDispatch();
+  const searchValue = useSelector((state: LotrPageInfo) => state.searchValue)
   const [errorResponse, setErrorResponse] = useState<string | null>(null);
   useEffect(() => {
-    setCharacters(null);
+    dispatch(charactersLoad(null))
     const getCharacters = async () => {
       try {
         const data = (await getFetchData(
           `${API.host}/character?name=/^${searchValue}/i`
         )) as Character[];
-        setCharacters(data);
+        dispatch(charactersLoad(data))
       } catch (e) {
         setErrorResponse(e.message);
       }
@@ -27,20 +30,15 @@ const Home = () => {
     getCharacters();
   }, [searchValue]);
 
-  const handleSubmit = (value: string) => {
-    setSearchValue(value.trim());
-    setErrorResponse(null);
-    localStorage.setItem('searchValue', value.trim());
-  };
   return (
     <>
       <Header />
       <main className="main">
-        <Search onSubmit={handleSubmit} curSearchValue={searchValue} />
+        <Search curSearchValue={searchValue} />
         {errorResponse ? (
           <p className="errorMessge">{errorResponse}</p>
         ) : (
-          <Cards characters={characters} />
+          <Cards />
         )}
       </main>
     </>

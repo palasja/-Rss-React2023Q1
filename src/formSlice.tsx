@@ -51,7 +51,7 @@ const formSlice = createSlice({
   },
 });
 
-export default formSlice;
+export default formSlice.reducer;
 
 export const {
   nameInput,

@@ -16,7 +16,7 @@ import {
   typeInput,
   weightInput,
 } from '../../formSlice';
-import ErrorMessage from '../formComponents/errorMessage/errorMessge';
+
 
 type NewCardFormProp = {
   newCardId: number;
@@ -55,7 +55,7 @@ const NewCardForm = (props: NewCardFormProp) => {
   const startRatingVal = useSelector((state: FormValues) => state.startRating);
   const typeVal = useSelector((state: FormValues) => state.type);
   const tagsVal = useSelector((state: FormValues) => state.tags);
-  const startDateVal = useSelector((state: FormValues) => state.startDate.length === 0 ? '' : new Date(state.startDate).toISOString().slice(0,10));
+  const startDateVal = useSelector((state: FormValues) => state.startDate === undefined || state.startDate.length === 0 ? '' : new Date(state.startDate).toISOString().slice(0,10));
   const imageVal = useSelector((state: FormValues) => state.image);
   const getEnumValues = <T,>(arr: string[] | T[]): string[] => {
     const enumValues = arr.slice(0, arr.length / 2);
