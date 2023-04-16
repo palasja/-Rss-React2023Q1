@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LotrPageInfo } from "./types/lotr";
 
 const lotrInfoInit:LotrPageInfo = {
-  searchValue: '',
+  searchValue: ' ',
   characters: [],
   fullInfo: null
 }

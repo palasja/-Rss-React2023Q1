@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import './lotrFullCard.css';
-import { CardFullInfo, Character, Movie, Quote } from '../../types';
+import { CardFullInfo, Quote } from '../../types';
 import React from 'react';
-import API from '../../helper/contsAPI';
 import { fullCardLoader } from '../../helper/loaders';
-import { checkNaNValue, getFetchData } from '../../helper/helpers';
+import {  checkNaNValue } from '../../helper/helpers';
+import { useLazyGetCharactersByIdQuery, useLazyGetMovieByQuoteQuery, useLazyGetQuotesByCharacterIdQuery } from '../../apiSlice';
 
 type LotrFullCardProp = {
   characterId: string;
@@ -12,47 +12,52 @@ type LotrFullCardProp = {
 const LotrFullCard = (props: LotrFullCardProp) => {
   const [cardInfo, setCardInfo] = useState<CardFullInfo | null>(null);
   const [errorResponse, setErrorResponse] = useState<string | null>(null);
+  const [getCharacter] = useLazyGetCharactersByIdQuery();
+  const [getQuotes] = useLazyGetQuotesByCharacterIdQuery();
+  const [getMovie] = useLazyGetMovieByQuoteQuery();
   const undefinedInfo = <span className="unknow">Unknown</span>;
+  const fullInfoInit: CardFullInfo = {
+    name: '',
+    race: undefined,
+    wikiUrl: '',
+    birth: undefined,
+    death: undefined,
+    gender: undefined,
+    hair: undefined,
+    height: undefined,
+    realm: undefined,
+    spouse: undefined,
+    dialog: undefined,
+    movie: undefined
+  }
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const arrCharacter = await getFetchData(`${API.host}/character?_id=${props.characterId}`);
-        const char = arrCharacter[0] as Character;
-
-        const arrQuote = await getFetchData(`${API.host}/character/${props.characterId}/quote`);
-        const quote =
-          arrQuote.length === 0
-            ? null
-            : (arrQuote[Math.floor(Math.random() * arrQuote.length)] as Quote);
-
-        let movie: Movie | undefined = undefined;
-        if (quote) {
-          const arrMovie = await getFetchData(`${API.host}/movie/${quote.movie}`);
-          movie = arrMovie[0] as Movie;
-        }
-
-        setCardInfo({
-          name: char.name,
-          race: checkNaNValue(char.race),
-          wikiUrl: char.wikiUrl,
-          birth: checkNaNValue(char.birth),
-          death: checkNaNValue(char.death),
-          gender: checkNaNValue(char.gender),
-          hair: checkNaNValue(char.hair),
-          height: checkNaNValue(char.height),
-          realm: checkNaNValue(char.realm),
-          spouse: checkNaNValue(char.spouse),
-          dialog: quote?.dialog,
-          movie: movie?.name,
-        });
-      } catch (e) {
-        setErrorResponse(e.message);
-      }
-    };
-
-    fetchData();
-  }, [props.characterId]);
-
+   getCharacter(props.characterId).unwrap()
+    .then(char => {
+      fullInfoInit.name = char.name;
+      fullInfoInit.race = checkNaNValue(char.race);
+      fullInfoInit.wikiUrl = char.wikiUrl;
+      fullInfoInit.birth = checkNaNValue(char.birth);
+      fullInfoInit.death = checkNaNValue(char.death);
+      fullInfoInit.gender = checkNaNValue(char.gender);
+      fullInfoInit.hair = checkNaNValue(char.hair);
+      fullInfoInit.height = checkNaNValue(char.height);
+      fullInfoInit.realm = checkNaNValue(char.realm);
+      fullInfoInit.spouse = checkNaNValue(char.spouse);
+    })
+   .then(() => getQuotes(props.characterId).unwrap())
+   .then((arrQuote) => {
+      const quote =
+      arrQuote.length === 0
+        ? null
+        : (arrQuote[Math.floor(Math.random() * arrQuote.length)] as Quote);
+      fullInfoInit.dialog = quote?.dialog;
+      return quote;
+   })
+   .then((quote) => { if(quote) return getMovie(quote.movie).unwrap() })
+   .then((movie) => { if(movie) fullInfoInit.movie = movie?.name; })
+   .then(() => setCardInfo(fullInfoInit))
+  },[])
+ 
   return (
     <div>
       <div className="full-info">
@@ -92,4 +97,4 @@ const LotrFullCard = (props: LotrFullCardProp) => {
   );
 };
 
-export default LotrFullCard;
+export default LotrFullCard

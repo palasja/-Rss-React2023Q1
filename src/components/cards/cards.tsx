@@ -7,11 +7,12 @@ import ModalContent from '../modalContent';
 import { cardLoader } from '../../helper/loaders';
 import { useSelector } from 'react-redux';
 import { LotrPageInfo } from '../../types/lotr';
+import { useGetCharactersByNameQuery } from '../../apiSlice';
 
 const Cards = () => {
+  const { data = [], isLoading, isFetching } = useGetCharactersByNameQuery('ar')
   const [showModal, setShowModal] = useState(false);
   const [showCharId, setshowCharId] = useState('');
-  const characters = useSelector((state: LotrPageInfo) => state.characters)
 
   const onShow = (id: string) => {
     setShowModal(true);
@@ -26,10 +27,10 @@ const Cards = () => {
 
   return (
     <div className="main_cards">
-      {!characters && getCardLoader()}
-      {characters && characters.length == 0 && <h3>No characters with that name</h3>}
-      {characters &&
-        characters.map((ch) => (
+      {isLoading && getCardLoader()}
+      {data && data.length == 0 && <h3>No characters with that name</h3>}
+      {data &&
+        data.map((ch) => (
           <LotrCard
             key={ch._id}
             id={ch._id}

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Character, Movie, Quote } from './types'
+import { CardFullInfo, Character, LotrResponse, Movie, Quote } from './types'
 
 // Define a service using a base URL and expected endpoints
 export const lotrApiSlice = createApi({
@@ -15,23 +15,27 @@ export const lotrApiSlice = createApi({
   endpoints: (builder) => ({
     getCharactersByName: builder.query<Character[], string>({
       query: (searchValue) => `character?name=/^${searchValue}/i`,
+      transformResponse: (response: LotrResponse) => response.docs as Character[],
     }),
     getCharactersById: builder.query<Character, string>({
       query: (characterId) => `character?_id=${characterId}`,
+      transformResponse: (response: LotrResponse) => response.docs[0] as Character,
     }),
     getQuotesByCharacterId: builder.query<Quote[], string>({
       query: (characterId) => `character/${characterId}/quote`,
+      transformResponse: (response: LotrResponse) => response.docs as Quote[],
     }),
     getMovieByQuote: builder.query<Movie, string>({
       query: (quote) => `movie/${quote}`,
+      transformResponse: (response: LotrResponse) => response.docs[0] as Movie,
+    })
     }),
-  }),
   
 })
 
 export const {
   useGetCharactersByNameQuery,
-  useGetCharactersByIdQuery,
-  useGetQuotesByCharacterIdQuery,
-  useGetMovieByQuoteQuery,
+  useLazyGetCharactersByIdQuery,
+  useLazyGetQuotesByCharacterIdQuery,
+  useLazyGetMovieByQuoteQuery,
 } = lotrApiSlice
