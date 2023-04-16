@@ -6,7 +6,7 @@ import ModalContent from '../modalContent';
 import { cardLoader } from '../../helper/loaders';
 import { useSelector } from 'react-redux';
 import { useGetCharactersByNameQuery } from '../../apiSlice';
-import { searchValueState } from '../../lotrInfoSlice';
+import { searchValueState } from '../../SearchSlice';
 
 
 const Cards = () => {

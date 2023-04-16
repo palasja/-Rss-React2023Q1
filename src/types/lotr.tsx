@@ -52,9 +52,8 @@ type LotrResponse = {
   total: number;
 };
 
-type LotrPageInfo = {
+type SearchResult = {
   searchValue: string,
-  characters: Character[],
 }
 
-export { Character, Quote, Movie, LotrResponse, CardFullInfo, LotrPageInfo };
+export { Character, Quote, Movie, LotrResponse, CardFullInfo, SearchResult };

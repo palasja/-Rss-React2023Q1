@@ -11,7 +11,7 @@ const newItem: FormValues = {
   calories: 0,
   image: null,
   weight: 0,
-  tags: [],
+  tags: [Tags['<2']],
   startDate: new Date(Date.now()).toISOString().slice(0,10),
 };
 const formSlice = createSlice({

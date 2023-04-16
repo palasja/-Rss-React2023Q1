@@ -2,7 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 import { lotrApiSlice } from './apiSlice'
 import formSlice from './formSlice'
-import lotrInfo from './lotrInfoSlice'
+import lotrInfo from './SearchSlice'
 const rootReduser = combineReducers({
   formSlice,
   lotrInfo,

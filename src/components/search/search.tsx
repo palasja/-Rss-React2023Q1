@@ -1,11 +1,10 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React from 'react';
 import './search.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { LotrPageInfo } from '../../types/lotr';
-import { charactersLoad, searchValueLotr, searchValueState } from '../../lotrInfoSlice';
-import store from '../../store';
+
+import {  searchValueLotr, searchValueState } from '../../SearchSlice';
 import { useForm } from 'react-hook-form';
-import { useGetCharactersByNameQuery, useLazyGetCharactersByNameQuery } from '../../apiSlice';
+import { useLazyGetCharactersByNameQuery } from '../../apiSlice';
 
 type SearchForm = {
   curSearchValue: string;
@@ -23,7 +22,7 @@ const Search = () => {
   const submitAction = async (data: SearchForm) => {
     dispatch(searchValueLotr(data.curSearchValue));
     const newCharacters = await getCharacters(data.curSearchValue).unwrap();
-    dispatch(charactersLoad(newCharacters));
+
   }
   return (
     <div className="main_search">
