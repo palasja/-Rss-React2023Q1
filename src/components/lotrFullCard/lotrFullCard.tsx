@@ -4,11 +4,8 @@ import { CardFullInfo, Quote } from '../../types';
 import React from 'react';
 import { fullCardLoader } from '../../helper/loaders';
 import { checkNaNValue } from '../../helper/helpers';
-import {
-  useLazyGetCharactersByIdQuery,
-  useLazyGetMovieByQuoteQuery,
-  useLazyGetQuotesByCharacterIdQuery,
-} from '../../apiSlice';
+import { useLazyGetCharactersByIdQuery, useLazyGetMovieByQuoteQuery, useLazyGetQuotesByCharacterIdQuery } from '../../store/slicer/apiSlice';
+
 
 type LotrFullCardProp = {
   characterId: string;

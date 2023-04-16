@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SearchResult } from './types/lotr';
+import { SearchResult } from '../../types/lotr';
+
 
 const lotrInfoInit: SearchResult = {
   searchValue: '',
 };
 
-const lotrInfo = createSlice({
+const search = createSlice({
   name: 'lotrInfo',
   initialState: lotrInfoInit,
   reducers: {
@@ -14,6 +15,6 @@ const lotrInfo = createSlice({
     },
   },
 });
-export default lotrInfo.reducer;
-export const searchValueState = (state) => state.lotrInfo.searchValue;
-export const { searchValueLotr } = lotrInfo.actions;
+export default search.reducer;
+export const searchValueState = (state) => state.search.searchValue;
+export const { searchValueLotr } = search.actions;

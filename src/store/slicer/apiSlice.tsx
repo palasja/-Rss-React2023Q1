@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Character, LotrResponse, Movie, Quote } from './types';
+import { Character, LotrResponse, Movie, Quote } from '../../types';
 
 export const lotrApiSlice = createApi({
   reducerPath: 'lotrApi',

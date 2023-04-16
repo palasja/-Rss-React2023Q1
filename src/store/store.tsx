@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { lotrApiSlice } from './apiSlice';
-import formSlice from './formSlice';
-import lotrInfo from './SearchSlice';
+import { lotrApiSlice } from './slicer/apiSlice';
+import formSlice from './slicer/formSlice';
+import search from './slicer/searchSlice';
+
+
 const rootReduser = combineReducers({
   formSlice,
-  lotrInfo,
+  search,
   [lotrApiSlice.reducerPath]: lotrApiSlice.reducer,
 });
 

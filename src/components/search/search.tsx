@@ -2,9 +2,9 @@ import React from 'react';
 import './search.css';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { searchValueLotr, searchValueState } from '../../SearchSlice';
 import { useForm } from 'react-hook-form';
-import { useLazyGetCharactersByNameQuery } from '../../apiSlice';
+import { useLazyGetCharactersByNameQuery } from '../../store/slicer/apiSlice';
+import { searchValueState, searchValueLotr } from '../../store/slicer/searchSlice';
 
 type SearchForm = {
   curSearchValue: string;

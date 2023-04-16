@@ -5,8 +5,9 @@ import { createPortal } from 'react-dom';
 import ModalContent from '../modalContent';
 import { cardLoader } from '../../helper/loaders';
 import { useSelector } from 'react-redux';
-import { useGetCharactersByNameQuery } from '../../apiSlice';
-import { searchValueState } from '../../SearchSlice';
+import { useGetCharactersByNameQuery } from '../../store/slicer/apiSlice';
+import { searchValueState } from '../../store/slicer/searchSlice';
+
 
 const Cards = () => {
   const curSearchValue = useSelector(searchValueState);

@@ -5,20 +5,9 @@ import { FormValues, Tags, TypeFood } from '../../types/item';
 import { InputField, SelectField, CheckboxField, RadioButtonField } from '../formComponents';
 import './newCardForm.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  caloriesInput,
-  costInput,
-  formReset,
-  formState,
-  imageInput,
-  nameInput,
-  startDateInput,
-  startRatingInput,
-  tagsInput,
-  typeInput,
-  weightInput,
-} from '../../formSlice';
+
 import { assertDefined } from '../../helper/helpers';
+import { formState, formReset, nameInput, costInput, weightInput, caloriesInput, startRatingInput, typeInput, tagsInput, startDateInput, imageInput } from '../../store/slicer/formSlice';
 
 type NewCardFormProp = {
   newCardId: number;
