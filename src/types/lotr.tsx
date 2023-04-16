@@ -53,7 +53,7 @@ type LotrResponse = {
 };
 
 type SearchResult = {
-  searchValue: string,
-}
+  searchValue: string;
+};
 
 export { Character, Quote, Movie, LotrResponse, CardFullInfo, SearchResult };

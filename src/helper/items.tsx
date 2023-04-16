@@ -1,4 +1,4 @@
-import { FormValues } from "../types/item";
+import { FormValues } from '../types/item';
 
 export const newItemInit: FormValues = {
   type: null,

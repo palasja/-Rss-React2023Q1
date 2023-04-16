@@ -1,7 +1,7 @@
 import React from 'react';
 import { UseFormRegisterReturn, FieldError } from 'react-hook-form';
 import ErrorMessage from '../errorMessage/errorMessge';
-import { TypeFood } from '../../../types/item';
+
 type RadioButtonProp = {
   legendProp: string;
   data: { values: string[]; choosen: string | undefined };

@@ -1,26 +1,25 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { CardFullInfo, Character, LotrResponse, Movie, Quote } from './types'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Character, LotrResponse, Movie, Quote } from './types';
 
-// Define a service using a base URL and expected endpoints
 export const lotrApiSlice = createApi({
   reducerPath: 'lotrApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://the-one-api.dev/v2/',
-  prepareHeaders: (headers) => {
-    headers.set('authorization', `Bearer BTQ_p0KTKzxQIhvXZ2u6`)
-    headers.set('accept', `application/json`)
-  return headers
-},
- }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://the-one-api.dev/v2/',
+    prepareHeaders: (headers) => {
+      headers.set('authorization', `Bearer BTQ_p0KTKzxQIhvXZ2u6`);
+      headers.set('accept', `application/json`);
+      return headers;
+    },
+  }),
   tagTypes: ['Character'],
   endpoints: (builder) => ({
     getCharactersByName: builder.query<Character[], string>({
       query: (searchValue) => `character?name=/^${searchValue}/i`,
-      providesTags: (result, error, arg) =>
-      result
-        ? [...result.map(({ _id }) => ({ type: 'Character' as const, _id })), 'Character']
-        : ['Character'],
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ _id }) => ({ type: 'Character' as const, _id })), 'Character']
+          : ['Character'],
       transformResponse: (response: LotrResponse) => response.docs as Character[],
-
     }),
     getCharactersById: builder.query<Character, string>({
       query: (characterId) => `character?_id=${characterId}`,
@@ -33,10 +32,9 @@ export const lotrApiSlice = createApi({
     getMovieByQuote: builder.query<Movie, string>({
       query: (quote) => `movie/${quote}`,
       transformResponse: (response: LotrResponse) => response.docs[0] as Movie,
-    })
     }),
-  
-})
+  }),
+});
 
 export const {
   useGetCharactersByNameQuery,
@@ -44,4 +42,4 @@ export const {
   useLazyGetCharactersByIdQuery,
   useLazyGetQuotesByCharacterIdQuery,
   useLazyGetMovieByQuoteQuery,
-} = lotrApiSlice
+} = lotrApiSlice;

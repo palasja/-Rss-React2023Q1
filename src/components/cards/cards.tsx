@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { useGetCharactersByNameQuery } from '../../apiSlice';
 import { searchValueState } from '../../SearchSlice';
 
-
 const Cards = () => {
   const curSearchValue = useSelector(searchValueState);
   const { data = [], isLoading, isError } = useGetCharactersByNameQuery(curSearchValue);
@@ -29,10 +28,12 @@ const Cards = () => {
 
   return (
     <>
-    {isError ? (
-          <p className="errorMessge">Too Many Requests. That API requirement, try reload page later</p>
-        ) : (
-          <div className="main_cards">
+      {isError ? (
+        <p className="errorMessge">
+          Too Many Requests. That API requirement, try reload page later
+        </p>
+      ) : (
+        <div className="main_cards">
           {isLoading && getCardLoader()}
           {data && data.length == 0 && <h3>No characters with that name</h3>}
           {data &&
@@ -52,7 +53,7 @@ const Cards = () => {
               document.getElementsByClassName('content')[0]
             )}
         </div>
-        )}
+      )}
     </>
   );
 };

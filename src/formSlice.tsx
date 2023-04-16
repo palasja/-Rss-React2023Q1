@@ -36,14 +36,12 @@ const formSlice = createSlice({
     imageInput: (state, action) => {
       state.imageBlob = action.payload;
     },
-    formReset: (state) => {
-      state = newItemInit;
-    },
+    formReset: ():FormValues => newItemInit
   },
 });
 
 export default formSlice.reducer;
-export const formState = (state) => state.formSlice as FormValues
+export const formState = (state) => state.formSlice as FormValues;
 export const {
   nameInput,
   caloriesInput,
@@ -54,5 +52,5 @@ export const {
   tagsInput,
   startDateInput,
   imageInput,
-  formReset
+  formReset,
 } = formSlice.actions;
