@@ -4,7 +4,6 @@ import { lotrApiSlice } from './slicer/apiSlice';
 import formSlice from './slicer/formSlice';
 import search from './slicer/searchSlice';
 
-
 const rootReduser = combineReducers({
   formSlice,
   search,

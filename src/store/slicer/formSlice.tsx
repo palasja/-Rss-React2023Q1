@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TypeFood, Tags, FormValues } from '../../types/item';
 import { newItemInit } from '../../helper/items';
 
-
 const formSlice = createSlice({
   name: 'form',
   initialState: newItemInit,

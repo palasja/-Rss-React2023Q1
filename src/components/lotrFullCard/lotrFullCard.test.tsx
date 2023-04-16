@@ -32,5 +32,3 @@ test('NaN value not in the page', async () => {
   await waitFor(() => screen.getByRole('link'));
   expect(screen.queryByText('NaN')).not.toBeInTheDocument();
 });
-
-

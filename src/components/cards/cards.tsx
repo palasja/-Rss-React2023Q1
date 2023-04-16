@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { useGetCharactersByNameQuery } from '../../store/slicer/apiSlice';
 import { searchValueState } from '../../store/slicer/searchSlice';
 
-
 const Cards = () => {
   const curSearchValue = useSelector(searchValueState);
   const { data = [], isLoading, isError } = useGetCharactersByNameQuery(curSearchValue);

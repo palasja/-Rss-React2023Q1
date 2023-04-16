@@ -7,7 +7,19 @@ import './newCardForm.css';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { assertDefined } from '../../helper/helpers';
-import { formState, formReset, nameInput, costInput, weightInput, caloriesInput, startRatingInput, typeInput, tagsInput, startDateInput, imageInput } from '../../store/slicer/formSlice';
+import {
+  formState,
+  formReset,
+  nameInput,
+  costInput,
+  weightInput,
+  caloriesInput,
+  startRatingInput,
+  typeInput,
+  tagsInput,
+  startDateInput,
+  imageInput,
+} from '../../store/slicer/formSlice';
 
 type NewCardFormProp = {
   newCardId: number;

@@ -3,15 +3,12 @@ import React, { createRef } from 'react';
 import { UseFormRegisterReturn, FieldError } from 'react-hook-form';
 import { CheckboxField } from '..';
 
-
-
-
 const propMock = {
   legend: 'Legend Value',
   data: [
     { value: 'first', choosen: false },
-    { value: 'second', choosen: false }
-],
+    { value: 'second', choosen: false },
+  ],
   refArr: Array(3).map(() => createRef<HTMLInputElement>()),
   refProp: {} as UseFormRegisterReturn<string>,
   errorMessagee: { message: 'Error Message' } as FieldError,
@@ -21,8 +18,8 @@ test('legend on page', () => {
     <CheckboxField
       legendProp={propMock.legend}
       refProp={propMock.refProp}
-      error={propMock.errorMessagee} 
-      data={[]}  
+      error={propMock.errorMessagee}
+      data={[]}
     />
   );
 
@@ -49,7 +46,7 @@ test('show eerror message', () => {
       legendProp=""
       refProp={propMock.refProp}
       error={propMock.errorMessagee}
-      data={[]}  
+      data={[]}
     />
   );
 

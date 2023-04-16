@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SearchResult } from '../../types/lotr';
 
-
 const lotrInfoInit: SearchResult = {
   searchValue: '',
 };

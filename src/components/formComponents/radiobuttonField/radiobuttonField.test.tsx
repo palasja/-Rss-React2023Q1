@@ -17,8 +17,8 @@ test('legend on page', () => {
       refProp={propMock.refProp}
       data={{
         values: [],
-        choosen: undefined
-      }} 
+        choosen: undefined,
+      }}
       error={undefined}
     />
   );
@@ -33,8 +33,8 @@ test('all elements as unchecked radiobutton', () => {
       refProp={propMock.refProp}
       data={{
         values: propMock.values,
-        choosen: undefined
-      }} 
+        choosen: undefined,
+      }}
       error={propMock.errorMessagee}
     />
   );
@@ -50,8 +50,8 @@ test('show eerror message', () => {
       refProp={propMock.refProp}
       data={{
         values: propMock.values,
-        choosen: undefined
-      }} 
+        choosen: undefined,
+      }}
       error={propMock.errorMessagee}
     />
   );
