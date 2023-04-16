@@ -11,11 +11,16 @@ export const lotrApiSlice = createApi({
   return headers
 },
  }),
-
+  tagTypes: ['Character'],
   endpoints: (builder) => ({
     getCharactersByName: builder.query<Character[], string>({
       query: (searchValue) => `character?name=/^${searchValue}/i`,
+      providesTags: (result, error, arg) =>
+      result
+        ? [...result.map(({ _id }) => ({ type: 'Character' as const, _id })), 'Character']
+        : ['Character'],
       transformResponse: (response: LotrResponse) => response.docs as Character[],
+
     }),
     getCharactersById: builder.query<Character, string>({
       query: (characterId) => `character?_id=${characterId}`,
@@ -35,6 +40,7 @@ export const lotrApiSlice = createApi({
 
 export const {
   useGetCharactersByNameQuery,
+  useLazyGetCharactersByNameQuery,
   useLazyGetCharactersByIdQuery,
   useLazyGetQuotesByCharacterIdQuery,
   useLazyGetMovieByQuoteQuery,

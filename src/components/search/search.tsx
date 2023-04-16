@@ -1,35 +1,42 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import './search.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { LotrPageInfo } from '../../types/lotr';
-import { seachValueLotr } from '../../lotrInfoSlice';
+import { charactersLoad, searchValueLotr, searchValueState } from '../../lotrInfoSlice';
 import store from '../../store';
+import { useForm } from 'react-hook-form';
+import { useGetCharactersByNameQuery, useLazyGetCharactersByNameQuery } from '../../apiSlice';
 
-type SearchProps = {
+type SearchForm = {
   curSearchValue: string;
 };
-const Search = (props: SearchProps) => {
-  const [searchValue, setSearchValue] = useState(props.curSearchValue);
+const Search = () => {
   const dispatch = useDispatch();
-  const handleChange = (e: FormEvent<HTMLInputElement>): void => {
-    setSearchValue(e.currentTarget.value);
-  };
+  const curSearchValue = useSelector(searchValueState);
+  const [getCharacters] = useLazyGetCharactersByNameQuery();
+  
+  const {
+    register,
+    handleSubmit,
+  } = useForm<SearchForm>();
+
+  const submitAction = async (data: SearchForm) => {
+    dispatch(searchValueLotr(data.curSearchValue));
+    const newCharacters = await getCharacters(data.curSearchValue).unwrap();
+    dispatch(charactersLoad(newCharacters));
+  }
   return (
     <div className="main_search">
       <div className="wrapper">
         <img className="search-icon" />
         <form
-          onSubmit={(e: FormEvent) => {
-            e.preventDefault();
-            dispatch(seachValueLotr('123'))
-          }}
+          onSubmit={handleSubmit(submitAction)}
         >
           <input
             className="search"
             type="text"
             placeholder="Search..."
-            value={searchValue}
-            onChange={handleChange}
+            {...register('curSearchValue', {value:curSearchValue})}
           />
         </form>
       </div>

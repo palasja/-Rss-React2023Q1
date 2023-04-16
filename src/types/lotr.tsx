@@ -55,7 +55,6 @@ type LotrResponse = {
 type LotrPageInfo = {
   searchValue: string,
   characters: Character[],
-  fullInfo: CardFullInfo | null
 }
 
 export { Character, Quote, Movie, LotrResponse, CardFullInfo, LotrPageInfo };

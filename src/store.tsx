@@ -10,7 +10,7 @@ const rootReduser = combineReducers({
 })
 
 const store = configureStore({
-  reducer: {[lotrApiSlice.reducerPath]: lotrApiSlice.reducer},
+  reducer: rootReduser,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(lotrApiSlice.middleware)
 })
 
