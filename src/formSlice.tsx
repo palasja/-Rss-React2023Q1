@@ -36,7 +36,7 @@ const formSlice = createSlice({
     imageInput: (state, action) => {
       state.imageBlob = action.payload;
     },
-    formReset: ():FormValues => newItemInit
+    formReset: (): FormValues => newItemInit,
   },
 });
 

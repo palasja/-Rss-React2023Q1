@@ -15,8 +15,11 @@ test('legend on page', () => {
     <RadioButtonField
       legendProp={propMock.legend}
       refProp={propMock.refProp}
-      values={[]}
-      error={propMock.errorMessagee}
+      data={{
+        values: [],
+        choosen: undefined
+      }} 
+      error={undefined}
     />
   );
 
@@ -28,7 +31,10 @@ test('all elements as unchecked radiobutton', () => {
     <RadioButtonField
       legendProp=""
       refProp={propMock.refProp}
-      values={propMock.values}
+      data={{
+        values: propMock.values,
+        choosen: undefined
+      }} 
       error={propMock.errorMessagee}
     />
   );
@@ -42,7 +48,10 @@ test('show eerror message', () => {
     <RadioButtonField
       legendProp=""
       refProp={propMock.refProp}
-      values={[]}
+      data={{
+        values: propMock.values,
+        choosen: undefined
+      }} 
       error={propMock.errorMessagee}
     />
   );

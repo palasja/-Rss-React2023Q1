@@ -3,12 +3,16 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import App from './App';
+import { Provider } from 'react-redux';
+import store from './store';
 
 test('landing on a bad page', () => {
   const badRoute = '/some/bad/route';
   render(
     <MemoryRouter initialEntries={[badRoute]}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </MemoryRouter>
   );
   expect(screen.getByText(/Something goes wrong/i)).toBeInTheDocument();
@@ -17,7 +21,9 @@ test('landing on a bad page', () => {
 test('full app rendering/navigating', async () => {
   render(
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   );
   const user = userEvent.setup();
