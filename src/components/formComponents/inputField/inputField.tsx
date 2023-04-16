@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import ErrorMessage from '../errorMessage/errorMessge';
 import './inputField.css';
@@ -7,6 +7,7 @@ type InputProp = {
   labelProp: string;
   refProp: UseFormRegisterReturn;
   error: FieldError | undefined;
+  children?: JSX.Element | null;
 };
 
 const InputField = (props: InputProp) => {
@@ -21,6 +22,7 @@ const InputField = (props: InputProp) => {
           data-testid={props.labelProp}
         />
       </label>
+      {props.children && props.children}
       {props.error && <ErrorMessage errorMessage={props.error.message} />}
     </fieldset>
   );

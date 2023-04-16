@@ -9,11 +9,11 @@ enum Tags {
   'delivery',
 }
 type Item = {
-  // id: number;
+  id: number;
   type: TypeFood;
   name: string;
   cost: number;
-  //   countPerWeek: number;
+  countPerWeek: number;
   rating: number;
   calories: number;
   img: string;
@@ -25,6 +25,7 @@ type Item = {
 type FormValues = {
   name: string;
   image: FileList | null;
+  imageBlob: string;
   cost: number;
   startDate: string;
   weight: number;

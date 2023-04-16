@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   caloriesInput,
   costInput,
+  formReset,
+  formState,
   imageInput,
   nameInput,
   startDateInput,
@@ -16,6 +18,7 @@ import {
   typeInput,
   weightInput,
 } from '../../formSlice';
+import { assertDefined } from '../../helper/helpers';
 
 
 type NewCardFormProp = {
@@ -35,8 +38,10 @@ const NewCardForm = (props: NewCardFormProp) => {
   } = useForm<FormValues>();
 
   const dispatch = useDispatch();
+  const form = useSelector(formState);
   useEffect(() => {
     return () => {
+      
       dispatch(nameInput(getValues().name));
       dispatch(costInput(getValues().cost));
       dispatch(weightInput(getValues().weight));
@@ -44,19 +49,18 @@ const NewCardForm = (props: NewCardFormProp) => {
       dispatch(startRatingInput(getValues().startRating));
       dispatch(typeInput(getValues().type));
       dispatch(tagsInput(getValues().tags));
-      dispatch(startDateInput(getValues().startDate.length === 0 ? '' : new Date(getValues().startDate).toISOString().slice(0,10)));
-      // dispatch(imageInput(URL.createObjectURL(getValues().image[0])));
+      dispatch(startDateInput(isNaN(Date.parse(getValues().startDate)) ? '' : new Date(getValues().startDate).toISOString().slice(0,10)));
+      const file = assertDefined(getValues().image)[0];
+      let blob = '';
+      if(file !== undefined) { 
+        blob = URL.createObjectURL(file) 
+      } else if(file === undefined && form.imageBlob.length !== 0){
+        blob = form.imageBlob
+      }
+      dispatch(imageInput(blob));
     };
   }, []);
-  const nameVal = useSelector((state: FormValues) => state.name);
-  const costVal = useSelector((state: FormValues) => state.cost);
-  const weigthVal = useSelector((state: FormValues) => state.weight);
-  const caloriesVal = useSelector((state: FormValues) => state.calories);
-  const startRatingVal = useSelector((state: FormValues) => state.startRating);
-  const typeVal = useSelector((state: FormValues) => state.type);
-  const tagsVal = useSelector((state: FormValues) => state.tags);
-  const startDateVal = useSelector((state: FormValues) => state.startDate === undefined || state.startDate.length === 0 ? '' : new Date(state.startDate).toISOString().slice(0,10));
-  const imageVal = useSelector((state: FormValues) => state.image);
+  
   const getEnumValues = <T,>(arr: string[] | T[]): string[] => {
     const enumValues = arr.slice(0, arr.length / 2);
     return enumValues.map((val) => `${val}`);
@@ -64,7 +68,7 @@ const NewCardForm = (props: NewCardFormProp) => {
 
   const getTypeData = (): { values: string[]; choosen: string | undefined } => {
     const arr = getEnumValues(Object.values(TypeFood));
-    return { values: arr, choosen: typeVal?.toString() };
+    return { values: arr, choosen: form.type?.toString() };
   };
 
   const getTagsData = (): { value: string; choosen: boolean }[] => {
@@ -72,7 +76,7 @@ const NewCardForm = (props: NewCardFormProp) => {
     return arr.map((val) => {
       return {
         value: val,
-        choosen: [...tagsVal].some((v) => v == Tags[val]),
+        choosen: [...form.tags].some((v) => v == Tags[val]),
       };
     });
   };
@@ -82,25 +86,27 @@ const NewCardForm = (props: NewCardFormProp) => {
   };
 
   const submitAction = async (data: FormValues, e: BaseSyntheticEvent | undefined) => {
-    // const newItem: Item = {
-    //   // id: props.newCardId,
-    //   // type: data.type,
-    //   name: data.name,
-    //   // cost: data.cost,
-    //   // countPerWeek: 0,
-    //   // rating: data.startRating,
-    //   // calories: data.calories,
-    //   // img: URL.createObjectURL(data.image[0]),
-    //   // weght: data.weight,
-    //   // tags: data.tags,
-    //   // startSell: data.startDate,
-    // };
-    // props.confirmAction(true);
-    // setTimeout(() => {
-    //   props.confirmAction(false);
-    //   props.saveCard(newItem);
-    //   e?.target.reset();
-    // }, 1000);
+    const newItem: Item = {
+      id: props.newCardId,
+      type: assertDefined(data.type),
+      name: data.name,
+      cost: data.cost,
+      countPerWeek: 0,
+      rating: data.startRating,
+      calories: data.calories,
+      img: URL.createObjectURL(assertDefined(data.image)[0]),
+      weight: data.weight,
+      tags: data.tags,
+      startSell: new Date(data.startDate) ,
+    };
+    props.confirmAction(true);
+    setTimeout(() => {
+      props.confirmAction(false);
+      props.saveCard(newItem);
+      e?.target.reset();
+      dispatch(formReset());
+    }, 1000);
+
   };
 
   return (
@@ -109,7 +115,7 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Name"
         type="text"
         refProp={register('name', {
-          value: nameVal,
+          value: form.name,
           required: 'Cost has to be filled',
           pattern: { value: /^[A-Z]/, message: 'First letter mus be uppercase' },
         })}
@@ -118,6 +124,7 @@ const NewCardForm = (props: NewCardFormProp) => {
       <InputField
         labelProp="Image (jpg)"
         type="file"
+        children={<img src={form.imageBlob} className='img-field'></img>}
         refProp={register('image', {
           required: 'Image has to be filled',
           validate: {
@@ -132,18 +139,19 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Cost"
         type="number"
         refProp={register('cost', {
-          value: costVal,
+          value: form.cost,
           required: 'Cost has to be filled',
           min: { value: 0.1, message: 'Cost has to be more than 0' },
           max: { value: 20, message: 'Cost so mutch recheck value cost' },
         })}
-        error={errors.cost}
+        error={errors.cost} 
       />
       <InputField
         labelProp="Start Sale"
         type="date"
-        refProp={register('startDate', {
-          value: startDateVal,
+
+        refProp={ register('startDate', {
+          value: form.startDate,
           required: 'Start sale has to be in field',
           valueAsDate: true,
           min: { value: CUR_DATE, message: 'Start sale has to be begins tomorrow at least' },
@@ -155,7 +163,7 @@ const NewCardForm = (props: NewCardFormProp) => {
         values={getRatingValues()}
         defaultValue=""
         refProp={register('startRating', {
-          value: startRatingVal,
+          value: form.startRating,
           required: 'Rating has to be chosen',
         })}
         error={errors.startRating}
@@ -176,7 +184,7 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Weight"
         type="number"
         refProp={register('weight', {
-          value: weigthVal,
+          value: form.weight,
           required: 'Weight has to be filled',
           min: { value: 1, message: 'Weight has to be more 0' },
         })}
@@ -186,7 +194,7 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Calories"
         type="number"
         refProp={register('calories', {
-          value: caloriesVal,
+          value: form.calories,
           required: 'Calories has to be filled',
         })}
         error={errors.calories}
@@ -198,4 +206,4 @@ const NewCardForm = (props: NewCardFormProp) => {
   );
 };
 
-export default NewCardForm;
+  export default NewCardForm;

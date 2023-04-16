@@ -1,22 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FormValues, Tags, TypeFood } from './types/item';
-const a = 0
-const newItem: FormValues = {
-  // id: props.newCardId,
-  type: null,
-  name: '',
-  cost: 0,
-  // countPerWeek: 0,
-  startRating: 0,
-  calories: 0,
-  image: null,
-  weight: 0,
-  tags: [Tags['<2']],
-  startDate: new Date(Date.now()).toISOString().slice(0,10),
-};
+import { newItemInit } from './helper/items';
+
 const formSlice = createSlice({
   name: 'form',
-  initialState: newItem,
+  initialState: newItemInit,
   reducers: {
     nameInput: (state, action) => {
       state.name = action.payload;
@@ -46,13 +34,16 @@ const formSlice = createSlice({
       state.startDate = action.payload;
     },
     imageInput: (state, action) => {
-      state.image = action.payload;
+      state.imageBlob = action.payload;
+    },
+    formReset: (state) => {
+      state = newItemInit;
     },
   },
 });
 
 export default formSlice.reducer;
-
+export const formState = (state) => state.formSlice as FormValues
 export const {
   nameInput,
   caloriesInput,
@@ -62,5 +53,6 @@ export const {
   typeInput,
   tagsInput,
   startDateInput,
-  imageInput
+  imageInput,
+  formReset
 } = formSlice.actions;
