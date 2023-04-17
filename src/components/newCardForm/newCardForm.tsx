@@ -10,15 +10,7 @@ import { assertDefined } from '../../helper/helpers';
 import {
   formState,
   formReset,
-  nameInput,
-  costInput,
-  weightInput,
-  caloriesInput,
-  startRatingInput,
-  typeInput,
-  tagsInput,
-  startDateInput,
-  imageInput,
+  formSave,
 } from '../../store/slicer/formSlice';
 
 type NewCardFormProp = {
@@ -30,32 +22,31 @@ type NewCardFormProp = {
 const NewCardForm = (props: NewCardFormProp) => {
   const MAX_RATING = 5;
   const CUR_DATE = Date.now();
+  const form = useSelector(formState);
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>(
+    {defaultValues:{
+    name: form.name,
+    cost: form.cost,
+    calories: form.calories,
+    startRating: form.startRating,
+    weight: form.weight,
+    startDate: form.startDate,
+    tags: form.tags,
+    type: form.type,
+  }}
+  );
 
   const dispatch = useDispatch();
-  const form = useSelector(formState);
+  
   useEffect(() => {
+    console.log(form)
+
     return () => {
-      dispatch(formReset());
-      dispatch(nameInput(getValues().name));
-      dispatch(costInput(getValues().cost));
-      dispatch(weightInput(getValues().weight));
-      dispatch(caloriesInput(getValues().calories));
-      dispatch(startRatingInput(getValues().startRating));
-      dispatch(typeInput(getValues().type));
-      dispatch(tagsInput(getValues().tags));
-      dispatch(
-        startDateInput(
-          isNaN(Date.parse(getValues().startDate))
-            ? ''
-            : new Date(getValues().startDate).toISOString().slice(0, 10)
-        )
-      );
       const file = assertDefined(getValues().image)[0];
       let blob = '';
       if (file !== undefined) {
@@ -63,7 +54,26 @@ const NewCardForm = (props: NewCardFormProp) => {
       } else if (file === undefined && form.imageBlob.length !== 0) {
         blob = form.imageBlob;
       }
-      dispatch(imageInput(blob));
+
+      const date = isNaN(Date.parse(getValues().startDate))
+      ? ''
+      : new Date(getValues().startDate).toISOString().slice(0, 10);
+
+      const tags = getValues().tags.map(v => isNaN(Number[Tags[v]]) ? Tags[v] : Tags[Tags[v]] )
+
+      const curForm: FormValues = {
+        name: getValues().name,
+        image: null,
+        imageBlob: blob,
+        cost: getValues().cost,
+        startDate: date,
+        weight: getValues().weight,
+        calories: getValues().calories,
+        startRating: getValues().startRating,
+        type: getValues().type,
+        tags: tags
+      }
+      dispatch(formSave(curForm));
     };
   }, [dispatch, form.imageBlob, getValues]);
 
@@ -120,7 +130,6 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Name"
         type="text"
         refProp={register('name', {
-          value: form.name,
           required: 'Cost has to be filled',
           pattern: { value: /^[A-Z]/, message: 'First letter mus be uppercase' },
         })}
@@ -145,7 +154,6 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Cost"
         type="number"
         refProp={register('cost', {
-          value: form.cost,
           required: 'Cost has to be filled',
           min: { value: 0.1, message: 'Cost has to be more than 0' },
           max: { value: 20, message: 'Cost so mutch recheck value cost' },
@@ -156,7 +164,6 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Start Sale"
         type="date"
         refProp={register('startDate', {
-          value: form.startDate,
           required: 'Start sale has to be in field',
           valueAsDate: true,
           min: { value: CUR_DATE, message: 'Start sale has to be begins tomorrow at least' },
@@ -168,7 +175,6 @@ const NewCardForm = (props: NewCardFormProp) => {
         values={getRatingValues()}
         defaultValue=""
         refProp={register('startRating', {
-          value: form.startRating,
           required: 'Rating has to be chosen',
         })}
         error={errors.startRating}
@@ -189,7 +195,6 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Weight"
         type="number"
         refProp={register('weight', {
-          value: form.weight,
           required: 'Weight has to be filled',
           min: { value: 1, message: 'Weight has to be more 0' },
         })}
@@ -199,7 +204,6 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Calories"
         type="number"
         refProp={register('calories', {
-          value: form.calories,
           required: 'Calories has to be filled',
         })}
         error={errors.calories}

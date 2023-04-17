@@ -15,11 +15,7 @@ const CheckboxField = (props: CheckboxProp) => {
         <div key={i}>
           <label>
             {el.value}
-            {el.choosen === true ? (
-              <input type="checkbox" value={el.value} {...props.refProp} key={i} checked />
-            ) : (
-              <input type="checkbox" value={el.value} {...props.refProp} key={i} />
-            )}
+            <input type="checkbox" value={el.value} {...props.refProp} key={i} />
           </label>
         </div>
       ))}
