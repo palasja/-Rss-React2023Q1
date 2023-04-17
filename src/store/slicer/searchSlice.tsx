@@ -6,7 +6,7 @@ const lotrInfoInit: SearchResult = {
 };
 
 const search = createSlice({
-  name: 'lotrInfo',
+  name: 'search',
   initialState: lotrInfoInit,
   reducers: {
     searchValueLotr: (state, action) => {

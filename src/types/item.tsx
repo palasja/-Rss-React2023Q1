@@ -35,4 +35,7 @@ type FormValues = {
   tags: Tags[];
 };
 
-export { Item, TypeFood, Tags, FormValues };
+type NewCards = {
+  cards: Item[];
+};
+export { Item, TypeFood, Tags, FormValues, NewCards };

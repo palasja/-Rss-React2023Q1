@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { assertDefined } from '../../helper/helpers';
 import { formState, formReset, formSave } from '../../store/slicer/formSlice';
+import { addItem } from '../../store/slicer/newCardSlicer';
 
 type NewCardFormProp = {
   newCardId: number;
-  saveCard: (i: Item) => void;
   confirmAction: (show: boolean) => void;
 };
 
@@ -120,7 +120,7 @@ const NewCardForm = (props: NewCardFormProp) => {
     props.confirmAction(true);
     setTimeout(() => {
       props.confirmAction(false);
-      props.saveCard(newItem);
+      dispatch(addItem(JSON.stringify(newItem)));
       dispatch(formReset());
       e?.target.reset();
     }, 1000);
