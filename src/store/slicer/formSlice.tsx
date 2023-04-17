@@ -36,14 +36,14 @@ const formSlice = createSlice({
     imageInput: (state, action) => {
       state.imageBlob = action.payload;
     },
-    formSave: (state, action:{ payload:FormValues }) => {
-      state.name = action.payload.name,
-      state.cost = action.payload.cost,
-      state.calories = action.payload.calories,
-      state.weight = action.payload.weight,
-      state.name = action.payload.name,
-      state.startRating = action.payload.startRating,
-      state.type = action.payload.type;
+    formSave: (state, action: { payload: FormValues }) => {
+      (state.name = action.payload.name),
+        (state.cost = action.payload.cost),
+        (state.calories = action.payload.calories),
+        (state.weight = action.payload.weight),
+        (state.name = action.payload.name),
+        (state.startRating = action.payload.startRating),
+        (state.type = action.payload.type);
       state.tags = action.payload.tags
         .toString()
         .split(',')
@@ -68,5 +68,5 @@ export const {
   startDateInput,
   imageInput,
   formReset,
-  formSave
+  formSave,
 } = formSlice.actions;

@@ -7,11 +7,7 @@ import './newCardForm.css';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { assertDefined } from '../../helper/helpers';
-import {
-  formState,
-  formReset,
-  formSave,
-} from '../../store/slicer/formSlice';
+import { formState, formReset, formSave } from '../../store/slicer/formSlice';
 
 type NewCardFormProp = {
   newCardId: number;
@@ -28,52 +24,55 @@ const NewCardForm = (props: NewCardFormProp) => {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<FormValues>(
-    {defaultValues:{
-    name: form.name,
-    cost: form.cost,
-    calories: form.calories,
-    startRating: form.startRating,
-    weight: form.weight,
-    startDate: form.startDate,
-    tags: form.tags,
-    type: form.type,
-  }}
-  );
+  } = useForm<FormValues>({
+    defaultValues: {
+      name: form.name,
+      cost: form.cost,
+      calories: form.calories,
+      startRating: form.startRating,
+      weight: form.weight,
+      startDate: form.startDate,
+      tags: form.tags,
+      type: form.type,
+    },
+  });
 
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    console.log(form)
-
     return () => {
-      const file = assertDefined(getValues().image)[0];
-      let blob = '';
-      if (file !== undefined) {
-        blob = URL.createObjectURL(file);
-      } else if (file === undefined && form.imageBlob.length !== 0) {
-        blob = form.imageBlob;
-      }
+      const save = () => {
+        const file = assertDefined(getValues().image)[0];
+        let blob = '';
+        if (file !== undefined) {
+          blob = URL.createObjectURL(file);
+        } else if (file === undefined && form.imageBlob.length !== 0) {
+          blob = form.imageBlob;
+        }
 
-      const date = isNaN(Date.parse(getValues().startDate))
-      ? ''
-      : new Date(getValues().startDate).toISOString().slice(0, 10);
+        const date = isNaN(Date.parse(getValues().startDate))
+          ? ''
+          : new Date(getValues().startDate).toISOString().slice(0, 10);
 
-      const tags = getValues().tags.map(v => isNaN(Number[Tags[v]]) ? Tags[v] : Tags[Tags[v]] )
+        const tags = getValues().tags.map((v) =>
+          isNaN(Number[Tags[v]]) ? Tags[v] : Tags[Tags[v]]
+        );
 
-      const curForm: FormValues = {
-        name: getValues().name,
-        image: null,
-        imageBlob: blob,
-        cost: getValues().cost,
-        startDate: date,
-        weight: getValues().weight,
-        calories: getValues().calories,
-        startRating: getValues().startRating,
-        type: getValues().type,
-        tags: tags
-      }
-      dispatch(formSave(curForm));
+        const curForm: FormValues = {
+          name: getValues().name,
+          image: null,
+          imageBlob: blob,
+          cost: getValues().cost,
+          startDate: date,
+          weight: getValues().weight,
+          calories: getValues().calories,
+          startRating: getValues().startRating,
+          type: getValues().type,
+          tags: tags,
+        };
+        dispatch(formSave(curForm));
+      };
+      save();
     };
   }, [dispatch, form.imageBlob, getValues]);
 
@@ -110,7 +109,10 @@ const NewCardForm = (props: NewCardFormProp) => {
       countPerWeek: 0,
       rating: data.startRating,
       calories: data.calories,
-      img: URL.createObjectURL(assertDefined(data.image)[0]),
+      img:
+        data.image?.length !== 0
+          ? URL.createObjectURL(assertDefined(data.image)[0])
+          : form.imageBlob,
       weight: data.weight,
       tags: data.tags,
       startSell: new Date(data.startDate),
@@ -139,16 +141,22 @@ const NewCardForm = (props: NewCardFormProp) => {
         labelProp="Image (jpg)"
         type="file"
         refProp={register('image', {
-          required: 'Image has to be filled',
           validate: {
-            ch: (value) => {
-              return (value ? /\.jpg$/.test(value[0].name) : null) || 'Format image has to be jpg';
+            // ch: (value) => {
+            //   return (value ? /\.jpg$/.test(value[0].name) : null) || 'Format image has to be jpg';
+            // },
+            blob: (value) => {
+              return (
+                (value || form.imageBlob.length !== 0 ? true : false) || 'Image has to be filled'
+              );
             },
           },
         })}
         error={errors.image}
       >
-        <img src={form.imageBlob} className="img-field"></img>
+        {form.imageBlob.length === 0 ? null : (
+          <img src={form.imageBlob} className="img-field"></img>
+        )}
       </InputField>
       <InputField
         labelProp="Cost"
