@@ -14,7 +14,10 @@ export const handlers = [
     req.url.searchParams.set('_id', TEST_CAHRACTER_ID);
     return res(ctx.status(200), ctx.json(CHARACTER_BY_ID_RESPONSE));
   }),
-
+  rest.get(`${API.host}/character`, (req, res, ctx) => {
+    req.url.searchParams.set('name', '/^/i');
+    return res(ctx.status(200), ctx.json([]));
+  }),
   rest.get(`${API.host}/character/${TEST_CAHRACTER_ID}/quote`, (req, res, ctx) => {
     req.url.searchParams.set('_id', TEST_CAHRACTER_ID);
     return res(
