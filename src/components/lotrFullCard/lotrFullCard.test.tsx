@@ -2,7 +2,7 @@ import React from 'react';
 import { screen, render, waitFor } from '@testing-library/react';
 import LotrFullCard from './lotrFullCard';
 import { Provider } from 'react-redux';
-import store from '../../store';
+import store from '../../store/store';
 
 test('loader on modal page', () => {
   render(

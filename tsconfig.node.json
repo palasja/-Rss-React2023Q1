@@ -6,6 +6,9 @@
       "esnext",
       "dom.iterable"
     ],
+    "types": [
+      "vitest/importMeta"
+    ],
     "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",

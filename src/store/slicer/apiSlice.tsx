@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Character, LotrResponse, Movie, Quote } from '../../types';
+import API from '../../helper/contsAPI';
 
 export const lotrApiSlice = createApi({
   reducerPath: 'lotrApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://the-one-api.dev/v2/',
+    baseUrl: API.host,
     prepareHeaders: (headers) => {
       headers.set('authorization', `Bearer BTQ_p0KTKzxQIhvXZ2u6`);
       headers.set('accept', `application/json`);

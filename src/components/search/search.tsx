@@ -24,7 +24,7 @@ const Search = () => {
     <div className="main_search">
       <div className="wrapper">
         <img className="search-icon" />
-        <form onSubmit={handleSubmit(submitAction)}>
+        <form onSubmit={handleSubmit(submitAction)} data-testid="search-form">
           <input
             className="search"
             type="text"

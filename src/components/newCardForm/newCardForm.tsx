@@ -127,7 +127,12 @@ const NewCardForm = (props: NewCardFormProp) => {
   };
 
   return (
-    <form noValidate className="new-card-form" onSubmit={handleSubmit(submitAction)}>
+    <form
+      noValidate
+      className="new-card-form"
+      onSubmit={handleSubmit(submitAction)}
+      data-testid="new-card-form"
+    >
       <InputField
         labelProp="Name"
         type="text"
@@ -142,9 +147,6 @@ const NewCardForm = (props: NewCardFormProp) => {
         type="file"
         refProp={register('image', {
           validate: {
-            // ch: (value) => {
-            //   return (value ? /\.jpg$/.test(value[0].name) : null) || 'Format image has to be jpg';
-            // },
             blob: (value) => {
               return (
                 (value || form.imageBlob.length !== 0 ? true : false) || 'Image has to be filled'
