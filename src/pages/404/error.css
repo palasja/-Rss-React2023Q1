@@ -1,0 +1,10 @@
+.main_error {
+  background-color: #e4f2f5;
+  text-align: center;
+  padding-top: 200px;;
+}
+
+.main_error_message{
+  font-size: 36px;
+  color: rgb(192, 10, 10);
+}

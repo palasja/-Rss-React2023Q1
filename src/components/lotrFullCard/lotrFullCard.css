@@ -1,0 +1,40 @@
+.full-info{
+  width: 700px;
+  text-align: center;
+}
+
+.full-info_name{
+  color: #bdb939;
+  font-size: 46px;
+  font-weight: 600;
+  margin-bottom: 50px;
+  display: block;
+}
+.full-info_name:hover{
+  color: #e0dc66;
+}
+
+.full-info_detail{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.full-info_quote{
+  font-style: italic;
+  font-size: 18px;
+  
+}
+.full-info_quote::before{
+  content: "‟";
+}
+.full-info_quote::after{
+  content: "„";
+}
+.full-info_movie{
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.unknow{
+  color: rgb(240, 138, 54);
+}
