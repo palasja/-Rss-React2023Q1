@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './navigation.css';
 
 const Navgation = () => {
+  const [isServer, setIsServer] = useState(false);
+  useEffect(() => {
+    setIsServer(true);
+  }, []);
   return (
     <nav className="nav">
       <ul className="nav_list">
@@ -16,6 +20,7 @@ const Navgation = () => {
           About
         </NavLink>
       </ul>
+      <li>{isServer ? 'Server' : 'Client'}</li>
     </nav>
   );
 };

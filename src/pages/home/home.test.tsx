@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, render, fireEvent, waitFor } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import Home from './home';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -13,7 +13,7 @@ test('count cards search value', async () => {
       </Provider>
     </BrowserRouter>
   );
-  screen.debug()
+  screen.debug();
   // await waitFor(() => screen.findByRole('form'));
   expect(screen.getByRole('heading')).toBeInTheDocument();
 

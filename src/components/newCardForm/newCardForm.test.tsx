@@ -2,19 +2,19 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import NewCardForm from './newCardForm';
 import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store'
+import configureStore from 'redux-mock-store';
 import { newItemInit } from '../../helper/items';
 
-const mockStore = configureStore([])
-const store = mockStore({formSlice: newItemInit})
+const mockStore = configureStore([]);
+const store = mockStore({ formSlice: newItemInit });
 
 beforeEach(() => {
   render(
     <Provider store={store}>
       <NewCardForm newCardId={0} confirmAction={() => {}} />
     </Provider>
-  )
-})
+  );
+});
 const mockNewCard = {
   type: 0,
   name: 'Burger',
@@ -26,11 +26,11 @@ const mockNewCard = {
   weight: 0,
   tags: [1, 3],
   startDate: '2022-02-02',
-}
+};
 
 test('error count on empty form', async () => {
   const countField = 7;
-screen.debug()
+  screen.debug();
   fireEvent.submit(screen.getByRole('button'));
   expect(await screen.findAllByTestId('errorMessge')).toHaveLength(countField);
 });
